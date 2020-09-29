@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "150838537238",
+    "firebase_url": "https://cegepaas.firebaseio.com",
+    "project_id": "cegepaas",
+    "storage_bucket": "cegepaas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150838537238:android:55c16e012a1b048bd81937",
+        "android_client_info": {
+          "package_name": "com.example.cegepaas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150838537238-1bm9ti2qb56c3uq8d6s0k251th7cir2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRiFxOAIABJWsbmn6Jnd0ZLFWNdMv4YsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150838537238-1bm9ti2qb56c3uq8d6s0k251th7cir2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

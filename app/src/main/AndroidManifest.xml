@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AdminLoginActivity"></activity>
+        <activity android:name=".StudentLoginActivity"></activity>
+        <activity android:name=".AdvisorLoginActivity"></activity>
         <activity android:name=".StudentRegistrationActivity" />
         <activity android:name=".UserSelectActivity" />
         <activity

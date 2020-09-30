@@ -41,6 +41,25 @@ public class StudentHomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup) {
-        return view;
+        LayoutInflater obj1 = (LayoutInflater) cnt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View obj2 = obj1.inflate(R.layout.adapter_student_home, null);
+
+
+        TextView tv_aname = (TextView) obj2.findViewById(R.id.tv_aname);
+        tv_aname.setText(ar.get(pos).getName());
+
+        TextView tv_aemail = (TextView) obj2.findViewById(R.id.tv_aemail);
+        tv_aemail.setText(ar.get(pos).getEmail());
+
+        CardView cvParent=(CardView)obj2.findViewById(R.id.cvParent);
+        cvParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
+        return obj2;
     }
 }

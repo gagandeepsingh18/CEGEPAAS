@@ -1,13 +1,17 @@
 package com.example.cegepaas;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -48,9 +52,10 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lv=(ListView)findViewById(R.id.lv);
-
+        navigationView();
         getAdvisorsDetails();
     }
+
     private void getAdvisorsDetails(){
         mAdvisors = new ArrayList<>();
         progressDialog=new ProgressDialog(StudentHomeScreenActivity.this);
@@ -59,6 +64,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         dbAdvisors = FirebaseDatabase.getInstance().getReference("Advisor_Details");
         dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -77,11 +83,68 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
                 Toast.makeText(StudentHomeScreenActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();
 
         }
     };
+
+    private void navigationView(){
+        dl = (DrawerLayout)findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
+        dl.addDrawerListener(t);
+        t.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.home:
+
+                        break;
+                    case R.id.about:
+
+                        break;
+
+                    case R.id.logout:
+                        Intent logout=new Intent(getApplicationContext(), StudentLoginActivity.class);
+                        startActivity(logout);
+
+                        finish();
+                        break;
+
+                    default:
+                        return true;
+                }
+                dl.closeDrawer(GravityCompat.START);
+                return true;
+
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        if (dl.isDrawerOpen(GravityCompat.START)) {
+            dl.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (dl.isDrawerOpen(GravityCompat.START)) {
+            dl.closeDrawer(GravityCompat.START);
+        } else {
+            dl.openDrawer(GravityCompat.START);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

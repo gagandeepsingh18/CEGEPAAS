@@ -44,7 +44,7 @@
         <EditText
             android:id="@+id/et_uname"
             android:singleLine="true"
-            android:hint="Username"
+            android:hint="Advisor ID"
             android:drawableLeft="@drawable/username"
             android:background="#FFFFFF"
             android:padding="10dp"

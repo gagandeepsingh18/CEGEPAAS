@@ -30,17 +30,14 @@ public class UserSelectActivity extends AppCompatActivity implements View.OnClic
         if(v.getId() == R.id.student){
             intent = new Intent(UserSelectActivity.this,StudentLoginActivity.class);
             startActivity(intent);
-            finish();
         }
         else if(v.getId() == R.id.advisor){
             intent = new Intent(UserSelectActivity.this,AdvisorLoginActivity.class);
             startActivity(intent);
-            finish();
         }
         else if(v.getId() == R.id.admin){
             intent = new Intent(UserSelectActivity.this,AdminLoginActivity.class);
             startActivity(intent);
-            finish();
         }
 
     }

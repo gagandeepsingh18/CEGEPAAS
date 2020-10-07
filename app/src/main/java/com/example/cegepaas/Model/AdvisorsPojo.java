@@ -6,15 +6,17 @@ public class AdvisorsPojo {
     private String name;
     private String password;
 
-    public AdvisorsPojo(){
+    public AdvisorsPojo() {
 
     }
-    public AdvisorsPojo(String username,String email,String name,String password){
-        this.username=username;
-        this.email=email;
-        this.name=name;
-        this.password=password;
+
+    public AdvisorsPojo(String username, String email, String name, String password) {
+        this.username = username;
+        this.email = email;
+        this.name = name;
+        this.password = password;
     }
+
     public String getUsername() {
         return username;
     }
@@ -45,11 +47,5 @@ public class AdvisorsPojo {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public byte[] getImage() {
-    }
-
-    public String getStatus() {
     }
 }

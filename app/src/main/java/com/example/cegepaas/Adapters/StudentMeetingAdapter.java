@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
 import com.example.cegepaas.R;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,10 +26,12 @@ import java.util.List;
 public class StudentMeetingAdapter extends BaseAdapter {
     List<AdvisorBookingPojo> ar;
     Context cnt;
+
     public StudentMeetingAdapter(List<AdvisorBookingPojo> ar, Context cnt) {
         this.ar = ar;
         this.cnt = cnt;
     }
+
     @Override
     public int getCount() {
         return ar.size();
@@ -50,17 +53,17 @@ public class StudentMeetingAdapter extends BaseAdapter {
         View obj2 = obj1.inflate(R.layout.adapter_student_meeting, null);
 
         TextView tv_name = (TextView) obj2.findViewById(R.id.tv_name);
-        tv_name.setText("Advisor Uname  :"+ar.get(pos).getAdv_username());
+        tv_name.setText("Advisor Uname  :" + ar.get(pos).getAdv_username());
 
         TextView tv_date_time = (TextView) obj2.findViewById(R.id.tv_date_time);
-        tv_date_time.setText("Date & Time :"+ar.get(pos).getBooked_date()+"  "+ar.get(pos).getBooked_time());
+        tv_date_time.setText("Date & Time :" + ar.get(pos).getBooked_date() + "  " + ar.get(pos).getBooked_time());
 
         TextView tv_desc = (TextView) obj2.findViewById(R.id.tv_desc);
-        tv_desc.setText("Desc  :"+ar.get(pos).getDescription());
+        tv_desc.setText("Desc  :" + ar.get(pos).getDescription());
         return obj2;
     }
 
-    private void UpdateStatus(final String status,final String time_stamp) {
+    private void UpdateStatus(final String status, final String time_stamp) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -68,8 +71,7 @@ public class StudentMeetingAdapter extends BaseAdapter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if ((dataSnapshot.child("Advisor_Booking").child(time_stamp).exists()))
-                {
+                if ((dataSnapshot.child("Advisor_Booking").child(time_stamp).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     /*userdataMap.put("image", adv.getImage());
                     userdataMap.put("name", adv.getName());
@@ -80,10 +82,8 @@ public class StudentMeetingAdapter extends BaseAdapter {
                     RootRef.child("Advisor_Booking").child(time_stamp).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    if (task.isSuccessful())
-                                    {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(cnt, "Status is updated successfully.", Toast.LENGTH_SHORT).show();
                                     }
                                 }

@@ -4,10 +4,11 @@ public class BookingTimesPojo {
     private String time;
     private String available;
 
-    public BookingTimesPojo(String time, String available){
+    public BookingTimesPojo(String time, String available) {
         this.time = time;
         this.available = available;
     }
+
     public String getTime() {
         return time;
     }

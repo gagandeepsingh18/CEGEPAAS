@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/accepted_meetings"
+        android:icon="@drawable/home"
+        android:title="Accepted Meetings"/>
+
+    <item android:id="@+id/rejected_meetings"
+        android:icon="@drawable/about"
+        android:title="Rejected Meetings"/>
+
+    <item android:id="@+id/pending_meetings"
+        android:icon="@drawable/about"
+        android:title="Pending Meetings"/>
+
+    <item android:id="@+id/accept_reject_meetings"
+        android:icon="@drawable/about"
+        android:title="Accept or Reject Meetings"/>
+
+    <item android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Logout"/>
+</menu>

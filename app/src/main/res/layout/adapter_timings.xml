@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="8dp"
+    card_view:cardCornerRadius="8dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="13dp"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:id="@+id/tv_schedule_time"/>
+
+</androidx.cardview.widget.CardView>

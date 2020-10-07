@@ -46,4 +46,10 @@ public class AdvisorsPojo {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public byte[] getImage() {
+    }
+
+    public String getStatus() {
+    }
 }

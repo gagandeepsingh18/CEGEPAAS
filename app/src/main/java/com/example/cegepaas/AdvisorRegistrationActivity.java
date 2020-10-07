@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cegepaas.Model.AdvisorIdsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +22,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register;
     EditText et_name,et_uname,et_Email,et_pwd;
     private ProgressDialog loadingBar;
+    ProgressDialog progressDialog;
+    private List<AdvisorIdsPojo> mAdvisorIds;
+    DatabaseReference dbAdvisors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,41 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
             }
         });
+        getAIDs();
     }
+
+    private void getAIDs(){
+        mAdvisorIds = new ArrayList<>();
+        progressDialog =new ProgressDialog(AdvisorRegistrationActivity.this);
+        progressDialog.setTitle("Please Wait data is being Loaded");
+        progressDialog.show();
+
+        dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
+        dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            progressDialog.dismiss();
+            mAdvisorIds.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AdvisorIdsPojo artist = snapshot.getValue(AdvisorIdsPojo.class);
+                    mAdvisorIds.add(artist);
+                }
+            }
+            else {
+                Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            progressDialog.dismiss();
+        }
+    };
+
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -75,6 +115,10 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
         }
+        else if(!checkAID()){
+            Toast.makeText(this, "Advisor Id is not authorized...", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else
         {
             loadingBar.setTitle("Create Account");
@@ -84,6 +128,19 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
             ValidatepEmail(name, Email, username,password);
         }
+    }
+
+    private boolean checkAID(){
+        boolean fg=true;
+        for(int i=0;i<mAdvisorIds.size();i++){
+            if(mAdvisorIds.get(i).getAid().equals(et_uname.getText().toString())){
+                fg=true;
+                break;
+            }else{
+                fg=false;
+            }
+        }
+        return  fg;
     }
 
     private void ValidatepEmail(final String name, final String Email, final String username, final String password) {

@@ -5,11 +5,15 @@
         android:icon="@drawable/home"
         android:title="Home"/>
 
-    <item android:id="@+id/about"
+    <item android:id="@+id/accept_meetings"
         android:icon="@drawable/about"
-        android:title="About"/>
-
-
+        android:title="Accepted Meetings"/>
+    <item android:id="@+id/reject_meetings"
+        android:icon="@drawable/about"
+        android:title="Rejected Meetings"/>
+    <item android:id="@+id/pending_meetings"
+        android:icon="@drawable/about"
+        android:title="Pending Meetings"/>
     <item android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout"/>

@@ -77,7 +77,7 @@
         <EditText
             android:id="@+id/et_uname"
             android:singleLine="true"
-            android:hint="User Name (Student ID)"
+            android:hint="Student ID"
             android:background="#FFFFFF"
             android:padding="10dp"
             android:drawablePadding="10dp"

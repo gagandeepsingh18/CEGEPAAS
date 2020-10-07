@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cegepaas.Model.StudentIdsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +22,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class StudentRegistrationActivity extends AppCompatActivity {
     Button btn_register;
     EditText et_name,et_uname,et_eMail,et_pwd;
     private ProgressDialog loadingBar;
+    private List<StudentIdsPojo> mStudentIds;
+    DatabaseReference dbStudents;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,42 @@ public class StudentRegistrationActivity extends AppCompatActivity {
 
             }
         });
+        getSIDs();
     }
+
+    private void getSIDs(){
+        mStudentIds =new ArrayList<>();
+
+        progressDialog=new ProgressDialog(StudentRegistrationActivity.this);
+        progressDialog.setTitle("Please Wait data is being Loaded");
+        progressDialog.show();
+
+        dbStudents = FirebaseDatabase.getInstance().getReference("StudentIds");
+        dbStudents.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    ValueEventListener valueEventListener =new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            progressDialog.dismiss();
+            mStudentIds.clear();
+            if(dataSnapshot.exists()){
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    StudentIdsPojo student = snapshot.getValue(StudentIdsPojo.class);
+                    mStudentIds.add(student);
+                }
+            }
+            else {
+                Toast.makeText(StudentRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            progressDialog.dismiss();
+        }
+    };
+
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -62,18 +103,25 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(name))
         {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
+            return;
         }
         else if (TextUtils.isEmpty(eMail))
         {
             Toast.makeText(this, "Please write your eMail...", Toast.LENGTH_SHORT).show();
+            return;
         }
         else if (TextUtils.isEmpty(username))
         {
             Toast.makeText(this, "Please Choose your Username...", Toast.LENGTH_SHORT).show();
+            return;
         }
         else if (TextUtils.isEmpty(password))
         {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
+            return;
+        }else if(!checkSID()){
+            Toast.makeText(this, "Student Id is not authorized...", Toast.LENGTH_SHORT).show();
+            return;
         }
         else
         {
@@ -84,6 +132,19 @@ public class StudentRegistrationActivity extends AppCompatActivity {
 
             ValidatepEmail(name, eMail, username,password);
         }
+    }
+
+    private boolean checkSID(){
+        boolean fg=true;
+        for(int i=0;i<mStudentIds.size();i++){
+            if(mStudentIds.get(i).getSid().equals(et_uname.getText().toString())){
+                fg=true;
+                break;
+            }else{
+                fg=false;
+            }
+        }
+        return  fg;
     }
 
     private void ValidatepEmail(final String name, final String eMail, final String username, final String password) {
@@ -131,11 +192,8 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                     loadingBar.dismiss();
                     Toast.makeText(StudentRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(StudentRegistrationActivity.this, StudentRegistrationActivity.class);
-                    startActivity(intent);
                 }
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -143,6 +201,7 @@ public class StudentRegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

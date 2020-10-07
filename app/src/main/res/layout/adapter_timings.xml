@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
     <androidx.cardview.widget.CardView
     card_view:cardUseCompatPadding="true"
-    card_view:cardElevation="6dp"
-    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="8dp"
+    card_view:cardCornerRadius="8dp"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
     android:layout_height="wrap_content"

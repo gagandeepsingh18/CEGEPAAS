@@ -3,6 +3,7 @@ package com.example.cegepaas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -101,6 +102,10 @@ public class StudentLoginActivity extends AppCompatActivity {
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(StudentLoginActivity.this, StudentHomeScreenActivity.class);
+                            SharedPreferences sp=getSharedPreferences("AA",0);
+                            SharedPreferences.Editor et=sp.edit();
+                            et.putString("suname",username);
+                            et.commit();
                             startActivity(intent);
                             finish();
                         }

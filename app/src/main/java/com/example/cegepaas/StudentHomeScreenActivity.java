@@ -41,7 +41,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home_screen);
-
+        navigationView();
         ActionBar mActionBar=getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
@@ -52,7 +52,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lv=(ListView)findViewById(R.id.lv);
-        navigationView();
+
         getAdvisorsDetails();
     }
 
@@ -105,12 +105,24 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.home:
-
+                        //Intent home=new Intent(getApplicationContext(), StudentHomeScreenActivity.class);
+                        //startActivity(home);
                         break;
-                    case R.id.about:
-
+                    case R.id.accept_meetings:
+                        Intent intent_accept=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_accept.putExtra("fg","accept");
+                        startActivity(intent_accept);
                         break;
-
+                    case R.id.reject_meetings:
+                        Intent intent_reject=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_reject.putExtra("fg","reject");
+                        startActivity(intent_reject);
+                        break;
+                    case R.id.pending_meetings:
+                        Intent intent_pending=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_pending.putExtra("fg","pending");
+                        startActivity(intent_pending);
+                        break;
                     case R.id.logout:
                         Intent logout=new Intent(getApplicationContext(), StudentLoginActivity.class);
                         startActivity(logout);

@@ -3,8 +3,11 @@ package com.example.cegepaas.Model;
 public class AvailableTimings {
     private String booked_time;
     private String booked_status;
-    public AvailableTimings(){}
-    public AvailableTimings(String booked_time,String booked_status) {
+
+    public AvailableTimings() {
+    }
+
+    public AvailableTimings(String booked_time, String booked_status) {
         this.booked_time = booked_time;
         this.booked_status = booked_status;
     }

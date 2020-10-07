@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.cardview.widget.CardView;
 
 import com.example.cegepaas.AdvisorBookingActivity;
@@ -56,12 +57,12 @@ public class StudentHomeAdapter extends BaseAdapter {
         ImageView img_profile = (ImageView) obj2.findViewById(R.id.img_profile);
         Glide.with(cnt).load(ar.get(pos).getImage()).into(img_profile);
 
-        CardView cvParent=(CardView)obj2.findViewById(R.id.cvParent);
+        CardView cvParent = (CardView) obj2.findViewById(R.id.cvParent);
         cvParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(cnt, AdvisorBookingActivity.class);
-                intent.putExtra("uname",ar.get(pos).getUsername());
+                Intent intent = new Intent(cnt, AdvisorBookingActivity.class);
+                intent.putExtra("uname", ar.get(pos).getUsername());
                 cnt.startActivity(intent);
             }
         });

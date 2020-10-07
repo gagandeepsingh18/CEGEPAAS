@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.cegepaas.R;
 
 import com.example.cegepaas.Model.TimingsPOJO;
@@ -49,7 +50,7 @@ public class TiminingsAdapter extends BaseAdapter {
         tv_schedule_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(cnt, "Succussfully Allocated "+ar.get(pos).getTime()+"  Slot", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cnt, "Succussfully Allocated " + ar.get(pos).getTime() + "  Slot", Toast.LENGTH_SHORT).show();
 
             }
         });

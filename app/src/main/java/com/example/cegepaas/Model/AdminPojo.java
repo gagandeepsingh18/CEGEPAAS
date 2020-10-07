@@ -1,6 +1,6 @@
 package com.example.cegepaas.Model;
 
-public class  AdminPojo {
+public class AdminPojo {
     public String getUname() {
         return uname;
     }
@@ -25,8 +25,7 @@ public class  AdminPojo {
     private String uname;
     private String pwd;
 
-    public AdminPojo()
-    {
+    public AdminPojo() {
 
     }
 }

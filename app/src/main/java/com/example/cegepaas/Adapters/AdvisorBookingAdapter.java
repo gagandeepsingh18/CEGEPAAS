@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.example.cegepaas.R;
 import com.example.cegepaas.Model.BookingTimesPojo;
 
@@ -43,7 +44,7 @@ public class AdvisorBookingAdapter extends BaseAdapter {
 
         TextView tv_time = (TextView) obj2.findViewById(R.id.tv_time);
         tv_time.setText(ar.get(pos).getTime());
-        if(ar.get(pos).getAvailable().equals("Booked")) {
+        if (ar.get(pos).getAvailable().equals("Booked")) {
             tv_time.setTextColor(Color.RED);
         }
 

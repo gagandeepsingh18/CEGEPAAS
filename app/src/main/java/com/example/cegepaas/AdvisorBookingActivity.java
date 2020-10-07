@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -105,6 +106,8 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
         progressDialog=new ProgressDialog(AdvisorBookingActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
+        //dbArtists = FirebaseDatabase.getInstance().getReference("Advisor_Booking").startAt("");
+        // dbArtists.addListenerForSingleValueEvent(valueEventListener1);
         Query query= FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("created_at").equalTo(getIntent().getStringExtra("uname")+btn_select_date.getText().toString());
         query.addListenerForSingleValueEvent(valueEventListener);
     }
@@ -117,9 +120,12 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
                 createTimeSlot();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AvailableTimings atime = snapshot.getValue(AvailableTimings.class);
+                    //mAvailableTimings.add(artist);
                     for(BookingTimesPojo a:ab){
                         if(a.getTime().equals(atime.getBooked_time())){
-                            a.setAvailable("Booked");
+                            a.setAvailable("accept");
+                            //int pos=ab.indexOf(atime.getBooked_time());
+                            // ab.set(pos,new AdvisorBookingPojo(atime.getBooked_time(),"Booked"));
                         }
                     }
                 }
@@ -131,8 +137,10 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
                         btn_select_time.setText(_time);
                     }
                 });
+                // Toast.makeText(AdvisorBookingActivity.this, ""+mAvailableTimings.size(), Toast.LENGTH_SHORT).show();
             }
             else {
+                //Toast.makeText(AdvisorBookingActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
                 createTimeSlot();
                 gridview.setAdapter(new AdvisorBookingAdapter(ab,AdvisorBookingActivity.this));
                 gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -180,20 +188,21 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 SharedPreferences sp=getSharedPreferences("AA",0);
-                if (!(dataSnapshot.child("Advisor_Booking").child(getIntent().getStringExtra("uname")+btn_select_date.getText().toString()+_time).exists()))
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                String str=sp.getString("suname","-")+"_"+cal.getTimeInMillis();
+                //getIntent().getStringExtra("uname")+btn_select_date.getText().toString()+_time
+                if (!(dataSnapshot.child("Advisor_Booking").child(str).exists()))
                 {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("adv_username", getIntent().getStringExtra("uname"));
                     userdataMap.put("booked_time", _time);
                     userdataMap.put("booked_date", btn_select_date.getText().toString());
                     userdataMap.put("booked_by",  sp.getString("suname","-"));
-                    Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                    userdataMap.put("timestamp",  sp.getString("suname","-")+"_"+cal.getTimeInMillis());
+                    userdataMap.put("timestamp", str );
                     userdataMap.put("status", "pending");
                     userdataMap.put("description",et_des.getText().toString());
-
                     userdataMap.put("created_at",  getIntent().getStringExtra("uname")+btn_select_date.getText().toString());
-                    RootRef.child("Advisor_Booking").child(getIntent().getStringExtra("uname")+btn_select_date.getText().toString()+_time).updateChildren(userdataMap)
+                    RootRef.child("Advisor_Booking").child(str).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task)
@@ -213,6 +222,7 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
                             });
                 }
                 else{
+                    Toast.makeText(AdvisorBookingActivity.this, "This a101 already exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(AdvisorBookingActivity.this, "Another Appointment is booked for this date & time.", Toast.LENGTH_SHORT).show();
                 }

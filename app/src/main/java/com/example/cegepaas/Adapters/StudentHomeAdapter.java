@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
+
+import com.example.cegepaas.AdvisorBookingActivity;
 import com.example.cegepaas.R;
 import com.bumptech.glide.Glide;
 import com.example.cegepaas.Model.AdvisorsPojo;
@@ -51,12 +53,16 @@ public class StudentHomeAdapter extends BaseAdapter {
         TextView tv_aemail = (TextView) obj2.findViewById(R.id.tv_aemail);
         tv_aemail.setText(ar.get(pos).getEmail());
 
+        ImageView img_profile = (ImageView) obj2.findViewById(R.id.img_profile);
+        Glide.with(cnt).load(ar.get(pos).getImage()).into(img_profile);
+
         CardView cvParent=(CardView)obj2.findViewById(R.id.cvParent);
         cvParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                Intent intent=new Intent(cnt, AdvisorBookingActivity.class);
+                intent.putExtra("uname",ar.get(pos).getUsername());
+                cnt.startActivity(intent);
             }
         });
 

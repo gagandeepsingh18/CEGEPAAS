@@ -1,6 +1,6 @@
 package com.example.cegepaas.Model;
 
-public class AdminPojo {
+public class  AdminPojo {
     public String getUname() {
         return uname;
     }

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentHomeScreenActivity"></activity>
+        <activity android:name=".Model.AdvisorBookingActivity"></activity>
+        <activity android:name=".StudentHomeScreenActivity" />
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".AdvisorHomeActivity" />
         <activity android:name=".AdminLoginActivity" />
@@ -19,7 +20,7 @@
         <activity android:name=".AdvisorLoginActivity" />
         <activity android:name=".StudentRegistrationActivity" />
         <activity android:name=".UserSelectActivity" />
-        <activity android:name=".AdvisorRegistrationActivity"/>
+        <activity android:name=".AdvisorRegistrationActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppThemeNoActionBar">

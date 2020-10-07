@@ -27,7 +27,7 @@ package com.example.cegepaas.Adapters;
 public class AdvisorHomeAdapter extends BaseAdapter {
     List<AdvisorBookingPojo> ar;
     Context cnt;
-    
+
     public AdvisorHomeAdapter(List<AdvisorBookingPojo> ar, Context cnt) {
         this.ar = ar;
         this.cnt = cnt;

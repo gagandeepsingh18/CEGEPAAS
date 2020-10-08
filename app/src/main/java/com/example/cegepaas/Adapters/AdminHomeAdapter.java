@@ -68,21 +68,21 @@ public class AdminHomeAdapter extends BaseAdapter {
 
         // Toast.makeText(cnt,ar.get(pos).getImage(),Toast.LENGTH_SHORT).show();
 
-        CardView cvParent=(CardView)obj2.findViewById(R.id.cvParent);
+        CardView cvParent = (CardView) obj2.findViewById(R.id.cvParent);
 
         final Button btn_active = (Button) obj2.findViewById(R.id.btn_active);
-        btn_active.setText(""+ar.get(pos).getStatus());
+        btn_active.setText("" + ar.get(pos).getStatus());
         btn_active.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValidateDetails(ar.get(pos),btn_active);
+                ValidateDetails(ar.get(pos), btn_active);
             }
         });
 
         return obj2;
     }
 
-    private void ValidateDetails(final AdvisorsPojo adv,final Button btn) {
+    private void ValidateDetails(final AdvisorsPojo adv, final Button btn) {
 //Toast.makeText(getApplicationContext(),"vv",Toast.LENGTH_SHORT).show();
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -91,8 +91,7 @@ public class AdminHomeAdapter extends BaseAdapter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if ((dataSnapshot.child("Advisor_Details").child(adv.getUsername()).exists()))
-                {
+                if ((dataSnapshot.child("Advisor_Details").child(adv.getUsername()).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     /*userdataMap.put("image", adv.getImage());
                     userdataMap.put("name", adv.getName());
@@ -103,10 +102,8 @@ public class AdminHomeAdapter extends BaseAdapter {
                     RootRef.child("Advisor_Details").child(adv.getUsername()).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    if (task.isSuccessful())
-                                    {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(cnt, "Status is updated successfully.", Toast.LENGTH_SHORT).show();
                                         btn.setText("Active");
 
@@ -127,8 +124,5 @@ public class AdminHomeAdapter extends BaseAdapter {
         });
 
     }
-
-
-}
 
 }

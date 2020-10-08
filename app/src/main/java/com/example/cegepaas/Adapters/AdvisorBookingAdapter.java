@@ -44,7 +44,7 @@ public class AdvisorBookingAdapter extends BaseAdapter {
 
         TextView tv_time = (TextView) obj2.findViewById(R.id.tv_time);
         tv_time.setText(ar.get(pos).getTime());
-        if (ar.get(pos).getAvailable().equals("Booked")) {
+        if (ar.get(pos).getAvailable().equals("accept")) {
             tv_time.setTextColor(Color.RED);
         }
 

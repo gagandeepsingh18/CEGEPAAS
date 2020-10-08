@@ -27,12 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
-    Button btn_register;
+    Button btn_register,btn_img_upload;;
     EditText et_name,et_uname,et_Email,et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     private List<AdvisorIdsPojo> mAdvisorIds;
     DatabaseReference dbAdvisors;
+    String name,email,password,username;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,38 +62,14 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getAIDs();
     }
 
-    private void getAIDs(){
-        mAdvisorIds = new ArrayList<>();
-        progressDialog =new ProgressDialog(AdvisorRegistrationActivity.this);
-        progressDialog.setTitle("Please Wait data is being Loaded");
-        progressDialog.show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
-        dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            progressDialog.dismiss();
-            mAdvisorIds.clear();
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AdvisorIdsPojo artist = snapshot.getValue(AdvisorIdsPojo.class);
-                    mAdvisorIds.add(artist);
-                }
-            }
-            else {
-                Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            progressDialog.dismiss();
-        }
-    };
-
+    
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -121,13 +99,11 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         }
         else
         {
-            loadingBar.setTitle("Create Account");
-            loadingBar.setMessage("Please wait, while we are checking the credentials.");
-            loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();
-
-            ValidatepEmail(name, Email, username,password);
+            ValidateDetails();
         }
+    }
+
+    private void ValidateDetails() {
     }
 
     private boolean checkAID(){

@@ -31,12 +31,13 @@ public class AdminDashboardActivity extends AppCompatActivity {
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
         navigationView();
-        ActionBar mActionBar=getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -45,10 +46,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
 
         getAdvisorsDetails();
     }
+
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -57,6 +59,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -68,21 +71,20 @@ public class AdminDashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void navigationView(){
-        dl = (DrawerLayout)findViewById(R.id.activity_main);
-        t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
+    private void navigationView() {
+        dl = (DrawerLayout) findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
         dl.addDrawerListener(t);
         t.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        nv = (NavigationView)findViewById(R.id.nv);
+        nv = (NavigationView) findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id)
-                {
+                switch (id) {
                     case R.id.logout:
-                        Intent logout=new Intent(getApplicationContext(), AdminLoginActivity.class);
+                        Intent logout = new Intent(getApplicationContext(), AdminLoginActivity.class);
                         startActivity(logout);
                         finish();
                         break;
@@ -96,17 +98,20 @@ public class AdminDashboardActivity extends AppCompatActivity {
             }
         });
     }
+
     ProgressDialog progressDialog;
     private List<AdvisorsPojo> mAdvisors;
     DatabaseReference dbAdvisors;
-    private void getAdvisorsDetails(){
+
+    private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
-        progressDialog=new ProgressDialog(AdminDashboardActivity.this);
+        progressDialog = new ProgressDialog(AdminDashboardActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         dbAdvisors = FirebaseDatabase.getInstance().getReference("Advisor_Details");
         dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -117,14 +122,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     AdvisorsPojo artist = snapshot.getValue(AdvisorsPojo.class);
                     mAdvisors.add(artist);
                 }
-                if(mAdvisors.size()>0){
+                if (mAdvisors.size() > 0) {
                     lv.setAdapter(new AdminHomeAdapter(mAdvisors, AdminDashboardActivity.this));
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AdminDashboardActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();

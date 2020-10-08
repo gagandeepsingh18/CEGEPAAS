@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentLoginActivity extends AppCompatActivity {
     TextView tv_signup;
     Button btn_login;
-    EditText et_uname,et_pwd;
+    EditText et_uname, et_pwd;
     ProgressDialog loadingBar;
     private String parentDbName = "Student_Details";
 
@@ -39,22 +39,22 @@ public class StudentLoginActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_uname=(EditText)findViewById(R.id.et_uname);
-        et_pwd=(EditText)findViewById(R.id.et_pwd);
-        loadingBar=new ProgressDialog(StudentLoginActivity.this);
+        et_uname = (EditText) findViewById(R.id.et_uname);
+        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        loadingBar = new ProgressDialog(StudentLoginActivity.this);
 
-        tv_signup=(TextView)findViewById(R.id.tv_signup);
+        tv_signup = (TextView) findViewById(R.id.tv_signup);
 
         tv_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(StudentLoginActivity.this,StudentRegistrationActivity.class);
+                Intent intent = new Intent(StudentLoginActivity.this, StudentRegistrationActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        btn_login=(Button)findViewById(R.id.btn_login);
+        btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,15 +69,11 @@ public class StudentLoginActivity extends AppCompatActivity {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
 
-        if (TextUtils.isEmpty(username))
-        {
+        if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your Username...", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(password))
-        {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             loadingBar.setTitle("Login Account");
             loadingBar.setMessage("Please wait, while we are checking the credentials.");
             loadingBar.setCanceledOnTouchOutside(false);
@@ -86,6 +82,7 @@ public class StudentLoginActivity extends AppCompatActivity {
             AllowAccessToAccount(username, password);
         }
     }
+
     private void AllowAccessToAccount(final String username, final String password) {
 
         final DatabaseReference RootRef;
@@ -94,30 +91,27 @@ public class StudentLoginActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(parentDbName).child(username).exists()){
+                if (snapshot.child(parentDbName).child(username).exists()) {
                     Users usersData = snapshot.child(parentDbName).child(username).getValue(Users.class);
-                    if(usersData.getUsername().equals(username)){
-                        if(usersData.getPassword().equals(password)){
+                    if (usersData.getUsername().equals(username)) {
+                        if (usersData.getPassword().equals(password)) {
                             Toast.makeText(StudentLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(StudentLoginActivity.this, StudentHomeScreenActivity.class);
-                            SharedPreferences sp=getSharedPreferences("AA",0);
-                            SharedPreferences.Editor et=sp.edit();
-                            et.putString("suname",username);
+                            SharedPreferences sp = getSharedPreferences("AA", 0);
+                            SharedPreferences.Editor et = sp.edit();
+                            et.putString("suname", username);
                             et.commit();
                             startActivity(intent);
                             finish();
                         }
-                    }
-                    else {
+                    } else {
                         loadingBar.dismiss();
                         Toast.makeText(StudentLoginActivity.this, "Password is incorrect", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else
-                {
+                } else {
                     Toast.makeText(StudentLoginActivity.this, "Account with this " + username + " do not exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
@@ -130,6 +124,7 @@ public class StudentLoginActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

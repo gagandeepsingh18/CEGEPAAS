@@ -23,6 +23,7 @@ import java.util.List;
 
 public class StudentMeetingsActivity extends AppCompatActivity {
     ListView lv;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,22 +31,25 @@ public class StudentMeetingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("My Meetings");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
         getMeetings();
     }
+
     ProgressDialog progressDialog;
     private List<AdvisorBookingPojo> mAdvisorBooking;
-    private void getMeetings(){
+
+    private void getMeetings() {
         mAdvisorBooking = new ArrayList<>();
-        progressDialog=new ProgressDialog(StudentMeetingsActivity.this);
+        progressDialog = new ProgressDialog(StudentMeetingsActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         //dbArtists = FirebaseDatabase.getInstance().getReference("Advisor_Booking").startAt("");
         // dbArtists.addListenerForSingleValueEvent(valueEventListener1);
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        Query query= FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("booked_by").equalTo(sp.getString("suname","-"));
+        SharedPreferences sp = getSharedPreferences("AA", 0);
+        Query query = FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("booked_by").equalTo(sp.getString("suname", "-"));
         query.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -54,12 +58,12 @@ public class StudentMeetingsActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AdvisorBookingPojo ab = snapshot.getValue(AdvisorBookingPojo.class);
-                    if(ab.getStatus().equals(getIntent().getStringExtra("fg"))) {
+                    if (ab.getStatus().equals(getIntent().getStringExtra("fg"))) {
                         mAdvisorBooking.add(ab);
                     }
                 }
 
-                lv.setAdapter(new StudentMeetingAdapter(mAdvisorBooking,StudentMeetingsActivity.this));
+                lv.setAdapter(new StudentMeetingAdapter(mAdvisorBooking, StudentMeetingsActivity.this));
               /*  gridview.setAdapter(new AdvisorBookingAdapter(ab,AdvisorBookingActivity.this));
                 gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -68,13 +72,13 @@ public class StudentMeetingsActivity extends AppCompatActivity {
                         btn_select_time.setText(_time);
                     }
                 });*/
-                if(mAdvisorBooking.size()==0)
+                if (mAdvisorBooking.size() == 0)
                     Toast.makeText(StudentMeetingsActivity.this, "No data found", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(StudentMeetingsActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();

@@ -106,6 +106,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     private void ValidateDetails() {
     }
 
+
     private boolean checkAID(){
         boolean fg=true;
         for(int i=0;i<mAdvisorIds.size();i++){
@@ -119,6 +120,34 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         return  fg;
     }
 
+    private void getAIDs(){
+        mAdvisorIds = new ArrayList<>();
+        progressDialog=new ProgressDialog(AdvisorRegistrationActivity.this);
+        progressDialog.setTitle("Please Wait data is being Loaded");
+        progressDialog.show();
+        dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
+        dbAdvisors.addListenerForSingleValueEvent(valueEventListener1);
+    }
+    ValueEventListener valueEventListener1 = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            progressDialog.dismiss();
+            mAdvisorIds.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AdvisorIdsPojo advisor = snapshot.getValue(AdvisorIdsPojo.class);
+                    mAdvisorIds.add(advisor);
+                }
+            }
+            else {
+                Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            progressDialog.dismiss();
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

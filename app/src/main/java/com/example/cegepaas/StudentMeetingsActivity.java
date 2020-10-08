@@ -43,8 +43,7 @@ public class StudentMeetingsActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(StudentMeetingsActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
-        //dbArtists = FirebaseDatabase.getInstance().getReference("Advisor_Booking").startAt("");
-        // dbArtists.addListenerForSingleValueEvent(valueEventListener1);
+
         SharedPreferences sp = getSharedPreferences("AA", 0);
         Query query = FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("booked_by").equalTo(sp.getString("suname", "-"));
         query.addListenerForSingleValueEvent(valueEventListener);
@@ -64,14 +63,7 @@ public class StudentMeetingsActivity extends AppCompatActivity {
                 }
 
                 lv.setAdapter(new StudentMeetingAdapter(mAdvisorBooking, StudentMeetingsActivity.this));
-              /*  gridview.setAdapter(new AdvisorBookingAdapter(ab,AdvisorBookingActivity.this));
-                gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        _time = ab.get(position).getTime();
-                        btn_select_time.setText(_time);
-                    }
-                });*/
+
                 if (mAdvisorBooking.size() == 0)
                     Toast.makeText(StudentMeetingsActivity.this, "No data found", Toast.LENGTH_SHORT).show();
             } else {

@@ -24,6 +24,8 @@ import java.util.List;
 
 public class AdvisorAcceptRejectActivity extends AppCompatActivity {
     ListView lv;
+    ProgressDialog progressDialog;
+    private List<AdvisorBookingPojo> mAdvisors;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,8 +38,39 @@ public class AdvisorAcceptRejectActivity extends AppCompatActivity {
         getMeetings();
     }
 
-    private void getMeetings() {
+    private void getMeetings(){
+        mAdvisors = new ArrayList<>();
+        progressDialog=new ProgressDialog(AdvisorAcceptRejectActivity.this);
+        progressDialog.setTitle("Please Wait data is being Loaded");
+        progressDialog.show();
+        SharedPreferences sp=getSharedPreferences("AA",0);
+        Query query= FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("adv_username").equalTo(sp.getString("auname","-"));
+        query.addListenerForSingleValueEvent(valueEventListener);
     }
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            progressDialog.dismiss();
+            mAdvisors.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AdvisorBookingPojo advs = snapshot.getValue(AdvisorBookingPojo.class);
+                    mAdvisors.add(advs);
+                }
+                if(mAdvisors.size()>0) {
+                    lv.setAdapter(new AdvisorAcceptRejectAdapter(mAdvisors, AdvisorAcceptRejectActivity.this));
+                }
+                //Toast.makeText(AdvisorHomeActivity.this, ""+mAdvisors.size(), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(AdvisorAcceptRejectActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            progressDialog.dismiss();
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

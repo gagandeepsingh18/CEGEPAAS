@@ -119,63 +119,6 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         return  fg;
     }
 
-    private void ValidatepEmail(final String name, final String Email, final String username, final String password) {
-        final DatabaseReference RootRef;
-        RootRef = FirebaseDatabase.getInstance().getReference();
-
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (!(dataSnapshot.child("Advisor_Details").child(username).exists()))
-                {
-                    HashMap<String, Object> userdataMap = new HashMap<>();
-                    userdataMap.put("username", username);
-                    userdataMap.put("email", Email);
-                    userdataMap.put("password", password);
-                    userdataMap.put("name", name);
-
-                    RootRef.child("Advisor_Details").child(username).updateChildren(userdataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    if (task.isSuccessful())
-                                    {
-                                        Toast.makeText(AdvisorRegistrationActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
-
-                                        Intent intent = new Intent(AdvisorRegistrationActivity.this, AdvisorLoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                    else
-                                    {
-                                        loadingBar.dismiss();
-                                        Toast.makeText(AdvisorRegistrationActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-                }
-                else
-                {
-                    Toast.makeText(AdvisorRegistrationActivity.this, "This " + username + " already exists.", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
-                    Toast.makeText(AdvisorRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(AdvisorRegistrationActivity.this, AdvisorRegistrationActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

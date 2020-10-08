@@ -104,6 +104,64 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     }
 
     private void ValidateDetails() {
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        loadingBar.setTitle("Create Account");
+        loadingBar.setMessage("Please wait, while we are checking the credentials.");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.show();
+
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (!(dataSnapshot.child("Advisor_Details").child(username).exists()))
+                {
+                    HashMap<String, Object> userdataMap = new HashMap<>();
+                    userdataMap.put("name", name);
+                    userdataMap.put("email", email);
+                    userdataMap.put("username", username);
+                    userdataMap.put("password", password);
+                    userdataMap.put("status", "inactive");
+
+                    RootRef.child("Advisor_Details").child(username).updateChildren(userdataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task)
+                                {
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(AdvisorRegistrationActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+
+                                        finish();
+                                    }
+                                    else
+                                    {
+                                        loadingBar.dismiss();
+                                        Toast.makeText(AdvisorRegistrationActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                }
+                else
+                {
+                    Toast.makeText(AdvisorRegistrationActivity.this, "This " + username + " already exists.", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+                    Toast.makeText(AdvisorRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

@@ -2,6 +2,7 @@ package com.example.cegepaas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,9 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AdminLoginActivity extends AppCompatActivity {
     Button btn_login;
-    EditText et_uname,et_pwd;
+    EditText et_uname, et_pwd;
     ProgressDialog loadingBar;
     private String parentDbName = "Admin_Details";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +36,11 @@ public class AdminLoginActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_uname=(EditText)findViewById(R.id.et_uname);
-        et_pwd=(EditText)findViewById(R.id.et_pwd);
-        loadingBar=new ProgressDialog(AdminLoginActivity.this);
+        et_uname = (EditText) findViewById(R.id.et_uname);
+        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        loadingBar = new ProgressDialog(AdminLoginActivity.this);
 
-        btn_login=(Button)findViewById(R.id.btn_login);
+        btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,19 +49,16 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
 
-        if (TextUtils.isEmpty(username))
-        {
+        if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your Username...", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(password))
-        {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             loadingBar.setTitle("Login Account");
             loadingBar.setMessage("Please wait, while we are checking the credentials.");
             loadingBar.setCanceledOnTouchOutside(false);
@@ -68,6 +67,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             AllowAccessToAccount(username, password);
         }
     }
+
     private void AllowAccessToAccount(final String username, final String password) {
 
         final DatabaseReference RootRef;
@@ -76,10 +76,10 @@ public class AdminLoginActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(parentDbName).child(username).exists()){
+                if (snapshot.child(parentDbName).child(username).exists()) {
                     AdminPojo adminPojo = snapshot.child(parentDbName).child(username).getValue(AdminPojo.class);
-                    if(adminPojo.getUname().equals(username)){
-                        if(adminPojo.getPwd().equals(password)){
+                    if (adminPojo.getUname().equals(username)) {
+                        if (adminPojo.getPwd().equals(password)) {
                             Toast.makeText(AdminLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
 
@@ -87,15 +87,12 @@ public class AdminLoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-                    }
-                    else {
+                    } else {
                         loadingBar.dismiss();
                         Toast.makeText(AdminLoginActivity.this, "Password is incorrect", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AdminLoginActivity.this, "Account with this " + username + " do not exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
@@ -108,6 +105,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

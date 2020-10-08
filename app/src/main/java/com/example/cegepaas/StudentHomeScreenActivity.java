@@ -42,7 +42,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home_screen);
         navigationView();
-        ActionBar mActionBar=getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -51,14 +51,14 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
 
         getAdvisorsDetails();
     }
 
-    private void getAdvisorsDetails(){
+    private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
-        progressDialog=new ProgressDialog(StudentHomeScreenActivity.this);
+        progressDialog = new ProgressDialog(StudentHomeScreenActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         dbAdvisors = FirebaseDatabase.getInstance().getReference("Advisor_Details");
@@ -75,11 +75,10 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
                     AdvisorsPojo artist = snapshot.getValue(AdvisorsPojo.class);
                     mAdvisors.add(artist);
                 }
-                if(mAdvisors.size()>0){
+                if (mAdvisors.size() > 0) {
                     lv.setAdapter(new StudentHomeAdapter(mAdvisors, StudentHomeScreenActivity.this));
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(StudentHomeScreenActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
@@ -91,40 +90,39 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         }
     };
 
-    private void navigationView(){
-        dl = (DrawerLayout)findViewById(R.id.activity_main);
-        t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
+    private void navigationView() {
+        dl = (DrawerLayout) findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
         dl.addDrawerListener(t);
         t.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        nv = (NavigationView)findViewById(R.id.nv);
+        nv = (NavigationView) findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id)
-                {
+                switch (id) {
                     case R.id.home:
                         //Intent home=new Intent(getApplicationContext(), StudentHomeScreenActivity.class);
                         //startActivity(home);
                         break;
                     case R.id.accept_meetings:
-                        Intent intent_accept=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
-                        intent_accept.putExtra("fg","accept");
+                        Intent intent_accept = new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_accept.putExtra("fg", "accept");
                         startActivity(intent_accept);
                         break;
                     case R.id.reject_meetings:
-                        Intent intent_reject=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
-                        intent_reject.putExtra("fg","reject");
+                        Intent intent_reject = new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_reject.putExtra("fg", "reject");
                         startActivity(intent_reject);
                         break;
                     case R.id.pending_meetings:
-                        Intent intent_pending=new Intent(getApplicationContext(), StudentMeetingsActivity.class);
-                        intent_pending.putExtra("fg","pending");
+                        Intent intent_pending = new Intent(getApplicationContext(), StudentMeetingsActivity.class);
+                        intent_pending.putExtra("fg", "pending");
                         startActivity(intent_pending);
                         break;
                     case R.id.logout:
-                        Intent logout=new Intent(getApplicationContext(), StudentLoginActivity.class);
+                        Intent logout = new Intent(getApplicationContext(), StudentLoginActivity.class);
                         startActivity(logout);
 
                         finish();
@@ -139,6 +137,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -147,6 +146,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

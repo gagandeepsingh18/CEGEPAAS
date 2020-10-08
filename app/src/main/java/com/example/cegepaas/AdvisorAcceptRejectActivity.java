@@ -22,8 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvisorAcceptRejectActivity extends AppCompatActivity{
+public class AdvisorAcceptRejectActivity extends AppCompatActivity {
     ListView lv;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class AdvisorAcceptRejectActivity extends AppCompatActivity{
         getSupportActionBar().setTitle("Accept or Reject Meetings");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
         getMeetings();
     }
 

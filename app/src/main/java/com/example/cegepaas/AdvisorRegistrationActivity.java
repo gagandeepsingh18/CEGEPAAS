@@ -27,13 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
-    Button btn_register,btn_img_upload;;
-    EditText et_name,et_uname,et_Email,et_pwd;
+    Button btn_register, btn_img_upload;
+    ;
+    EditText et_name, et_uname, et_Email, et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     private List<AdvisorIdsPojo> mAdvisorIds;
     DatabaseReference dbAdvisors;
-    String name,email,password,username;
+    String name, email, password, username;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
@@ -45,13 +46,13 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_name=(EditText) findViewById(R.id.et_name);
-        et_uname=(EditText) findViewById(R.id.et_uname);
-        et_Email=(EditText) findViewById(R.id.et_Email);
-        et_pwd=(EditText) findViewById(R.id.et_pwd);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_uname = (EditText) findViewById(R.id.et_uname);
+        et_Email = (EditText) findViewById(R.id.et_Email);
+        et_pwd = (EditText) findViewById(R.id.et_pwd);
         loadingBar = new ProgressDialog(AdvisorRegistrationActivity.this);
 
-        btn_register=(Button) findViewById(R.id.btn_register);
+        btn_register = (Button) findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,13 +64,12 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
 
-    
+
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -77,28 +77,18 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         String password = et_pwd.getText().toString();
         String username = et_uname.getText().toString();
 
-        if (TextUtils.isEmpty(name))
-        {
+        if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(Email))
-        {
+        } else if (TextUtils.isEmpty(Email)) {
             Toast.makeText(this, "Please write your Email...", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(username))
-        {
+        } else if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please Choose your Username...", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(password))
-        {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
-        }
-        else if(!checkAID()){
+        } else if (!checkAID()) {
             Toast.makeText(this, "Advisor Id is not authorized...", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else
-        {
+        } else {
             ValidateDetails();
         }
     }
@@ -115,8 +105,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (!(dataSnapshot.child("Advisor_Details").child(username).exists()))
-                {
+                if (!(dataSnapshot.child("Advisor_Details").child(username).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("name", name);
                     userdataMap.put("email", email);
@@ -127,26 +116,20 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                     RootRef.child("Advisor_Details").child(username).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    if (task.isSuccessful())
-                                    {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(AdvisorRegistrationActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
 
                                         finish();
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         loadingBar.dismiss();
                                         Toast.makeText(AdvisorRegistrationActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AdvisorRegistrationActivity.this, "This " + username + " already exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(AdvisorRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
@@ -165,27 +148,28 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkAID(){
-        boolean fg=true;
-        for(int i=0;i<mAdvisorIds.size();i++){
-            if(mAdvisorIds.get(i).getAid().equals(et_uname.getText().toString())){
-                fg=true;
+    private boolean checkAID() {
+        boolean fg = true;
+        for (int i = 0; i < mAdvisorIds.size(); i++) {
+            if (mAdvisorIds.get(i).getAid().equals(et_uname.getText().toString())) {
+                fg = true;
                 break;
-            }else{
-                fg=false;
+            } else {
+                fg = false;
             }
         }
-        return  fg;
+        return fg;
     }
 
-    private void getAIDs(){
+    private void getAIDs() {
         mAdvisorIds = new ArrayList<>();
-        progressDialog=new ProgressDialog(AdvisorRegistrationActivity.this);
+        progressDialog = new ProgressDialog(AdvisorRegistrationActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
         dbAdvisors.addListenerForSingleValueEvent(valueEventListener1);
     }
+
     ValueEventListener valueEventListener1 = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -196,11 +180,11 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                     AdvisorIdsPojo advisor = snapshot.getValue(AdvisorIdsPojo.class);
                     mAdvisorIds.add(advisor);
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();

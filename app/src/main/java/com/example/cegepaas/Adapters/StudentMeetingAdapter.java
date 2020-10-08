@@ -73,11 +73,6 @@ public class StudentMeetingAdapter extends BaseAdapter {
 
                 if ((dataSnapshot.child("Advisor_Booking").child(time_stamp).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
-                    /*userdataMap.put("image", adv.getImage());
-                    userdataMap.put("name", adv.getName());
-                    userdataMap.put("email", adv.getEmail());
-                    userdataMap.put("username", adv.getUsername());
-                    userdataMap.put("password", adv.getPassword());*/
                     userdataMap.put("status", status);
                     RootRef.child("Advisor_Booking").child(time_stamp).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

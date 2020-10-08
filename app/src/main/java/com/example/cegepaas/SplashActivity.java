@@ -9,9 +9,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-public class SplashActivity extends AppCompatActivity implements Animation.AnimationListener{
+public class SplashActivity extends AppCompatActivity implements Animation.AnimationListener {
     Animation animFadeIn;
     LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +20,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
 
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        animFadeIn = AnimationUtils.loadAnimation(this,R.anim.anim_fade_in);
+        animFadeIn = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
         animFadeIn.setAnimationListener(this);
         linearLayout = findViewById(R.id.splash_layout);
         linearLayout.setVisibility(View.VISIBLE);
@@ -33,7 +34,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        startActivity(new Intent(SplashActivity.this,UserSelectActivity.class));
+        startActivity(new Intent(SplashActivity.this, UserSelectActivity.class));
         this.finish();
     }
 

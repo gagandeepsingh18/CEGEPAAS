@@ -27,12 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
-    Button btn_register;
+    Button btn_register,btn_img_upload;;
     EditText et_name,et_uname,et_Email,et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     private List<AdvisorIdsPojo> mAdvisorIds;
     DatabaseReference dbAdvisors;
+    String name,email,password,username;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,38 +62,14 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getAIDs();
     }
 
-    private void getAIDs(){
-        mAdvisorIds = new ArrayList<>();
-        progressDialog =new ProgressDialog(AdvisorRegistrationActivity.this);
-        progressDialog.setTitle("Please Wait data is being Loaded");
-        progressDialog.show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
-        dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            progressDialog.dismiss();
-            mAdvisorIds.clear();
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AdvisorIdsPojo artist = snapshot.getValue(AdvisorIdsPojo.class);
-                    mAdvisorIds.add(artist);
-                }
-            }
-            else {
-                Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            progressDialog.dismiss();
-        }
-    };
-
+    
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -121,31 +99,17 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         }
         else
         {
-            loadingBar.setTitle("Create Account");
-            loadingBar.setMessage("Please wait, while we are checking the credentials.");
-            loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();
-
-            ValidatepEmail(name, Email, username,password);
+            ValidateDetails();
         }
     }
 
-    private boolean checkAID(){
-        boolean fg=true;
-        for(int i=0;i<mAdvisorIds.size();i++){
-            if(mAdvisorIds.get(i).getAid().equals(et_uname.getText().toString())){
-                fg=true;
-                break;
-            }else{
-                fg=false;
-            }
-        }
-        return  fg;
-    }
-
-    private void ValidatepEmail(final String name, final String Email, final String username, final String password) {
+    private void ValidateDetails() {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
+        loadingBar.setTitle("Create Account");
+        loadingBar.setMessage("Please wait, while we are checking the credentials.");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.show();
 
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -154,10 +118,11 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                 if (!(dataSnapshot.child("Advisor_Details").child(username).exists()))
                 {
                     HashMap<String, Object> userdataMap = new HashMap<>();
-                    userdataMap.put("username", username);
-                    userdataMap.put("email", Email);
-                    userdataMap.put("password", password);
                     userdataMap.put("name", name);
+                    userdataMap.put("email", email);
+                    userdataMap.put("username", username);
+                    userdataMap.put("password", password);
+                    userdataMap.put("status", "inactive");
 
                     RootRef.child("Advisor_Details").child(username).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -169,8 +134,6 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                                         Toast.makeText(AdvisorRegistrationActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
 
-                                        Intent intent = new Intent(AdvisorRegistrationActivity.this, AdvisorLoginActivity.class);
-                                        startActivity(intent);
                                         finish();
                                     }
                                     else
@@ -188,8 +151,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                     loadingBar.dismiss();
                     Toast.makeText(AdvisorRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(AdvisorRegistrationActivity.this, AdvisorRegistrationActivity.class);
-                    startActivity(intent);
+                    finish();
                 }
             }
 
@@ -199,7 +161,51 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
+
+    private boolean checkAID(){
+        boolean fg=true;
+        for(int i=0;i<mAdvisorIds.size();i++){
+            if(mAdvisorIds.get(i).getAid().equals(et_uname.getText().toString())){
+                fg=true;
+                break;
+            }else{
+                fg=false;
+            }
+        }
+        return  fg;
+    }
+
+    private void getAIDs(){
+        mAdvisorIds = new ArrayList<>();
+        progressDialog=new ProgressDialog(AdvisorRegistrationActivity.this);
+        progressDialog.setTitle("Please Wait data is being Loaded");
+        progressDialog.show();
+        dbAdvisors = FirebaseDatabase.getInstance().getReference("AdvisorIds");
+        dbAdvisors.addListenerForSingleValueEvent(valueEventListener1);
+    }
+    ValueEventListener valueEventListener1 = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            progressDialog.dismiss();
+            mAdvisorIds.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AdvisorIdsPojo advisor = snapshot.getValue(AdvisorIdsPojo.class);
+                    mAdvisorIds.add(advisor);
+                }
+            }
+            else {
+                Toast.makeText(AdvisorRegistrationActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            progressDialog.dismiss();
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

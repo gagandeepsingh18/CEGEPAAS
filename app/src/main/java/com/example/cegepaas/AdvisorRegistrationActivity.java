@@ -32,6 +32,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     EditText et_name, et_uname, et_Email, et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
+    String downloadImageUrl;
     private List<AdvisorIdsPojo> mAdvisorIds;
     DatabaseReference dbAdvisors;
     String name, email, password, username;
@@ -76,6 +77,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         String Email = et_Email.getText().toString();
         String password = et_pwd.getText().toString();
         String username = et_uname.getText().toString();
+        downloadImageUrl = "https://firebasestorage.googleapis.com/v0/b/cegepaas.appspot.com/o/Default%2Fprofile.png?alt=media&token=b6e336d0-f12d-4c56-9c53-1c65cfbbb9bc";
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
@@ -108,6 +110,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                 if (!(dataSnapshot.child("Advisor_Details").child(username).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("name", name);
+                    userdataMap.put("image", downloadImageUrl);
                     userdataMap.put("email", email);
                     userdataMap.put("username", username);
                     userdataMap.put("password", password);

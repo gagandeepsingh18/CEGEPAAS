@@ -66,7 +66,7 @@ public class AdvisorHomeAdapter extends BaseAdapter {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateStatus("cancel", ar.get(pos).getTimestamp());
+                UpdateStatus("reject", ar.get(pos).getTimestamp());
             }
         });
         return obj2;

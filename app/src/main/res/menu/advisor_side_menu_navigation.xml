@@ -17,6 +17,10 @@
         android:icon="@drawable/about"
         android:title="Accept or Reject Meetings"/>
 
+    <item android:id="@+id/add_advisor_availability"
+        android:icon="@drawable/about"
+        android:title="Add Availability"/>
+
     <item android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout"/>

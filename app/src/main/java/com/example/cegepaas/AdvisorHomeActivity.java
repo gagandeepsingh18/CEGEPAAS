@@ -66,7 +66,9 @@ public class AdvisorHomeActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AdvisorBookingPojo advs = snapshot.getValue(AdvisorBookingPojo.class);
-                    mAdvisors.add(advs);
+                    if(advs.getStatus().equals("accept")){
+                        mAdvisors.add(advs);
+                    }
                 }
                 if(mAdvisors.size()>0) {
                     list_view.setAdapter(new AdvisorHomeAdapter(mAdvisors, AdvisorHomeActivity.this));
@@ -95,6 +97,10 @@ public class AdvisorHomeActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 switch(id)
                 {
+                    case R.id.add_advisor_availability:
+                        Intent intent_add_date_slot=new Intent(getApplicationContext(), AddDateSlotsActivity.class);
+                        startActivity(intent_add_date_slot);
+                        break;
                     case R.id.rejected_meetings:
                         Intent intent_reject=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
                         intent_reject.putExtra("fg","reject");

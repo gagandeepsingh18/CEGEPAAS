@@ -6,6 +6,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:background="#F8F7F7">
 
 
@@ -18,8 +19,11 @@
 
 
         <ListView
+            android:layout_margin="20dp"
             android:orientation="vertical"
             android:id="@+id/lv"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

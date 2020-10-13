@@ -40,7 +40,28 @@ public class AdvisorProfileActivity extends AppCompatActivity {
         getAdvisorDetails(sp.getString("auname","-"));
     }
 
-    private void getAdvisorDetails(String auname) {
+    private void getAdvisorDetails(final String suname) {
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.child(parentDbName).child(suname).exists()){
+                    AdvisorsPojo users =snapshot.child(parentDbName).child(suname).getValue(AdvisorsPojo.class);
+                    Glide.with(getApplicationContext()).load(users.getImage()).into(profile);
+                    name.setText(users.getName());
+                    email.setText(users.getEmail());
+                    id.setText(users.getUsername());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

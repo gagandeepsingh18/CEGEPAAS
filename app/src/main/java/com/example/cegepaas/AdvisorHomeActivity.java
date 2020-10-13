@@ -99,32 +99,41 @@ public class AdvisorHomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
+                    case R.id.profile:
+                        Intent profile=new Intent(getApplicationContext(), AdvisorProfileActivity.class);
+                        startActivity(profile);
+                        break;
+                    case R.id.add_advisor_availability:
+                        Intent intent_add_date_slot=new Intent(getApplicationContext(), AddDateSlotsActivity.class);
+                        startActivity(intent_add_date_slot);
+                        break;
                     case R.id.rejected_meetings:
-                        Intent intent_reject = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_reject.putExtra("fg", "reject");
+                        Intent intent_reject=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_reject.putExtra("fg","reject");
                         startActivity(intent_reject);
                         break;
                     case R.id.accepted_meetings:
-                        Intent intent_accept = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_accept.putExtra("fg", "accept");
+                        Intent intent_accept=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_accept.putExtra("fg","accept");
                         startActivity(intent_accept);
                         break;
 
                     case R.id.pending_meetings:
-                        Intent intent_pending = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_pending.putExtra("fg", "pending");
+                        Intent intent_pending=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_pending.putExtra("fg","pending");
                         startActivity(intent_pending);
                         break;
 
                     case R.id.accept_reject_meetings:
-                        Intent intent_accept_reject = new Intent(getApplicationContext(), AdvisorAcceptRejectActivity.class);
-                        intent_accept_reject.putExtra("fg", "pending");
+                        Intent intent_accept_reject=new Intent(getApplicationContext(), AdvisorAcceptRejectActivity.class);
+                        intent_accept_reject.putExtra("fg","pending");
                         startActivity(intent_accept_reject);
                         break;
 
 
+
                     case R.id.logout:
-                        Intent logout = new Intent(getApplicationContext(), AdvisorLoginActivity.class);
+                        Intent logout=new Intent(getApplicationContext(), AdvisorLoginActivity.class);
                         startActivity(logout);
                         finish();
                         break;

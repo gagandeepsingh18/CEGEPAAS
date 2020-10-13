@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdvisorBookingActivity"/>
-        <activity android:name=".StudentMeetingsActivity"/>
-        <activity android:name=".AdvisorMeetingsActivity"/>
-        <activity android:name=".AdvisorAcceptRejectActivity"/>
+        <activity android:name=".StudentProfileActivity"></activity>
+        <activity android:name=".AdvisorBookingActivity" />
+        <activity android:name=".StudentMeetingsActivity" />
+        <activity android:name=".AdvisorMeetingsActivity" />
+        <activity android:name=".AdvisorAcceptRejectActivity" />
         <activity android:name=".StudentHomeScreenActivity" />
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".AddDateSlotsActivity" />

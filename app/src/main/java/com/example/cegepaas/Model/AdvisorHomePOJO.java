@@ -1,6 +1,7 @@
 package com.example.cegepaas.Model;
 
 import com.google.gson.annotations.SerializedName;
+
 public class AdvisorHomePOJO {
     @SerializedName("name")
     private String name;

@@ -8,7 +8,7 @@ public class AdvisorsPojo {
     private String password;
     private String status;
 
-    public AdvisorsPojo(){
+    public AdvisorsPojo() {
 
     }
 
@@ -20,6 +20,7 @@ public class AdvisorsPojo {
         this.password = password;
         this.status = status;
     }
+
     public AdvisorsPojo(String username, String email, String name, String password, String status) {
         this.username = username;
         this.email = email;

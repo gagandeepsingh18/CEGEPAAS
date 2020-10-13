@@ -34,6 +34,7 @@ public class AdvisorHomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,21 +44,24 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        list_view=(ListView)findViewById(R.id.list_view);
+        list_view = (ListView) findViewById(R.id.list_view);
         getMeetings();
     }
+
     ProgressDialog progressDialog;
     private List<AdvisorBookingPojo> mAdvisors;
     DatabaseReference dbArtists;
-    private void getMeetings(){
+
+    private void getMeetings() {
         mAdvisors = new ArrayList<>();
-        progressDialog=new ProgressDialog(AdvisorHomeActivity.this);
+        progressDialog = new ProgressDialog(AdvisorHomeActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        Query query= FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("adv_username").equalTo(sp.getString("auname","-"));
+        SharedPreferences sp = getSharedPreferences("AA", 0);
+        Query query = FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("adv_username").equalTo(sp.getString("auname", "-"));
         query.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,60 +72,59 @@ public class AdvisorHomeActivity extends AppCompatActivity {
                     AdvisorBookingPojo advs = snapshot.getValue(AdvisorBookingPojo.class);
                     mAdvisors.add(advs);
                 }
-                if(mAdvisors.size()>0) {
+                if (mAdvisors.size() > 0) {
                     list_view.setAdapter(new AdvisorHomeAdapter(mAdvisors, AdvisorHomeActivity.this));
                 }
                 //Toast.makeText(AdvisorHomeActivity.this, ""+mAdvisors.size(), Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(AdvisorHomeActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();
         }
     };
-    private void navigationView(){
-        dl = (DrawerLayout)findViewById(R.id.activity_main);
-        t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
+
+    private void navigationView() {
+        dl = (DrawerLayout) findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
         dl.addDrawerListener(t);
         t.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        nv = (NavigationView)findViewById(R.id.nv);
+        nv = (NavigationView) findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id)
-                {
+                switch (id) {
                     case R.id.rejected_meetings:
-                        Intent intent_reject=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_reject.putExtra("fg","reject");
+                        Intent intent_reject = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_reject.putExtra("fg", "reject");
                         startActivity(intent_reject);
                         break;
                     case R.id.accepted_meetings:
-                        Intent intent_accept=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_accept.putExtra("fg","accept");
+                        Intent intent_accept = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_accept.putExtra("fg", "accept");
                         startActivity(intent_accept);
                         break;
 
                     case R.id.pending_meetings:
-                        Intent intent_pending=new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
-                        intent_pending.putExtra("fg","pending");
+                        Intent intent_pending = new Intent(getApplicationContext(), AdvisorMeetingsActivity.class);
+                        intent_pending.putExtra("fg", "pending");
                         startActivity(intent_pending);
                         break;
 
                     case R.id.accept_reject_meetings:
-                        Intent intent_accept_reject=new Intent(getApplicationContext(), AdvisorAcceptRejectActivity.class);
-                        intent_accept_reject.putExtra("fg","pending");
+                        Intent intent_accept_reject = new Intent(getApplicationContext(), AdvisorAcceptRejectActivity.class);
+                        intent_accept_reject.putExtra("fg", "pending");
                         startActivity(intent_accept_reject);
                         break;
 
 
-
                     case R.id.logout:
-                        Intent logout=new Intent(getApplicationContext(), AdvisorLoginActivity.class);
+                        Intent logout = new Intent(getApplicationContext(), AdvisorLoginActivity.class);
                         startActivity(logout);
                         finish();
                         break;
@@ -135,6 +138,7 @@ public class AdvisorHomeActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -143,6 +147,7 @@ public class AdvisorHomeActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

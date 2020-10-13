@@ -1,4 +1,5 @@
 package com.example.cegepaas.Model;
+
 public class AdvisorBookingPojo {
     private String adv_username;
     private String booked_by;
@@ -9,19 +10,21 @@ public class AdvisorBookingPojo {
     private String status;
     private String timestamp;
 
-    public AdvisorBookingPojo(){
+    public AdvisorBookingPojo() {
 
     }
-    public AdvisorBookingPojo(String adv_username,String booked_by,String booked_date,String booked_time,String created_at,String description,String status,String timestamp){
-        this.adv_username=adv_username;
-        this.booked_by=booked_by;
-        this.booked_date=booked_date;
-        this.booked_time=booked_time;
-        this.created_at=created_at;
-        this.description=description;
-        this.status=status;
-        this.timestamp=timestamp;
+
+    public AdvisorBookingPojo(String adv_username, String booked_by, String booked_date, String booked_time, String created_at, String description, String status, String timestamp) {
+        this.adv_username = adv_username;
+        this.booked_by = booked_by;
+        this.booked_date = booked_date;
+        this.booked_time = booked_time;
+        this.created_at = created_at;
+        this.description = description;
+        this.status = status;
+        this.timestamp = timestamp;
     }
+
     public String getAdv_username() {
         return adv_username;
     }

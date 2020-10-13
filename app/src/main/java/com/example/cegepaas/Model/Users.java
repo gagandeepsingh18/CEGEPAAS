@@ -15,7 +15,7 @@ public class Users {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.downloadImageUrl  = downloadImageUrl;
+        this.downloadImageUrl = downloadImageUrl;
     }
 
     public String getDownloadImageUrl() {

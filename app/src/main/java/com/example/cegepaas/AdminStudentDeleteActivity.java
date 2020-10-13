@@ -28,11 +28,12 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_student_delete);
-        ActionBar mActionBar=getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -41,7 +42,7 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
 
         getAdvisorsDetails();
     }
@@ -60,14 +61,16 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private List<Users> mStudents;
     DatabaseReference dbAdvisors;
-    private void getAdvisorsDetails(){
+
+    private void getAdvisorsDetails() {
         mStudents = new ArrayList<>();
-        progressDialog=new ProgressDialog(AdminStudentDeleteActivity.this);
+        progressDialog = new ProgressDialog(AdminStudentDeleteActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         dbAdvisors = FirebaseDatabase.getInstance().getReference("Student_Details");
         dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,14 +81,14 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
                     Users student = snapshot.getValue(Users.class);
                     mStudents.add(student);
                 }
-                if(mStudents.size()>0){
+                if (mStudents.size() > 0) {
                     lv.setAdapter(new AdminStudentDeleteAdapter(mStudents, AdminStudentDeleteActivity.this));
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AdminStudentDeleteActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();

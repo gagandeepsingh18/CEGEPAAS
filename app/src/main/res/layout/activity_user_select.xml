@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context=".UserSelectActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_size"/>
+        android:src="@drawable/logo_size" />
 
     <TextView
         android:id="@+id/student"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:background="@color/colorMain"
-        android:layout_marginTop="100dp"
         android:layout_gravity="end"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/colorWhite"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorMain"
         android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-        android:text="I am a Student"/>
+        android:gravity="center"
+        android:text="I am a Student"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/advisor"
@@ -33,29 +33,30 @@
         android:layout_gravity="end"
         android:layout_marginTop="50dp"
         android:background="@color/colorMain"
+        android:drawableRight="@drawable/ic_baseline_chevron_right_24"
         android:gravity="center"
         android:text="I am an Advisor"
         android:textColor="@color/colorWhite"
-        android:drawableRight="@drawable/ic_baseline_chevron_right_24"
         android:textSize="24sp">
 
     </TextView>
+
     <TextView
         android:id="@+id/admin"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:background="@color/colorMain"
-        android:layout_marginTop="50dp"
         android:layout_gravity="end"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/colorWhite"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorMain"
         android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-        android:text="Admin"/>
+        android:gravity="center"
+        android:text="Admin"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/cegep"
-        android:layout_marginTop="300dp"/>
+        android:layout_marginTop="300dp"
+        android:src="@drawable/cegep" />
 </LinearLayout>

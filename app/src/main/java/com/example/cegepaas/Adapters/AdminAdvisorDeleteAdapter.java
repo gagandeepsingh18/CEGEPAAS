@@ -68,20 +68,20 @@ public class AdminAdvisorDeleteAdapter extends BaseAdapter {
 
         // Toast.makeText(cnt,ar.get(pos).getImage(),Toast.LENGTH_SHORT).show();
 
-        CardView cvParent=(CardView)obj2.findViewById(R.id.cvParent);
+        CardView cvParent = (CardView) obj2.findViewById(R.id.cvParent);
 
         final Button btn_delete = (Button) obj2.findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAdvisor(ar.get(pos),btn_delete);
+                deleteAdvisor(ar.get(pos), btn_delete);
             }
         });
 
         return obj2;
     }
 
-    private void deleteAdvisor(final AdvisorsPojo adv,final Button btn) {
+    private void deleteAdvisor(final AdvisorsPojo adv, final Button btn) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -89,16 +89,14 @@ public class AdminAdvisorDeleteAdapter extends BaseAdapter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if ((dataSnapshot.child("Advisor_Details").child(adv.getUsername()).exists()))
-                {
+                if ((dataSnapshot.child("Advisor_Details").child(adv.getUsername()).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     RootRef.child("Advisor_Details").child(adv.getUsername()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(cnt, "Advisor Deleted..", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
 
                             }
                         }

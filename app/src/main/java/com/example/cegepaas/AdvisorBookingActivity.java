@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class AdvisorBookingActivity extends AppCompatActivity {
+public class   AdvisorBookingActivity extends AppCompatActivity {
     List<BookingTimesPojo> ab = new ArrayList<>();
     Button btn_select_date, btn_submit, btn_select_time;
     GridView gridview;

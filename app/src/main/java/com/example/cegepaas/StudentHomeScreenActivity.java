@@ -28,14 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentHomeScreenActivity extends AppCompatActivity {
-
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
-    ProgressDialog progressDialog;
-    private List<AdvisorsPojo> mAdvisors;
-    DatabaseReference dbAdvisors;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +51,11 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
 
         getAdvisorsDetails();
     }
+
+
+    ProgressDialog progressDialog;
+    private List<AdvisorsPojo> mAdvisors;
+    DatabaseReference dbAdvisors;
 
     private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
@@ -90,6 +91,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         }
     };
 
+
     private void navigationView() {
         dl = (DrawerLayout) findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
@@ -102,9 +104,9 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-                    case R.id.home:
-                        //Intent home=new Intent(getApplicationContext(), StudentHomeScreenActivity.class);
-                        //startActivity(home);
+                    case R.id.profile:
+                        Intent profile = new Intent(getApplicationContext(), StudentProfileActivity.class);
+                        startActivity(profile);
                         break;
                     case R.id.accept_meetings:
                         Intent intent_accept = new Intent(getApplicationContext(), StudentMeetingsActivity.class);
@@ -157,6 +159,5 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

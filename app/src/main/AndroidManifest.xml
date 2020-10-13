@@ -17,6 +17,7 @@
         <activity android:name=".AdvisorAcceptRejectActivity"/>
         <activity android:name=".StudentHomeScreenActivity" />
         <activity android:name=".AdminDashboardActivity" />
+        <activity android:name=".AddDateSlotsActivity" />
         <activity android:name=".AdvisorHomeActivity" />
         <activity android:name=".AdminLoginActivity" />
         <activity android:name=".StudentLoginActivity" />

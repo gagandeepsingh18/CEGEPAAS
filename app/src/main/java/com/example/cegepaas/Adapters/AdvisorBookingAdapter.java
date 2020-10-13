@@ -47,6 +47,8 @@ AdvisorBookingAdapter extends BaseAdapter {
         tv_time.setText(ar.get(pos).getTime());
         if (ar.get(pos).getAvailable().equals("accept")) {
             tv_time.setTextColor(Color.RED);
+        }else if(ar.get(pos).getAvailable().equals("pending")) {
+            tv_time.setTextColor(Color.YELLOW);
         }
 
         return obj2;

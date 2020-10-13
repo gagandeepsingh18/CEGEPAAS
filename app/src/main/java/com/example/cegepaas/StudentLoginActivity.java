@@ -31,6 +31,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private String parentDbName = "Student_Details";
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);

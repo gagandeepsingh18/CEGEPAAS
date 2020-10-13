@@ -16,11 +16,12 @@
     <item android:id="@+id/accept_reject_meetings"
         android:icon="@drawable/about"
         android:title="Accept or Reject Meetings"/>
-
     <item android:id="@+id/add_advisor_availability"
         android:icon="@drawable/about"
         android:title="Add Availability"/>
-
+    <item android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
     <item android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout"/>

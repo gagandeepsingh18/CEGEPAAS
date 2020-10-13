@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,20 +14,19 @@
 
         <ListView
             android:id="@+id/list_view"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"></ListView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-     <com.google.android.material.navigation.NavigationView
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/advisor_side_menu_navigation"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        android:id="@+id/nv">
-    </com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/advisor_side_menu_navigation"></com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

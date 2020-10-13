@@ -20,11 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class StudentProfileActivity extends AppCompatActivity {
-    String imageUrl,studentName,studentEmail,studentId;
+    String imageUrl, studentName, studentEmail, studentId;
     ImageView profile;
-    TextView name,email,id;
+    TextView name, email, id;
     DatabaseReference dbStudent;
     private String parentDbName = "Student_Details";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,8 @@ public class StudentProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.student_name);
         email = findViewById(R.id.studentEmail);
         id = findViewById(R.id.studentId);
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        getUserDetails(sp.getString("suname","-"));
+        SharedPreferences sp = getSharedPreferences("AA", 0);
+        getUserDetails(sp.getString("suname", "-"));
     }
 
     private void getUserDetails(String suname) {
@@ -49,8 +50,8 @@ public class StudentProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child(parentDbName).child(suname).exists()){
-                    Users users =snapshot.child(parentDbName).child(suname).getValue(Users.class);
+                if (snapshot.child(parentDbName).child(suname).exists()) {
+                    Users users = snapshot.child(parentDbName).child(suname).getValue(Users.class);
                     Glide.with(getApplicationContext()).load(users.getDownloadImageUrl()).into(profile);
                     name.setText(users.getName());
                     email.setText(users.getEmail());
@@ -61,7 +62,7 @@ public class StudentProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

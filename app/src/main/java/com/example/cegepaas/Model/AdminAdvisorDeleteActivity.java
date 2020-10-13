@@ -28,11 +28,12 @@ public class AdminAdvisorDeleteActivity extends AppCompatActivity {
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_advisor_delete);
-        ActionBar mActionBar=getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -41,7 +42,7 @@ public class AdminAdvisorDeleteActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);
 
         getAdvisorsDetails();
     }
@@ -60,14 +61,16 @@ public class AdminAdvisorDeleteActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private List<AdvisorsPojo> mAdvisors;
     DatabaseReference dbAdvisors;
-    private void getAdvisorsDetails(){
+
+    private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
-        progressDialog=new ProgressDialog(AdminAdvisorDeleteActivity.this);
+        progressDialog = new ProgressDialog(AdminAdvisorDeleteActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
         dbAdvisors = FirebaseDatabase.getInstance().getReference("Advisor_Details");
         dbAdvisors.addListenerForSingleValueEvent(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,14 +81,14 @@ public class AdminAdvisorDeleteActivity extends AppCompatActivity {
                     AdvisorsPojo artist = snapshot.getValue(AdvisorsPojo.class);
                     mAdvisors.add(artist);
                 }
-                if(mAdvisors.size()>0){
+                if (mAdvisors.size() > 0) {
                     lv.setAdapter(new AdminAdvisorDeleteAdapter(mAdvisors, AdminAdvisorDeleteActivity.this));
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AdminAdvisorDeleteActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             progressDialog.dismiss();

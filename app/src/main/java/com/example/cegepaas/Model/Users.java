@@ -5,15 +5,25 @@ public class Users {
     private String email;
     private String password;
     private String username;
+    private String downloadImageUrl;
 
     public Users() {
     }
 
-    public Users(String name, String email, String password, String username) {
+    public Users(String name, String email, String password, String username, String downloadImageUrl) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.downloadImageUrl = downloadImageUrl;
+    }
+
+    public String getDownloadImageUrl() {
+        return downloadImageUrl;
+    }
+
+    public void setDownloadImageUrl(String downloadImageUrl) {
+        this.downloadImageUrl = downloadImageUrl;
     }
 
     public String getName() {

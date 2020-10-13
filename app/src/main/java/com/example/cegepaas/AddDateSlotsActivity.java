@@ -27,13 +27,14 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class AddDateSlotsActivity extends AppCompatActivity {
-    Button btn_select_date,btn_submit;
+    Button btn_select_date, btn_submit;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_date_slots);
-        btn_submit=(Button)findViewById(R.id.btn_submit);
-        btn_select_date=(Button)findViewById(R.id.btn_select_date);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
+        btn_select_date = (Button) findViewById(R.id.btn_select_date);
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,8 +48,10 @@ public class AddDateSlotsActivity extends AppCompatActivity {
             }
         });
     }
-    int mYear,mMonth,mDay;
-    String DAY,MONTH,YEAR;
+
+    int mYear, mMonth, mDay;
+    String DAY, MONTH, YEAR;
+
     public void datepicker() {
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -60,7 +63,7 @@ public class AddDateSlotsActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         DAY = dayOfMonth + "";
-                        MONTH = (monthOfYear + 1 )+ "";
+                        MONTH = (monthOfYear + 1) + "";
                         YEAR = year + "";
                         btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
@@ -68,10 +71,12 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
         datePickerDialog.show();
     }
+
     ProgressDialog loadingBar;
+
     private void advisorBooking() {
-        if(btn_select_date.getText().toString().length()<3){
-            Toast.makeText(getApplicationContext(),"Please Select Date.",Toast.LENGTH_SHORT).show();
+        if (btn_select_date.getText().toString().length() < 3) {
+            Toast.makeText(getApplicationContext(), "Please Select Date.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -84,38 +89,34 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                SharedPreferences sp=getSharedPreferences("AA",0);
+                SharedPreferences sp = getSharedPreferences("AA", 0);
                 Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                 //String str=sp.getString("suname","-")+"_"+cal.getTimeInMillis();
-                String str = sp.getString("auname","-")+"_"+btn_select_date.getText().toString();
+                String str = sp.getString("auname", "-") + "_" + btn_select_date.getText().toString();
                 if (!(dataSnapshot.child("Advisor_Availability").child(str).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
-                    userdataMap.put("adv_username",sp.getString("auname","-"));
-                    userdataMap.put("booking_date",  btn_select_date.getText().toString());
+                    userdataMap.put("adv_username", sp.getString("auname", "-"));
+                    userdataMap.put("booking_date", btn_select_date.getText().toString());
                     RootRef.child("Advisor_Availability").child(str).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    if (task.isSuccessful())
-                                    {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(AddDateSlotsActivity.this, "Congratulations, your appointment has been created.", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                         finish();
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         loadingBar.dismiss();
                                         Toast.makeText(AddDateSlotsActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                }
-                else{
+                } else {
                     Toast.makeText(AddDateSlotsActivity.this, "Date is already taken, Choose another date.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

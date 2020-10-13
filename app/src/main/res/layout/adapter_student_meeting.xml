@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
-    app:elevation="0dp"
     android:id="@+id/cvParent"
-    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp">
+    android:layout_margin="20dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    app:elevation="0dp">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/tv_name"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="6dp"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/colorWhite"
+            android:fontFamily="sans-serif-black" />
 
         <TextView
             android:id="@+id/tv_date_time"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/colorWhite" />
 
 
         <TextView
             android:id="@+id/tv_desc"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/colorWhite" />
 
 
     </LinearLayout>

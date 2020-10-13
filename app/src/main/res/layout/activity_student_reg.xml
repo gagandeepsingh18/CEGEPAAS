@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#ffffff"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_size"
-        />
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo_size" />
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="5dp"
@@ -28,21 +25,18 @@
 
         <EditText
             android:id="@+id/et_name"
-            android:singleLine="true"
-            android:hint="Name"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:drawablePadding="10dp"
+            android:hint="Name"
+            android:padding="10dp"
+            android:singleLine="true" />
 
     </androidx.cardview.widget.CardView>
 
 
-
-
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -53,18 +47,17 @@
 
         <EditText
             android:id="@+id/et_eMail"
-            android:singleLine="true"
-            android:hint="Email"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:drawablePadding="10dp"
+            android:hint="Email"
+            android:padding="10dp"
+            android:singleLine="true" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,19 +69,18 @@
 
         <EditText
             android:id="@+id/et_uname"
-            android:singleLine="true"
-            android:hint="Student ID"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:drawablePadding="10dp"
+            android:hint="Student ID"
+            android:padding="10dp"
+            android:singleLine="true" />
 
     </androidx.cardview.widget.CardView>
 
 
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -99,37 +91,36 @@
 
         <EditText
             android:id="@+id/et_pwd"
-            android:singleLine="true"
-            android:hint="Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="#FFFFFF"
+            android:drawablePadding="10dp"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:drawablePadding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:singleLine="true" />
 
     </androidx.cardview.widget.CardView>
 
 
-
     <Button
         android:id="@+id/btn_register"
-        android:text="Register"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button1_rounded"
+        android:text="Register"
         android:textAllCaps="false"
-        android:background="@drawable/button1_rounded" />
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 
     <ImageView
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:src="@drawable/cegep"
 
         />

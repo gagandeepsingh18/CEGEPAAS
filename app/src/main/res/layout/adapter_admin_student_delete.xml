@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    android:id="@+id/cvParent"
+    app:elevation="0dp"
+    app:cardUseCompatPadding="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+    <ImageView
+        android:layout_height="50dp"
+        android:id="@+id/img_profile"
+        android:layout_width="50dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/profile"/>
+
+
+    -<LinearLayout
+        android:layout_height="wrap_content"
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/img_profile"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_aname"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:padding="8dp"
+        android:text="Name"
+        android:textColor="#000"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_aemail"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:padding="8dp"
+        android:text="Email"
+        android:textColor="#808080"
+        android:textSize="14sp"/>
 
 </LinearLayout>
+
+    <Button
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:text="Delete"
+        android:background="@drawable/button1_rounded"
+        android:layout_below="@+id/ll"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

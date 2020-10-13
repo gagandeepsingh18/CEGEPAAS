@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/home"
+    <item
+        android:id="@+id/home"
         android:icon="@drawable/home"
-        android:title="Home"/>
+        android:title="Home" />
 
-    <item android:id="@+id/accept_meetings"
+    <item
+        android:id="@+id/accept_meetings"
         android:icon="@drawable/about"
-        android:title="Accepted Meetings"/>
-    <item android:id="@+id/reject_meetings"
+        android:title="Accepted Meetings" />
+    <item
+        android:id="@+id/reject_meetings"
         android:icon="@drawable/about"
-        android:title="Rejected Meetings"/>
-    <item android:id="@+id/pending_meetings"
+        android:title="Rejected Meetings" />
+    <item
+        android:id="@+id/pending_meetings"
         android:icon="@drawable/about"
-        android:title="Pending Meetings"/>
-    <item android:id="@+id/logout"
+        android:title="Pending Meetings" />
+    <item
+        android:id="@+id/logout"
         android:icon="@drawable/logout"
-        android:title="Logout"/>
+        android:title="Logout" />
 </menu>

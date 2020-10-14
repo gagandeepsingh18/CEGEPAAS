@@ -23,6 +23,8 @@
         <activity android:name=".AdminLoginActivity" />
         <activity android:name=".StudentLoginActivity" />
         <activity android:name=".AdvisorLoginActivity" />
+        <activity android:name=".AdminAdvisorDeleteActivity" />
+        <activity android:name=".AdminStudentDeleteActivity" />
         <activity android:name=".StudentRegistrationActivity" />
         <activity android:name=".UserSelectActivity" />
         <activity android:name=".AdvisorRegistrationActivity" />

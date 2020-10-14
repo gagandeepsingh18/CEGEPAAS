@@ -15,7 +15,7 @@
         <ListView
             android:id="@+id/lv"
             android:layout_width="match_parent"
-            android:layout_height="13dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:divider="@null"
             android:dividerHeight="0dp"
@@ -29,6 +29,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/admin_side_menu_navigation"></com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/admin_side_menu_navigation">
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

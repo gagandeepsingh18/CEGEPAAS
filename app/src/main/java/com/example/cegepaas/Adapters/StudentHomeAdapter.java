@@ -69,4 +69,9 @@ public class StudentHomeAdapter extends BaseAdapter {
 
         return obj2;
     }
+
+    public void filterList(List<AdvisorsPojo> advisors) {
+        this.ar = advisors;
+        notifyDataSetChanged();
+    }
 }

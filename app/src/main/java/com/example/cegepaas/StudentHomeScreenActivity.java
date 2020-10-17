@@ -11,7 +11,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
+    EditText et_search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,17 +52,55 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lv = (ListView) findViewById(R.id.lv);
+        et_search = (EditText) findViewById(R.id.et_search);
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //after the change calling the method and passing the search input
+                filter(editable.toString());
+            }
+        });
 
         getAdvisorsDetails();
     }
 
+    private void filter(String text) {
+        mAdvisorsTemp.clear();
+        //Toast.makeText(getApplicationContext(),text+" "+mAdvisors.size(),Toast.LENGTH_SHORT).show();
+        for (AdvisorsPojo adv : mAdvisors) {
+            if (adv.getEmail() != null) {
+                if (adv.getEmail().toLowerCase().contains(text.toLowerCase())) {
+                    mAdvisorsTemp.add(adv);
+                }
+            }
+        }
+
+        if (mAdvisorsTemp.size() <= 0) {
+            mAdvisorsTemp = mAdvisors;
+        }
+        // Toast.makeText(getApplicationContext()," "+mAdvisorsTemp.size(),Toast.LENGTH_SHORT).show();
+        sha.filterList(mAdvisorsTemp);
+    }
 
     ProgressDialog progressDialog;
     private List<AdvisorsPojo> mAdvisors;
+    private List<AdvisorsPojo> mAdvisorsTemp;
     DatabaseReference dbAdvisors;
+    StudentHomeAdapter sha;
 
     private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
+        mAdvisorsTemp = new ArrayList<>();
         progressDialog = new ProgressDialog(StudentHomeScreenActivity.this);
         progressDialog.setTitle("Please Wait data is being Loaded");
         progressDialog.show();
@@ -77,7 +119,8 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
                     mAdvisors.add(artist);
                 }
                 if (mAdvisors.size() > 0) {
-                    lv.setAdapter(new StudentHomeAdapter(mAdvisors, StudentHomeScreenActivity.this));
+                    sha = new StudentHomeAdapter(mAdvisors, StudentHomeScreenActivity.this);
+                    lv.setAdapter(sha);
                 }
             } else {
                 Toast.makeText(StudentHomeScreenActivity.this, "No data Found", Toast.LENGTH_SHORT).show();

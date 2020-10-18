@@ -1,29 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:layout_height="match_parent">
     <Button
         android:id="@+id/btn_select_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/button1_rounded"
         android:text="Select Date"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="550dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
         android:background="@drawable/button1_rounded"
-        android:text="Submit"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/chk10_00AM"
+        android:text="10:00 AM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk10_30AM"
+        android:text="10:30 AM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk11_00AM"
+        android:text="11:00 AM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk11_30AM"
+        android:text="11:30 AM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/chk12_00PM"
+        android:text="12:00 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk01_30PM"
+        android:text="01:30 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk02_00PM"
+        android:text="02:00 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk02_30PM"
+        android:text="02:30 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/chk03_00PM"
+        android:text="03:00 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk03_30PM"
+        android:text="03:30 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk04_00PM"
+        android:text="04:00 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:id="@+id/chk04_30PM"
+        android:text="04:30 PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button1_rounded"
+            android:text="Submit"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

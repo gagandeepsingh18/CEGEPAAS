@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -61,6 +62,9 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advisor_booking);
+        getSupportActionBar().setTitle("Advisor Booking");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gridview= (GridView)findViewById(R.id.gridview);
         et_des= (EditText)findViewById(R.id.et_des);
         btn_select_date= (Button)findViewById(R.id.btn_select_date);
@@ -315,5 +319,17 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
 
 }

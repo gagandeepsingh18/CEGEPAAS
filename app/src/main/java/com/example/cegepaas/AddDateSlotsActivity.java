@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,6 +40,9 @@ public class AddDateSlotsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_date_slots);
+        getSupportActionBar().setTitle("Add Time Slots");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btn_submit=(Button)findViewById(R.id.btn_submit);
         btn_select_date=(Button)findViewById(R.id.btn_select_date);
         chk10AM=(CheckBox)findViewById(R.id.chk10_00AM);
@@ -53,6 +57,7 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         chk330PM=(CheckBox)findViewById(R.id.chk03_30PM);
         chk4PM=(CheckBox)findViewById(R.id.chk04_00PM);
         chk430PM=(CheckBox)findViewById(R.id.chk04_30PM);
+        enableDisableCheckbox();
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +77,37 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         });
     }
 
+    void enableDisableCheckbox(){
+        if(btn_select_date.getText().toString().equals("Select Date")){
+            chk10AM.setEnabled(false);
+            chk1030AM.setEnabled(false);
+            chk11AM.setEnabled(false);
+            chk1130AM.setEnabled(false);
+            chk12PM.setEnabled(false);
+            chk130PM.setEnabled(false);
+            chk2PM.setEnabled(false);
+            chk230PM.setEnabled(false);
+            chk3PM.setEnabled(false);
+            chk330PM.setEnabled(false);
+            chk4PM.setEnabled(false);
+            chk430PM.setEnabled(false);
+        }
+        else {
+            chk10AM.setEnabled(true);
+            chk1030AM.setEnabled(true);
+            chk11AM.setEnabled(true);
+            chk1130AM.setEnabled(true);
+            chk12PM.setEnabled(true);
+            chk130PM.setEnabled(true);
+            chk2PM.setEnabled(true);
+            chk230PM.setEnabled(true);
+            chk3PM.setEnabled(true);
+            chk330PM.setEnabled(true);
+            chk4PM.setEnabled(true);
+            chk430PM.setEnabled(true);
+        }
+    }
+
     public void datepicker() {
 
         final Calendar c = Calendar.getInstance();
@@ -87,9 +123,12 @@ public class AddDateSlotsActivity extends AppCompatActivity {
                         MONTH = (monthOfYear + 1 )+ "";
                         YEAR = year + "";
                         btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        enableDisableCheckbox();
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+        c.add(Calendar.DAY_OF_MONTH,+14);
+        datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
         datePickerDialog.show();
     }
 
@@ -192,5 +231,16 @@ public class AddDateSlotsActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

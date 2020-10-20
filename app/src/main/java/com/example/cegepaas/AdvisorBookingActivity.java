@@ -3,10 +3,10 @@ package com.example.cegepaas;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import com.example.cegepaas.Model.AvailableTimings;
 import com.example.cegepaas.Model.BookingTimesPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +42,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class   AdvisorBookingActivity extends AppCompatActivity {
+public class AdvisorBookingActivity  extends AppCompatActivity  {
     List<BookingTimesPojo> ab=new ArrayList<>();
     Button btn_select_date,btn_submit,btn_select_time;
+    FloatingActionButton btn_chat;
     GridView gridview;
     String _time=null;
     private com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
@@ -58,6 +60,7 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
     private List<AvailableTimings> mAvailableTimings;
     ProgressDialog loadingBar;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +73,7 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
         btn_select_date= (Button)findViewById(R.id.btn_select_date);
         btn_select_time= (Button)findViewById(R.id.btn_select_time);
         btn_submit= (Button)findViewById(R.id.btn_submit);
+        btn_chat = (FloatingActionButton)findViewById(R.id.chat_button);
         btn_select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +84,16 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 advisorBooking();
+            }
+        });
+
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdvisorBookingActivity.this,StudentChatActivity.class);
+                intent.putExtra("uname",getIntent().getStringExtra("uname"));
+                intent.putExtra("aname",getIntent().getStringExtra("aname"));
+                startActivity(intent);
             }
         });
 
@@ -113,6 +127,7 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
         for(AdvisorAvailableDates aa:mAvailableDates) {
             getEnbDates(aa.getBooking_date());
         }
+
         Calendar[] disabledDays1 = dates.toArray(new Calendar[dates.size()]);
         dpd.setSelectableDays(disabledDays1);
         dpd.show(getSupportFragmentManager(),"ddd");
@@ -154,13 +169,17 @@ public class   AdvisorBookingActivity extends AppCompatActivity {
 
     private void getEnbDates(String a){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date date = null;
+        java.util.Date date1 = null, today = null;
         try {
-            date = sdf.parse(a);
+            Date date = new Date();
+            today=sdf.parse(sdf.format(date));
+            date1 = sdf.parse(a);
             AdvisorBookingActivity obj = new AdvisorBookingActivity();
-            calendar = obj.dateToCalendar(date);
+            calendar = obj.dateToCalendar(date1);
         } catch (ParseException e) { }
-        dates.add(calendar);
+        if(date1.compareTo(today) >= 0){
+            dates.add(calendar);
+        }
     }
 
     private Calendar dateToCalendar(Date date) {

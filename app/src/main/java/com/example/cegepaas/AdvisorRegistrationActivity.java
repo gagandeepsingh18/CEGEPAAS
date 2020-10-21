@@ -28,7 +28,6 @@ import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register, btn_img_upload;
-    ;
     EditText et_name, et_uname, et_Email, et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
@@ -73,15 +72,15 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
     private void CreateAccount() {
 
-        String name = et_name.getText().toString();
-        String Email = et_Email.getText().toString();
-        String password = et_pwd.getText().toString();
-        String username = et_uname.getText().toString();
+        name = et_name.getText().toString();
+        email = et_Email.getText().toString();
+        password = et_pwd.getText().toString();
+        username = et_uname.getText().toString();
         downloadImageUrl = "https://firebasestorage.googleapis.com/v0/b/cegepaas.appspot.com/o/Default%2Fprofile.png?alt=media&token=b6e336d0-f12d-4c56-9c53-1c65cfbbb9bc";
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(Email)) {
+        } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please write your Email...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please Choose your Username...", Toast.LENGTH_SHORT).show();

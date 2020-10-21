@@ -82,6 +82,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/ad_edit_profile"
         android:textColor="@color/colorWhite"
         android:background="@drawable/button1_rounded"
         android:layout_marginTop="35dp"
@@ -90,6 +91,7 @@
         android:layout_height="wrap_content"
         android:text="Edit Profile Details"/>
     <Button
+        android:id="@+id/ad_edit_password"
         android:textColor="@color/colorWhite"
         android:background="@drawable/button1_rounded"
         android:layout_marginTop="20dp"

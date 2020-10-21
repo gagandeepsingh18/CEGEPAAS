@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA"
     android:orientation="vertical"
-    tools:context=".StudentProfileActivity">
+    tools:context=".AdvisorEditPassword">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/student_image"
+                android:id="@+id/upAdvisor_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/profile"
@@ -27,7 +27,7 @@
                 android:layout_marginTop="45dp" />
 
             <TextView
-                android:id="@+id/student_name"
+                android:id="@+id/upAdvisorId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -57,8 +57,8 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_email" />
 
-            <TextView
-                android:id="@+id/studentEmail"
+            <EditText
+                android:id="@+id/upAdvisorEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -78,8 +78,8 @@
                 android:layout_height="36dp"
                 android:src="@drawable/profile" />
 
-            <TextView
-                android:id="@+id/studentId"
+            <EditText
+                android:id="@+id/upAdvisor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -89,23 +89,23 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/student_profile_edit"
+        android:id="@+id/up_AdvisorSave"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="35dp"
         android:background="@drawable/button1_rounded"
-        android:text="Edit Profile Details"
+        android:text="SAVE"
         android:textColor="@color/colorWhite" />
 
     <Button
-        android:id="@+id/up_studentPass"
+        android:id="@+id/up_AdvisorCancel"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/button1_rounded"
-        android:text="Update Password"
+        android:text="cancle"
         android:textColor="@color/colorWhite" />
 
 </LinearLayout>

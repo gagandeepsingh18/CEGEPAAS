@@ -14,6 +14,7 @@
         <activity android:name=".AdvisorEditPassword"></activity>
         <activity android:name=".AdvisorEditProfile" />
         <activity android:name=".StudentEditPassword" />
+        <activity android:name=".AdvisorProfileActivity" />
         <activity android:name=".StudentProfileActivity" />
         <activity android:name=".AdvisorBookingActivity" />
         <activity android:name=".StudentMeetingsActivity" />

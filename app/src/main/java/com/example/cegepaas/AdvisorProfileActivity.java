@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AdvisorProfileActivity extends AppCompatActivity {
     ImageView profile;
-    String password;
+    String password,uId;
     TextView name,email,id;
     Button update_profile, change_password;
     private String parentDbName = "Advisor_Details";
@@ -43,9 +43,9 @@ public class AdvisorProfileActivity extends AppCompatActivity {
         id = findViewById(R.id.advisorId);
         update_profile = findViewById(R.id.ad_edit_profile);
         change_password = findViewById(R.id.ad_edit_password);
+        uId = getIntent().getStringExtra("un");
 
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        getAdvisorDetails(sp.getString("auname","-"));
+        getAdvisorDetails(uId);
 
         update_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +53,7 @@ public class AdvisorProfileActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),AdvisorEditProfile.class);
                 i.putExtra("name",name.getText().toString());
                 i.putExtra("email",email.getText().toString());
+                i.putExtra("id",uId);
                 startActivity(i);
             }
         });
@@ -62,6 +63,7 @@ public class AdvisorProfileActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),AdvisorEditPassword.class);
                 i.putExtra("password",password);
                 i.putExtra("name",name.getText().toString());
+                i.putExtra("id",uId);
                 startActivity(i);
             }
         });
@@ -82,6 +84,8 @@ public class AdvisorProfileActivity extends AppCompatActivity {
                     email.setText(users.getEmail());
                     id.setText(users.getUsername());
                     password = users.getPassword();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
                 }
 
             }

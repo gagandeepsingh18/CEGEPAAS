@@ -22,6 +22,7 @@
                 android:id="@+id/student_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:src="@drawable/profile"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp" />
 
@@ -88,6 +89,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/student_profile_edit"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -97,6 +99,7 @@
         android:textColor="@color/colorWhite" />
 
     <Button
+        android:id="@+id/up_studentPass"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

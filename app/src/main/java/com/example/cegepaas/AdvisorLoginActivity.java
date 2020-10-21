@@ -96,6 +96,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
+                            intent.putExtra("ad_userId", username);
                             startActivity(intent);
                             finish();
                         }

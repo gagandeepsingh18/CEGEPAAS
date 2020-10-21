@@ -90,7 +90,7 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
         btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdvisorBookingActivity.this,StudentChatActivity.class);
+                Intent intent = new Intent(AdvisorBookingActivity.this, StudentChatActivity.class);
                 intent.putExtra("uname",getIntent().getStringExtra("uname"));
                 intent.putExtra("aname",getIntent().getStringExtra("aname"));
                 startActivity(intent);
@@ -224,7 +224,7 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
                     //mAvailableTimings.add(artist);
                     for(BookingTimesPojo a:ab){
                         if(a.getTime().equals(atime.getBooked_time())){
-                            a.setAvailable(atime.getBooked_status());
+                            a.setAvailable(atime.Get_status());
                             //int pos=ab.indexOf(atime.getBooked_time());
                             // ab.set(pos,new AdvisorBookingPojo(atime.getBooked_time(),"Booked"));
                         }

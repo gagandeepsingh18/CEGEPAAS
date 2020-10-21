@@ -20,11 +20,11 @@ public class AvailableTimings {
         this.booked_time = booked_time;
     }
 
-    public String getBooked_status() {
+    public String Get_status() {
         return booked_status;
     }
 
-    public void setBooked_status(String booked_status) {
+    public void Set_status(String booked_status) {
         this.booked_status = booked_status;
     }
 }

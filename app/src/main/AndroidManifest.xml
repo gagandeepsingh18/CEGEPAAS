@@ -13,9 +13,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AdvisorEditPassword"></activity>
         <activity android:name=".AdvisorEditProfile" />
+        <activity android:name=".StudentEditProfile" />
         <activity android:name=".StudentEditPassword" />
         <activity android:name=".AdvisorProfileActivity" />
         <activity android:name=".StudentProfileActivity" />
+        <activity android:name=".StudentChatActivity" />
         <activity android:name=".AdvisorBookingActivity" />
         <activity android:name=".StudentMeetingsActivity" />
         <activity android:name=".AdvisorMeetingsActivity" />

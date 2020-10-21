@@ -40,7 +40,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
     //Implements cardView
     implementation 'androidx.cardview:cardview:1.0.0'
 

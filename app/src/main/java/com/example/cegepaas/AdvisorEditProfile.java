@@ -110,6 +110,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
+                i.putExtra("un",data.getStringExtra("id"));
                 startActivity(i);
             }
         });

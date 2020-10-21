@@ -70,7 +70,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                 Intent i = new Intent(v.getContext(),StudentEditProfile.class);
                 i.putExtra("name",name.getText().toString());
                 i.putExtra("email",email.getText().toString());
-                i.putExtra("id",id.getText().toString());
+                i.putExtra("id",sp.getString("suname", "-"));
                 startActivity(i);
 
             }

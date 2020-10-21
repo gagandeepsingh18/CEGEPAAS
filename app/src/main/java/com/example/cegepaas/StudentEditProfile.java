@@ -225,11 +225,7 @@ public class StudentEditProfile extends AppCompatActivity {
                     }
                 });
 
-//                DatabaseReference db = dbStudent.child(parentDbName).child(studentId).child("downloadImageUrl").push();
-//                users.setDownloadImageUrl("jksf ");
-//                db.setValue(users);
-//                String key = db.getKey();
-//                users.setUsername(key);
+
 
 
             }

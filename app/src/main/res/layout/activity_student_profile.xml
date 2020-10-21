@@ -88,6 +88,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/student_profile_edit"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -97,6 +98,7 @@
         android:textColor="@color/colorWhite" />
 
     <Button
+        android:id="@+id/up_studentPass"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -60,8 +60,7 @@ public class AdvisorEditPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 {
-                    SharedPreferences sp = getSharedPreferences("AA",0);
-                    String advisorId = sp.getString("auname","-");
+                    String advisorId = getIntent().getStringExtra("id");
                     adAdvisor = FirebaseDatabase.getInstance().getReference();
                     String pass1 = password1.getText().toString();
                     String pass2 = password2.getText().toString();

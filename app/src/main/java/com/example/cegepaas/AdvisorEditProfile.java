@@ -63,9 +63,8 @@ public class AdvisorEditProfile extends AppCompatActivity {
         save = findViewById(R.id.up_AdvisorSave);
 
         SharedPreferences sp=getSharedPreferences("AA",0);
-        String advosorId = sp.getString("auname","-");
-
-        ap_id.setText(advosorId);
+        String advisorId = data.getStringExtra("id");
+        ap_id.setText(advisorId);
         ap_email.setText(data.getStringExtra("email"));
         ap_name.setText(data.getStringExtra("name"));
 
@@ -90,7 +89,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         dbAdvisor = FirebaseDatabase.getInstance().getReference();
 
-        StorageReference profile_pic = storageReference.child("Advisor/" + advosorId + " Profile.jpg");
+        StorageReference profile_pic = storageReference.child("Advisor/" + advisorId + " Profile.jpg");
         profile_pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -127,7 +126,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
                             HashMap<String, Object> hashMap = new HashMap();
                             hashMap.put("email", ap_email.getText().toString());
                             hashMap.put("name", ap_name.getText().toString());
-                            dbAdvisor.child(parentDbName).child(advosorId).updateChildren(hashMap)
+                            dbAdvisor.child(parentDbName).child(advisorId).updateChildren(hashMap)
                                     .addOnCompleteListener(new OnCompleteListener() {
                                         @Override
                                         public void onComplete(@NonNull Task task) {
@@ -178,10 +177,8 @@ public class AdvisorEditProfile extends AppCompatActivity {
         AdvisorsPojo users = new AdvisorsPojo();
         storageReference = FirebaseStorage.getInstance().getReference();
         dbAdvisor = FirebaseDatabase.getInstance().getReference();
-        SharedPreferences sp = getSharedPreferences("AA", 0);
-        String advisorId = sp.getString("auname", "-");
+         String advisorId = getIntent().getStringExtra("id");
         final StorageReference imageUpload = storageReference.child("Advisor/" + advisorId + " Profile.jpg");
-
         imageUpload.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -189,16 +186,12 @@ public class AdvisorEditProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(ap_profile);
-
                         String image = uri.toString();
-                        dbAdvisor.child(parentDbName).child(ap_id.getText().toString()).child("image").setValue(image);
-//
-
-
+                        dbAdvisor.child(parentDbName).child(advisorId).child("image").setValue(image);
                         dbAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (!(dataSnapshot.child("Advisor_Details").child(advisorId).exists())) {
+                                if (!(dataSnapshot.child(parentDbName).child(advisorId).exists())) {
                                     HashMap<String, Object> userdataMap = new HashMap<>();
 
                                     userdataMap.put("image", users.getImage());

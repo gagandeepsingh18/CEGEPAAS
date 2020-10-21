@@ -101,8 +101,6 @@ public class AdvisorHomeActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.profile:
                         Intent profile=new Intent(getApplicationContext(), AdvisorProfileActivity.class);
-                        String uId = getIntent().getStringExtra("ad_userId");
-                        profile.putExtra("un",uId);
                         startActivity(profile);
                         break;
                     case R.id.add_advisor_availability:

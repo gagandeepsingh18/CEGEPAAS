@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class AddDateSlotsActivity extends AppCompatActivity {
     String DAY,MONTH,YEAR;
     ProgressDialog loadingBar;
     String sel_timings="";
+    TextView showDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add Time Slots");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        showDate = (TextView) findViewById(R.id.showDate);
         btn_submit=(Button)findViewById(R.id.btn_submit);
         btn_select_date=(Button)findViewById(R.id.btn_select_date);
         chk10AM=(CheckBox)findViewById(R.id.chk10_00AM);
@@ -122,7 +125,8 @@ public class AddDateSlotsActivity extends AppCompatActivity {
                         DAY = dayOfMonth + "";
                         MONTH = (monthOfYear + 1 )+ "";
                         YEAR = year + "";
-                        btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        showDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        btn_select_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                         enableDisableCheckbox();
                     }
                 }, mYear, mMonth, mDay);

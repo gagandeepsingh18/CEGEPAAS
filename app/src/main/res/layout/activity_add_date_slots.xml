@@ -5,6 +5,28 @@
     android:orientation="vertical"
     android:baselineAligned="false"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:text="Add Appointment Slots" />
+    <TextView
+        android:id="@+id/showDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:text="No Date Selected" />
+
     <Button
         android:id="@+id/btn_select_date"
         android:text="Select Date"
@@ -17,126 +39,159 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_margin="20dp"
-        android:gravity="center">
+        android:layout_height="350dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/selectTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="Select the Time slots" />
 
-        <CheckBox
-            android:id="@+id/chk10_00AM"
-            android:text="10:00 AM"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="20dp"
+            android:gravity="center">
 
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk10_30AM"
-            android:text="10:30 AM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk11_00AM"
-            android:text="11:00 AM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            <CheckBox
+                android:id="@+id/chk10_00AM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:text="10:00 AM" />
+
+            <CheckBox
+                android:id="@+id/chk10_30AM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10:30 AM" />
+
+            <CheckBox
+                android:id="@+id/chk11_00AM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="11:00 AM" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="20dp"
+            android:gravity="center">
+
+
+            <CheckBox
+                android:id="@+id/chk11_30AM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="11:30 AM" />
+
+            <CheckBox
+                android:id="@+id/chk12_00PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="12:00 PM" />
+
+            <CheckBox
+                android:id="@+id/chk01_30PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="01:30 PM" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/chk02_00PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="02:00 PM" />
+
+            <CheckBox
+                android:id="@+id/chk02_30PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="02:30 PM" />
+
+            <CheckBox
+                android:id="@+id/chk03_00PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="03:00 PM" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/chk03_30PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="03:30 PM" />
+
+            <CheckBox
+                android:id="@+id/chk04_00PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="04:00 PM" />
+
+            <CheckBox
+                android:id="@+id/chk04_30PM"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="04:30 PM" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_margin="20dp"
-        android:gravity="center">
-
-
-        <CheckBox
-            android:id="@+id/chk11_30AM"
-            android:text="11:30 AM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk12_00PM"
-            android:text="12:00 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk01_30PM"
-            android:text="01:30 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center">
-
-        <CheckBox
-            android:id="@+id/chk02_00PM"
-            android:text="02:00 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk02_30PM"
-            android:text="02:30 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk03_00PM"
-            android:text="03:00 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center">
-
-        <CheckBox
-            android:id="@+id/chk03_30PM"
-            android:text="03:30 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk04_00PM"
-            android:text="04:00 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/chk04_30PM"
-            android:text="04:30 PM"
-            android:layout_weight="1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="bottom">
+
         <Button
             android:id="@+id/btn_submit"
-            android:layout_width="match_parent"
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/button1_rounded"
             android:text="Submit"
             android:textColor="#ffffff"

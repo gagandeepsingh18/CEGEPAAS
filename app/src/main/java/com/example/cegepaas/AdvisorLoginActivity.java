@@ -3,6 +3,7 @@ package com.example.cegepaas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -94,9 +95,12 @@ public class AdvisorLoginActivity extends AppCompatActivity {
 
                             Toast.makeText(AdvisorLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
-
+                            SharedPreferences sp=getSharedPreferences("AA",0);
+                            SharedPreferences.Editor et=sp.edit();
+                            et.putString("auname",username);
+                            et.commit();
                             Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
-                            intent.putExtra("ad_userId", username);
+
                             startActivity(intent);
                             finish();
                         }

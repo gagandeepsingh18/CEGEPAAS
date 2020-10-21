@@ -13,8 +13,7 @@ import com.example.cegepaas.Model.BookingTimesPojo;
 
 import java.util.List;
 
-public class
-AdvisorBookingAdapter extends BaseAdapter {
+public class AdvisorBookingAdapter extends BaseAdapter {
     List<BookingTimesPojo> ar;
     Context cnt;
 

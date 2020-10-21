@@ -224,7 +224,7 @@ public class AdvisorBookingActivity  extends AppCompatActivity  {
                     //mAvailableTimings.add(artist);
                     for(BookingTimesPojo a:ab){
                         if(a.getTime().equals(atime.getBooked_time())){
-                            a.setAvailable(atime.Get_status());
+                            a.setAvailable(atime.getStatus());
                             //int pos=ab.indexOf(atime.getBooked_time());
                             // ab.set(pos,new AdvisorBookingPojo(atime.getBooked_time(),"Booked"));
                         }

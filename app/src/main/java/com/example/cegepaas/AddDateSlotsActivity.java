@@ -126,7 +126,7 @@ public class AddDateSlotsActivity extends AppCompatActivity {
                         MONTH = (monthOfYear + 1 )+ "";
                         YEAR = year + "";
                         showDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        btn_select_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         enableDisableCheckbox();
                     }
                 }, mYear, mMonth, mDay);

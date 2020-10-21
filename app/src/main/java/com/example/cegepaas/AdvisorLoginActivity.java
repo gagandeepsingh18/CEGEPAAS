@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cegepaas.Model.AdvisorsPojo;
 import com.example.cegepaas.Model.Users;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,20 +90,25 @@ public class AdvisorLoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(parentDbName).child(username).exists()) {
-                    Users usersData = snapshot.child(parentDbName).child(username).getValue(Users.class);
+                    AdvisorsPojo usersData = snapshot.child(parentDbName).child(username).getValue(AdvisorsPojo.class);
                     if (usersData.getUsername().equals(username)) {
-                        if (usersData.getPassword().equals(password)) {
+                        if(usersData.getPassword().equals(password)){
+                            if(usersData.getStatus().equals("active")) {
+                                Toast.makeText(AdvisorLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
 
-                            Toast.makeText(AdvisorLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
-                            SharedPreferences sp=getSharedPreferences("AA",0);
-                            SharedPreferences.Editor et=sp.edit();
-                            et.putString("auname",username);
-                            et.commit();
-                            Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
+                                SharedPreferences sp=getSharedPreferences("AA",0);
+                                SharedPreferences.Editor et=sp.edit();
+                                et.putString("auname",username);
+                                et.commit();
 
-                            startActivity(intent);
-                            finish();
+                                Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                loadingBar.dismiss();
+                                Toast.makeText(AdvisorLoginActivity.this, "Your account is not actived,please contact admin...", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     } else {
                         loadingBar.dismiss();
@@ -134,4 +140,3 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         }
     }
 }
-

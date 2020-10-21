@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/accepted_meetings"
-        android:icon="@drawable/home"
-        android:title="Accepted Meetings"/>
-
     <item android:id="@+id/rejected_meetings"
         android:icon="@drawable/about"
         android:title="Rejected Meetings"/>
-
-    <item android:id="@+id/pending_meetings"
-        android:icon="@drawable/about"
-        android:title="Pending Meetings"/>
-
     <item android:id="@+id/accept_reject_meetings"
-        android:icon="@drawable/about"
-        android:title="Accept or Reject Meetings"/>
+        android:icon="@drawable/ic_pending_24"
+        android:title="Pending Meetings"/>
     <item android:id="@+id/add_advisor_availability"
-        android:icon="@drawable/about"
+        android:icon="@drawable/ic_baseline_event_available_24"
         android:title="Add Availability"/>
     <item android:id="@+id/profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/username"
         android:title="Profile"/>
     <item android:id="@+id/logout"
         android:icon="@drawable/logout"

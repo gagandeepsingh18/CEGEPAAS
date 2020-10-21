@@ -56,7 +56,9 @@ public class AdvisorAcceptRejectActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AdvisorBookingPojo advs = snapshot.getValue(AdvisorBookingPojo.class);
-                    mAdvisors.add(advs);
+                    if(advs.getStatus().equals("pending")){
+                        mAdvisors.add(advs);
+                    }
                 }
                 if (mAdvisors.size() > 0) {
                     lv.setAdapter(new AdvisorAcceptRejectAdapter(mAdvisors, AdvisorAcceptRejectActivity.this));

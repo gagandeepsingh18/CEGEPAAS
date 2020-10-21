@@ -2,14 +2,14 @@ package com.example.cegepaas.Model;
 
 public class AvailableTimings {
     private String booked_time;
-    private String booked_status;
+    private String status;
 
     public AvailableTimings() {
     }
 
-    public AvailableTimings(String booked_time, String booked_status) {
+    public AvailableTimings(String booked_time, String status) {
         this.booked_time = booked_time;
-        this.booked_status = booked_status;
+        this.status = status;
     }
 
     public String getBooked_time() {
@@ -20,11 +20,11 @@ public class AvailableTimings {
         this.booked_time = booked_time;
     }
 
-    public String Get_status() {
-        return booked_status;
+    public String getStatus() {
+        return status;
     }
 
-    public void Set_status(String booked_status) {
-        this.booked_status = booked_status;
+    public void getStatus(String booked_status) {
+        this.status = booked_status;
     }
 }

@@ -16,11 +16,11 @@
         android:title="Rejected Meetings" />
     <item
         android:id="@+id/pending_meetings"
-        android:icon="@drawable/about"
+        android:icon="@drawable/ic_pending_24"
         android:title="Pending Meetings" />
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/username"
         android:title="Profile" />
     <item
         android:id="@+id/logout"

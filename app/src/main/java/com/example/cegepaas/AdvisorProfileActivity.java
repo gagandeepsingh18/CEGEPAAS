@@ -77,7 +77,7 @@ public class AdvisorProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child(parentDbName).child(auname).exists()){
+                 if(snapshot.child(parentDbName).child(auname).exists()){
                     AdvisorsPojo users =snapshot.child(parentDbName).child(auname).getValue(AdvisorsPojo.class);
                     Glide.with(getApplicationContext()).load(users.getImage()).into(profile);
                     name.setText(users.getName());

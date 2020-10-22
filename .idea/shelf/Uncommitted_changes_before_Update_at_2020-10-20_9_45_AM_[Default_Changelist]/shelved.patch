@@ -1,0 +1,524 @@
+Index: app/src/main/java/com/example/cegepaas/Model/AdvisorAvailableDates.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.cegepaas.Model;\r\n\r\npublic class AdvisorAvailableDates {\r\n    private String adv_username;\r\n    private String booking_date;\r\n\r\n    public AdvisorAvailableDates() {\r\n    }\r\n\r\n    public AdvisorAvailableDates(String adv_username, String booking_date) {\r\n        this.adv_username = adv_username;\r\n        this.booking_date = booking_date;\r\n    }\r\n\r\n    public String getAdv_username() {\r\n        return adv_username;\r\n    }\r\n\r\n    public void setAdv_username(String adv_username) {\r\n        this.adv_username = adv_username;\r\n    }\r\n\r\n    public String getBooking_date() {\r\n        return booking_date;\r\n    }\r\n\r\n    public void setBooking_date(String booking_date) {\r\n        this.booking_date = booking_date;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/cegepaas/Model/AdvisorAvailableDates.java	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ app/src/main/java/com/example/cegepaas/Model/AdvisorAvailableDates.java	(date 1603201510490)
+@@ -3,13 +3,14 @@
+ public class AdvisorAvailableDates {
+     private String adv_username;
+     private String booking_date;
+-
++    private String booking_times;
+     public AdvisorAvailableDates() {
+     }
+ 
+-    public AdvisorAvailableDates(String adv_username, String booking_date) {
++    public AdvisorAvailableDates(String adv_username, String booking_date, String booking_times) {
+         this.adv_username = adv_username;
+         this.booking_date = booking_date;
++        this.booking_times = booking_times;
+     }
+ 
+     public String getAdv_username() {
+@@ -27,4 +28,12 @@
+     public void setBooking_date(String booking_date) {
+         this.booking_date = booking_date;
+     }
++
++    public String getBooking_times() {
++        return booking_times;
++    }
++
++    public void setBooking_times(String booking_times) {
++        this.booking_times = booking_times;
++    }
+ }
+Index: app/src/main/java/com/example/cegepaas/AdvisorBookingActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.cegepaas;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.app.DatePickerDialog;\r\n\r\nimport android.app.ProgressDialog;\r\nimport android.content.SharedPreferences;\r\nimport android.graphics.Color;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.AdapterView;\r\nimport android.widget.Button;\r\nimport android.widget.DatePicker;\r\nimport android.widget.EditText;\r\nimport android.widget.GridView;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.cegepaas.Adapters.AdvisorBookingAdapter;\r\nimport com.example.cegepaas.Model.AdvisorAvailableDates;\r\nimport com.example.cegepaas.Model.AvailableTimings;\r\nimport com.example.cegepaas.Model.BookingTimesPojo;\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.firebase.database.DataSnapshot;\r\nimport com.google.firebase.database.DatabaseError;\r\nimport com.google.firebase.database.DatabaseReference;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\nimport com.google.firebase.database.Query;\r\nimport com.google.firebase.database.ValueEventListener;\r\n\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.ArrayList;\r\nimport java.util.Calendar;\r\nimport java.util.Date;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Locale;\r\n\r\npublic class   AdvisorBookingActivity extends AppCompatActivity {\r\n    List<BookingTimesPojo> ab = new ArrayList<>();\r\n    Button btn_select_date, btn_submit, btn_select_time;\r\n    GridView gridview;\r\n    String _time = null;\r\n    private com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;\r\n    EditText et_des;\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_advisor_booking);\r\n        gridview = (GridView) findViewById(R.id.gridview);\r\n        et_des = (EditText) findViewById(R.id.et_des);\r\n        btn_select_date = (Button) findViewById(R.id.btn_select_date);\r\n        btn_select_time = (Button) findViewById(R.id.btn_select_time);\r\n        btn_submit = (Button) findViewById(R.id.btn_submit);\r\n        btn_select_date.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                getAvaialbilities();\r\n            }\r\n        });\r\n        btn_submit.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                advisorBooking();\r\n            }\r\n        });\r\n\r\n        getAvaialbilities();\r\n    }\r\n\r\n    //Get Available Dates - Start\r\n    com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener selliste = new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {\r\n        @Override\r\n        public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {\r\n            Toast.makeText(getApplicationContext(), \"\" + dayOfMonth, Toast.LENGTH_SHORT).show();\r\n            btn_select_date.setText(dayOfMonth + \"-\" + (monthOfYear + 1) + \"-\" + year);\r\n            getAvailableTimes();\r\n        }\r\n    };\r\n\r\n    private void showCustomDialog() {\r\n        Calendar now = Calendar.getInstance();\r\n        dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(\r\n                selliste,\r\n                now.get(Calendar.YEAR),\r\n                now.get(Calendar.MONTH),\r\n                now.get(Calendar.DAY_OF_MONTH)\r\n        );\r\n        for (AdvisorAvailableDates aa : mAvailableDates) {\r\n            getEnbDates(aa.getBooking_date());\r\n        }\r\n        Calendar[] disabledDays1 = dates.toArray(new Calendar[dates.size()]);\r\n        dpd.setSelectableDays(disabledDays1);\r\n        dpd.show(getSupportFragmentManager(), \"ddd\");\r\n    }\r\n\r\n    ProgressDialog progressDialog;\r\n    private List<AdvisorAvailableDates> mAvailableDates;\r\n\r\n    private void getAvaialbilities() {\r\n        mAvailableDates = new ArrayList<>();\r\n        progressDialog = new ProgressDialog(AdvisorBookingActivity.this);\r\n        progressDialog.setTitle(\"Please Wait data is being Loaded\");\r\n        progressDialog.show();\r\n        // SharedPreferences sp=getSharedPreferences(\"AA\",0);\r\n        Query query = FirebaseDatabase.getInstance().getReference(\"Advisor_Availability\").orderByChild(\"adv_username\").equalTo(getIntent().getStringExtra(\"uname\"));\r\n        query.addListenerForSingleValueEvent(valueEventListener);\r\n    }\r\n\r\n    ValueEventListener valueEventListener = new ValueEventListener() {\r\n        @Override\r\n        public void onDataChange(DataSnapshot dataSnapshot) {\r\n            progressDialog.dismiss();\r\n            mAvailableDates.clear();\r\n            if (dataSnapshot.exists()) {\r\n                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {\r\n                    AdvisorAvailableDates advs = snapshot.getValue(AdvisorAvailableDates.class);\r\n                    mAvailableDates.add(advs);\r\n                }\r\n                if (mAvailableDates.size() > 0) {\r\n                    showCustomDialog();\r\n                }\r\n                //Toast.makeText(SelectAppointmentDateActivity.this, \"\"+mAvailableDates.size(), Toast.LENGTH_SHORT).show();\r\n            } else {\r\n                Toast.makeText(AdvisorBookingActivity.this, \"No data Found\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        }\r\n\r\n        @Override\r\n        public void onCancelled(DatabaseError databaseError) {\r\n            progressDialog.dismiss();\r\n        }\r\n    };\r\n    Calendar calendar;\r\n    List<Calendar> dates = new ArrayList<>();\r\n\r\n    private void getEnbDates(String a) {\r\n        SimpleDateFormat sdf = new SimpleDateFormat(\"dd-MM-yyyy\");\r\n        java.util.Date date = null;\r\n        try {\r\n            date = sdf.parse(a);\r\n            AdvisorBookingActivity obj = new AdvisorBookingActivity();\r\n            calendar = obj.dateToCalendar(date);\r\n        } catch (ParseException e) {\r\n        }\r\n        dates.add(calendar);\r\n    }\r\n\r\n\r\n    private Calendar dateToCalendar(Date date) {\r\n        Calendar calendar = Calendar.getInstance();\r\n        calendar.setTime(date);\r\n        return calendar;\r\n    }\r\n\r\n    //Get Available Dates - End\r\n    private void createTimeSlot() {\r\n        ab.clear();\r\n        ab.add(new BookingTimesPojo(\"10:00AM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"11:00AM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"12:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"1:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"2:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"3:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"4:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"5:00PM\", \"Available\"));\r\n        ab.add(new BookingTimesPojo(\"6:00PM\", \"Available\"));\r\n    }\r\n\r\n    int mYear, mMonth, mDay;\r\n    String DAY, MONTH, YEAR;\r\n\r\n    public void datepicker() {\r\n        final Calendar c = Calendar.getInstance();\r\n        mYear = c.get(Calendar.YEAR);\r\n        mMonth = c.get(Calendar.MONTH);\r\n        mDay = c.get(Calendar.DAY_OF_MONTH);\r\n        DatePickerDialog datePickerDialog = new DatePickerDialog(this,\r\n                new DatePickerDialog.OnDateSetListener() {\r\n                    @Override\r\n                    public void onDateSet(DatePicker view, int year,\r\n                                          int monthOfYear, int dayOfMonth) {\r\n                        DAY = dayOfMonth + \"\";\r\n                        MONTH = (monthOfYear + 1) + \"\";\r\n                        YEAR = year + \"\";\r\n                        btn_select_date.setText(dayOfMonth + \"-\" + (monthOfYear + 1) + \"-\" + year);\r\n                        getAvailableTimes();\r\n                    }\r\n                }, mYear, mMonth, mDay);\r\n        datePickerDialog.show();\r\n    }\r\n\r\n    private List<AvailableTimings> mAvailableTimings;\r\n    DatabaseReference dbArtists;\r\n\r\n    private void getAvailableTimes() {\r\n        mAvailableTimings = new ArrayList<>();\r\n        progressDialog = new ProgressDialog(AdvisorBookingActivity.this);\r\n        progressDialog.setTitle(\"Please Wait data is being Loaded\");\r\n        progressDialog.show();\r\n        //dbArtists = FirebaseDatabase.getInstance().getReference(\"Advisor_Booking\").startAt(\"\");\r\n        // dbArtists.addListenerForSingleValueEvent(valueEventListener1);\r\n        Query query = FirebaseDatabase.getInstance().getReference(\"Advisor_Booking\").orderByChild(\"created_at\").equalTo(getIntent().getStringExtra(\"uname\") + btn_select_date.getText().toString());\r\n        query.addListenerForSingleValueEvent(valueEventListener1);\r\n    }\r\n\r\n    ValueEventListener valueEventListener1 = new ValueEventListener() {\r\n        @Override\r\n        public void onDataChange(DataSnapshot dataSnapshot) {\r\n            progressDialog.dismiss();\r\n            mAvailableTimings.clear();\r\n            if (dataSnapshot.exists()) {\r\n                createTimeSlot();\r\n                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {\r\n                    AvailableTimings atime = snapshot.getValue(AvailableTimings.class);\r\n                    //mAvailableTimings.add(artist);\r\n                    for (BookingTimesPojo a : ab) {\r\n                        if (a.getTime().equals(atime.getBooked_time())) {\r\n                            a.setAvailable(atime.getBooked_status());\r\n                            //int pos=ab.indexOf(atime.getBooked_time());\r\n                            // ab.set(pos,new AdvisorBookingPojo(atime.getBooked_time(),\"Booked\"));\r\n                        }\r\n                    }\r\n                }\r\n                gridview.setAdapter(new AdvisorBookingAdapter(ab, AdvisorBookingActivity.this));\r\n                gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {\r\n                    @Override\r\n                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {\r\n                        if (ab.get(position).getAvailable().equals(\"accept\")) {\r\n                            _time = null;\r\n                            btn_select_time.setText(\"-\");\r\n                            Toast.makeText(getApplicationContext(), \"Another appointment is booked for this time\", Toast.LENGTH_SHORT).show();\r\n                        } else {\r\n                            _time = ab.get(position).getTime();\r\n                            btn_select_time.setText(_time);\r\n                        }\r\n                    }\r\n                });\r\n                // Toast.makeText(AdvisorBookingActivity.this, \"\"+mAvailableTimings.size(), Toast.LENGTH_SHORT).show();\r\n            } else {\r\n                //Toast.makeText(AdvisorBookingActivity.this, \"No data Found\", Toast.LENGTH_SHORT).show();\r\n                createTimeSlot();\r\n                gridview.setAdapter(new AdvisorBookingAdapter(ab, AdvisorBookingActivity.this));\r\n                gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {\r\n                    @Override\r\n                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {\r\n                        _time = ab.get(position).getTime();\r\n                        btn_select_time.setText(_time);\r\n                    }\r\n                });\r\n            }\r\n        }\r\n\r\n        @Override\r\n        public void onCancelled(DatabaseError databaseError) {\r\n            progressDialog.dismiss();\r\n\r\n        }\r\n    };\r\n\r\n    ProgressDialog loadingBar;\r\n\r\n    private void advisorBooking() {\r\n        if (btn_select_date.getText().toString().length() < 3) {\r\n            Toast.makeText(getApplicationContext(), \"Please Select Date.\", Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n\r\n        if (_time == null) {\r\n            Toast.makeText(getApplicationContext(), \"Please Select Time.\", Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n        if (et_des.getText().toString().isEmpty()) {\r\n            Toast.makeText(getApplicationContext(), \"Please Enter Description.\", Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n\r\n\r\n        loadingBar = new ProgressDialog(AdvisorBookingActivity.this);\r\n        loadingBar.setTitle(\"Create Account\");\r\n        loadingBar.setMessage(\"Please wait, while we are checking the credentials.\");\r\n        loadingBar.setCanceledOnTouchOutside(false);\r\n        loadingBar.show();\r\n        final DatabaseReference RootRef;\r\n        RootRef = FirebaseDatabase.getInstance().getReference();\r\n        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {\r\n            @Override\r\n            public void onDataChange(DataSnapshot dataSnapshot) {\r\n                SharedPreferences sp = getSharedPreferences(\"AA\", 0);\r\n                Calendar cal = Calendar.getInstance(Locale.ENGLISH);\r\n                String str = sp.getString(\"suname\", \"-\") + \"_\" + cal.getTimeInMillis();\r\n                //getIntent().getStringExtra(\"uname\")+btn_select_date.getText().toString()+_time\r\n                if (!(dataSnapshot.child(\"Advisor_Booking\").child(str).exists())) {\r\n                    HashMap<String, Object> userdataMap = new HashMap<>();\r\n                    userdataMap.put(\"adv_username\", getIntent().getStringExtra(\"uname\"));\r\n                    userdataMap.put(\"booked_time\", _time);\r\n                    userdataMap.put(\"booked_date\", btn_select_date.getText().toString());\r\n                    userdataMap.put(\"booked_by\", sp.getString(\"suname\", \"-\"));\r\n                    userdataMap.put(\"timestamp\", str);\r\n                    userdataMap.put(\"status\", \"pending\");\r\n                    userdataMap.put(\"description\", et_des.getText().toString());\r\n                    userdataMap.put(\"created_at\", getIntent().getStringExtra(\"uname\") + btn_select_date.getText().toString());\r\n                    RootRef.child(\"Advisor_Booking\").child(str).updateChildren(userdataMap)\r\n                            .addOnCompleteListener(new OnCompleteListener<Void>() {\r\n                                @Override\r\n                                public void onComplete(@NonNull Task<Void> task) {\r\n                                    if (task.isSuccessful()) {\r\n                                        Toast.makeText(AdvisorBookingActivity.this, \"Congratulations, your appointment has been created.\", Toast.LENGTH_SHORT).show();\r\n                                        loadingBar.dismiss();\r\n                                        finish();\r\n                                    } else {\r\n                                        loadingBar.dismiss();\r\n                                        Toast.makeText(AdvisorBookingActivity.this, \"Network Error: Please try again after some time...\", Toast.LENGTH_SHORT).show();\r\n                                    }\r\n                                }\r\n                            });\r\n                } else {\r\n                    Toast.makeText(AdvisorBookingActivity.this, \"This a101 already exists.\", Toast.LENGTH_SHORT).show();\r\n                    loadingBar.dismiss();\r\n                    Toast.makeText(AdvisorBookingActivity.this, \"Another Appointment is booked for this date & time.\", Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onCancelled(DatabaseError databaseError) {\r\n\r\n            }\r\n        });\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/cegepaas/AdvisorBookingActivity.java	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ app/src/main/java/com/example/cegepaas/AdvisorBookingActivity.java	(date 1603201383935)
+@@ -41,22 +41,31 @@
+ import java.util.Locale;
+ 
+ public class   AdvisorBookingActivity extends AppCompatActivity {
+-    List<BookingTimesPojo> ab = new ArrayList<>();
+-    Button btn_select_date, btn_submit, btn_select_time;
++    List<BookingTimesPojo> ab=new ArrayList<>();
++    Button btn_select_date,btn_submit,btn_select_time;
+     GridView gridview;
+-    String _time = null;
++    String _time=null;
+     private com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
+     EditText et_des;
++    String time_slots="";
++    ProgressDialog progressDialog;
++    private List<AdvisorAvailableDates> mAvailableDates;
++    int mYear,mMonth,mDay;
++    String DAY,MONTH,YEAR;
++    Calendar calendar;
++    List<Calendar> dates = new ArrayList<>();
++    private List<AvailableTimings> mAvailableTimings;
++    ProgressDialog loadingBar;
+ 
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_advisor_booking);
+-        gridview = (GridView) findViewById(R.id.gridview);
+-        et_des = (EditText) findViewById(R.id.et_des);
+-        btn_select_date = (Button) findViewById(R.id.btn_select_date);
+-        btn_select_time = (Button) findViewById(R.id.btn_select_time);
+-        btn_submit = (Button) findViewById(R.id.btn_submit);
++        gridview= (GridView)findViewById(R.id.gridview);
++        et_des= (EditText)findViewById(R.id.et_des);
++        btn_select_date= (Button)findViewById(R.id.btn_select_date);
++        btn_select_time= (Button)findViewById(R.id.btn_select_time);
++        btn_submit= (Button)findViewById(R.id.btn_submit);
+         btn_select_date.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+@@ -72,18 +81,24 @@
+ 
+         getAvaialbilities();
+     }
+-
+     //Get Available Dates - Start
+-    com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener selliste = new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
++
++    com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener selliste= new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+         @Override
+         public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+-            Toast.makeText(getApplicationContext(), "" + dayOfMonth, Toast.LENGTH_SHORT).show();
+             btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
++            for(AdvisorAvailableDates aa:mAvailableDates) {
++                if(aa.getBooking_date().equals(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year)){
++                    //Toast.makeText(getApplicationContext(),aa.getBooking_times(),Toast.LENGTH_SHORT).show();
++                    time_slots = aa.getBooking_times();
++                    break;
++                }
++            }
+             getAvailableTimes();
+         }
+     };
+ 
+-    private void showCustomDialog() {
++    private void showCustomDialog(){
+         Calendar now = Calendar.getInstance();
+         dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                 selliste,
+@@ -91,24 +106,20 @@
+                 now.get(Calendar.MONTH),
+                 now.get(Calendar.DAY_OF_MONTH)
+         );
+-        for (AdvisorAvailableDates aa : mAvailableDates) {
++        for(AdvisorAvailableDates aa:mAvailableDates) {
+             getEnbDates(aa.getBooking_date());
+         }
+         Calendar[] disabledDays1 = dates.toArray(new Calendar[dates.size()]);
+         dpd.setSelectableDays(disabledDays1);
+-        dpd.show(getSupportFragmentManager(), "ddd");
++        dpd.show(getSupportFragmentManager(),"ddd");
+     }
+ 
+-    ProgressDialog progressDialog;
+-    private List<AdvisorAvailableDates> mAvailableDates;
+-
+-    private void getAvaialbilities() {
++    private void getAvaialbilities(){
+         mAvailableDates = new ArrayList<>();
+-        progressDialog = new ProgressDialog(AdvisorBookingActivity.this);
++        progressDialog=new ProgressDialog(AdvisorBookingActivity.this);
+         progressDialog.setTitle("Please Wait data is being Loaded");
+         progressDialog.show();
+-        // SharedPreferences sp=getSharedPreferences("AA",0);
+-        Query query = FirebaseDatabase.getInstance().getReference("Advisor_Availability").orderByChild("adv_username").equalTo(getIntent().getStringExtra("uname"));
++        Query query= FirebaseDatabase.getInstance().getReference("Advisor_Availability").orderByChild("adv_username").equalTo(getIntent().getStringExtra("uname"));
+         query.addListenerForSingleValueEvent(valueEventListener);
+     }
+ 
+@@ -122,90 +133,59 @@
+                     AdvisorAvailableDates advs = snapshot.getValue(AdvisorAvailableDates.class);
+                     mAvailableDates.add(advs);
+                 }
+-                if (mAvailableDates.size() > 0) {
++                if(mAvailableDates.size()>0){
+                     showCustomDialog();
+                 }
+                 //Toast.makeText(SelectAppointmentDateActivity.this, ""+mAvailableDates.size(), Toast.LENGTH_SHORT).show();
+-            } else {
++            }
++            else {
+                 Toast.makeText(AdvisorBookingActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+             }
+         }
+-
+         @Override
+         public void onCancelled(DatabaseError databaseError) {
+             progressDialog.dismiss();
+         }
+     };
+-    Calendar calendar;
+-    List<Calendar> dates = new ArrayList<>();
+ 
+-    private void getEnbDates(String a) {
++    private void getEnbDates(String a){
+         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+         java.util.Date date = null;
+         try {
+             date = sdf.parse(a);
+             AdvisorBookingActivity obj = new AdvisorBookingActivity();
+             calendar = obj.dateToCalendar(date);
+-        } catch (ParseException e) {
+-        }
++        } catch (ParseException e) { }
+         dates.add(calendar);
+     }
+ 
+-
+     private Calendar dateToCalendar(Date date) {
+         Calendar calendar = Calendar.getInstance();
+         calendar.setTime(date);
+         return calendar;
+     }
+ 
+-    //Get Available Dates - End
+-    private void createTimeSlot() {
++    private void createTimeSlot(){
+         ab.clear();
+-        ab.add(new BookingTimesPojo("10:00AM", "Available"));
+-        ab.add(new BookingTimesPojo("11:00AM", "Available"));
+-        ab.add(new BookingTimesPojo("12:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("1:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("2:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("3:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("4:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("5:00PM", "Available"));
+-        ab.add(new BookingTimesPojo("6:00PM", "Available"));
+-    }
+-
+-    int mYear, mMonth, mDay;
+-    String DAY, MONTH, YEAR;
+-
+-    public void datepicker() {
+-        final Calendar c = Calendar.getInstance();
+-        mYear = c.get(Calendar.YEAR);
+-        mMonth = c.get(Calendar.MONTH);
+-        mDay = c.get(Calendar.DAY_OF_MONTH);
+-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+-                new DatePickerDialog.OnDateSetListener() {
+-                    @Override
+-                    public void onDateSet(DatePicker view, int year,
+-                                          int monthOfYear, int dayOfMonth) {
+-                        DAY = dayOfMonth + "";
+-                        MONTH = (monthOfYear + 1) + "";
+-                        YEAR = year + "";
+-                        btn_select_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+-                        getAvailableTimes();
+-                    }
+-                }, mYear, mMonth, mDay);
+-        datePickerDialog.show();
++        if(time_slots.length()>3){
++            String timings[]=time_slots.split(",");
++            if(timings!=null&&timings.length>0){
++                for (int i=0;i<timings.length;i++) {
++                    //ab.add(new BookingTimesPojo(timings[i], "Available",displayName(timings[i])));
++                    ab.add(new BookingTimesPojo(timings[i], "Available"));
++                }
++            }
++        }
+     }
+-
+-    private List<AvailableTimings> mAvailableTimings;
+-    DatabaseReference dbArtists;
+ 
+-    private void getAvailableTimes() {
++    private void getAvailableTimes(){
+         mAvailableTimings = new ArrayList<>();
+-        progressDialog = new ProgressDialog(AdvisorBookingActivity.this);
++        progressDialog=new ProgressDialog(AdvisorBookingActivity.this);
+         progressDialog.setTitle("Please Wait data is being Loaded");
+         progressDialog.show();
+         //dbArtists = FirebaseDatabase.getInstance().getReference("Advisor_Booking").startAt("");
+         // dbArtists.addListenerForSingleValueEvent(valueEventListener1);
+-        Query query = FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("created_at").equalTo(getIntent().getStringExtra("uname") + btn_select_date.getText().toString());
++        Query query= FirebaseDatabase.getInstance().getReference("Advisor_Booking").orderByChild("created_at").equalTo(getIntent().getStringExtra("uname")+btn_select_date.getText().toString());
+         query.addListenerForSingleValueEvent(valueEventListener1);
+     }
+ 
+@@ -219,33 +199,34 @@
+                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                     AvailableTimings atime = snapshot.getValue(AvailableTimings.class);
+                     //mAvailableTimings.add(artist);
+-                    for (BookingTimesPojo a : ab) {
+-                        if (a.getTime().equals(atime.getBooked_time())) {
++                    for(BookingTimesPojo a:ab){
++                        if(a.getTime().equals(atime.getBooked_time())){
+                             a.setAvailable(atime.getBooked_status());
+                             //int pos=ab.indexOf(atime.getBooked_time());
+                             // ab.set(pos,new AdvisorBookingPojo(atime.getBooked_time(),"Booked"));
+                         }
+                     }
+                 }
+-                gridview.setAdapter(new AdvisorBookingAdapter(ab, AdvisorBookingActivity.this));
++                gridview.setAdapter(new AdvisorBookingAdapter(ab,AdvisorBookingActivity.this));
+                 gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                     @Override
+                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+-                        if (ab.get(position).getAvailable().equals("accept")) {
+-                            _time = null;
++                        if(ab.get(position).getAvailable().equals("accept")){
++                            _time= null;
+                             btn_select_time.setText("-");
+-                            Toast.makeText(getApplicationContext(), "Another appointment is booked for this time", Toast.LENGTH_SHORT).show();
+-                        } else {
++                            Toast.makeText(getApplicationContext(),"Another appointment is booked for this time",Toast.LENGTH_SHORT).show();
++                        }else {
+                             _time = ab.get(position).getTime();
+                             btn_select_time.setText(_time);
+                         }
+                     }
+                 });
+                 // Toast.makeText(AdvisorBookingActivity.this, ""+mAvailableTimings.size(), Toast.LENGTH_SHORT).show();
+-            } else {
++            }
++            else {
+                 //Toast.makeText(AdvisorBookingActivity.this, "No data Found", Toast.LENGTH_SHORT).show();
+                 createTimeSlot();
+-                gridview.setAdapter(new AdvisorBookingAdapter(ab, AdvisorBookingActivity.this));
++                gridview.setAdapter(new AdvisorBookingAdapter(ab,AdvisorBookingActivity.this));
+                 gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                     @Override
+                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+@@ -255,7 +236,6 @@
+                 });
+             }
+         }
+-
+         @Override
+         public void onCancelled(DatabaseError databaseError) {
+             progressDialog.dismiss();
+@@ -263,24 +243,23 @@
+         }
+     };
+ 
+-    ProgressDialog loadingBar;
+-
+     private void advisorBooking() {
+-        if (btn_select_date.getText().toString().length() < 3) {
+-            Toast.makeText(getApplicationContext(), "Please Select Date.", Toast.LENGTH_SHORT).show();
++        if(btn_select_date.getText().toString().length()<3){
++            Toast.makeText(getApplicationContext(),"Please Select Date.",Toast.LENGTH_SHORT).show();
+             return;
+         }
+ 
+-        if (_time == null) {
+-            Toast.makeText(getApplicationContext(), "Please Select Time.", Toast.LENGTH_SHORT).show();
++        if(_time==null){
++            Toast.makeText(getApplicationContext(),"Please Select Time.",Toast.LENGTH_SHORT).show();
+             return;
+         }
+-        if (et_des.getText().toString().isEmpty()) {
+-            Toast.makeText(getApplicationContext(), "Please Enter Description.", Toast.LENGTH_SHORT).show();
++        if(et_des.getText().toString().isEmpty()){
++            Toast.makeText(getApplicationContext(),"Please Enter Description.",Toast.LENGTH_SHORT).show();
+             return;
+         }
+ 
+ 
++
+         loadingBar = new ProgressDialog(AdvisorBookingActivity.this);
+         loadingBar.setTitle("Create Account");
+         loadingBar.setMessage("Please wait, while we are checking the credentials.");
+@@ -291,41 +270,45 @@
+         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+             @Override
+             public void onDataChange(DataSnapshot dataSnapshot) {
+-                SharedPreferences sp = getSharedPreferences("AA", 0);
++                SharedPreferences sp=getSharedPreferences("AA",0);
+                 Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+-                String str = sp.getString("suname", "-") + "_" + cal.getTimeInMillis();
++                String str=sp.getString("suname","-")+"_"+cal.getTimeInMillis();
+                 //getIntent().getStringExtra("uname")+btn_select_date.getText().toString()+_time
+-                if (!(dataSnapshot.child("Advisor_Booking").child(str).exists())) {
++                if (!(dataSnapshot.child("Advisor_Booking").child(str).exists()))
++                {
+                     HashMap<String, Object> userdataMap = new HashMap<>();
+                     userdataMap.put("adv_username", getIntent().getStringExtra("uname"));
+                     userdataMap.put("booked_time", _time);
+                     userdataMap.put("booked_date", btn_select_date.getText().toString());
+-                    userdataMap.put("booked_by", sp.getString("suname", "-"));
+-                    userdataMap.put("timestamp", str);
++                    userdataMap.put("booked_by",  sp.getString("suname","-"));
++                    userdataMap.put("timestamp", str );
+                     userdataMap.put("status", "pending");
+-                    userdataMap.put("description", et_des.getText().toString());
+-                    userdataMap.put("created_at", getIntent().getStringExtra("uname") + btn_select_date.getText().toString());
++                    userdataMap.put("description",et_des.getText().toString());
++                    userdataMap.put("created_at",  getIntent().getStringExtra("uname")+btn_select_date.getText().toString());
+                     RootRef.child("Advisor_Booking").child(str).updateChildren(userdataMap)
+                             .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                 @Override
+-                                public void onComplete(@NonNull Task<Void> task) {
+-                                    if (task.isSuccessful()) {
++                                public void onComplete(@NonNull Task<Void> task)
++                                {
++                                    if (task.isSuccessful())
++                                    {
+                                         Toast.makeText(AdvisorBookingActivity.this, "Congratulations, your appointment has been created.", Toast.LENGTH_SHORT).show();
+                                         loadingBar.dismiss();
+                                         finish();
+-                                    } else {
++                                    }
++                                    else
++                                    {
+                                         loadingBar.dismiss();
+                                         Toast.makeText(AdvisorBookingActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
+                                     }
+                                 }
+                             });
+-                } else {
+-                    Toast.makeText(AdvisorBookingActivity.this, "This a101 already exists.", Toast.LENGTH_SHORT).show();
++                }
++                else{
+                     loadingBar.dismiss();
+                     Toast.makeText(AdvisorBookingActivity.this, "Another Appointment is booked for this date & time.", Toast.LENGTH_SHORT).show();
+                 }
+             }
+-
+             @Override
+             public void onCancelled(DatabaseError databaseError) {
+ 
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Sep 24 13:55:07 EDT 2020\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-6.1.1-all.zip\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- gradle/wrapper/gradle-wrapper.properties	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ gradle/wrapper/gradle-wrapper.properties	(date 1602748379989)
+@@ -1,6 +1,6 @@
+-#Thu Sep 24 13:55:07 EDT 2020
++#Thu Oct 15 03:52:59 EDT 2020
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-bin.zip
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'com.google.gms.google-services'\r\n\r\nandroid {\r\n    compileSdkVersion 29\r\n    buildToolsVersion \"29.0.3\"\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    defaultConfig {\r\n        applicationId \"com.example.cegepaas\"\r\n        minSdkVersion 23\r\n        targetSdkVersion 29\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'\r\n    implementation 'com.google.firebase:firebase-database:19.5.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'\r\n    implementation 'com.squareup.retrofit2:retrofit:2.4.0'\r\n\r\n    // Implements glide library\r\n    implementation 'com.github.bumptech.glide:glide:4.11.0'\r\n    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'\r\n    implementation 'com.google.firebase:firebase-storage:19.2.0'\r\n    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'\r\n\r\n    //Implements cardView\r\n    implementation 'androidx.cardview:cardview:1.0.0'\r\n\r\n    //Implements NavigationView\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n\r\n    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'\r\n    testImplementation 'junit:junit:4.13'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ app/build.gradle	(date 1602748708477)
+@@ -29,10 +29,10 @@
+ dependencies {
+     implementation fileTree(dir: "libs", include: ["*.jar"])
+     implementation 'androidx.appcompat:appcompat:1.2.0'
+-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
++    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+     implementation 'com.google.firebase:firebase-database:19.5.0'
+-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
++    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
++    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+ 
+     // Implements glide library
+     implementation 'com.github.bumptech.glide:glide:4.11.0'
+@@ -47,7 +47,7 @@
+     implementation 'com.google.android.material:material:1.2.1'
+ 
+     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+-    testImplementation 'junit:junit:4.13'
++    testImplementation 'junit:junit:4.13.1'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+ 
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ .idea/gradle.xml	(date 1602748794587)
+@@ -7,7 +7,6 @@
+         <option name="testRunner" value="PLATFORM" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="1.8" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+@@ -15,6 +14,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1602748794583)
++++ .idea/compiler.xml	(date 1602748794583)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="15" />
++  </component>
++</project>
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath 'com.android.tools.build:gradle:4.0.2'\r\n        classpath 'com.google.gms:google-services:4.3.3'\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ build.gradle	(date 1602748379985)
+@@ -5,7 +5,7 @@
+         jcenter()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:4.0.2'
++        classpath 'com.android.tools.build:gradle:4.1.0'
+         classpath 'com.google.gms:google-services:4.3.3'
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision b8f6640aab3d9676db38ebbc12590a110b76243f)
++++ .idea/misc.xml	(date 1602754034456)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="15" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">

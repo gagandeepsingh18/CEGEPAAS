@@ -9,6 +9,6 @@ public class StudentChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_chat);
+        setContentView(R.layout.activity_chat);
     }
 }

@@ -18,6 +18,7 @@
         <activity android:name=".AdvisorProfileActivity" />
         <activity android:name=".StudentProfileActivity" />
         <activity android:name=".StudentChatActivity" />
+        <activity android:name=".AdvisorChatActivity" />
         <activity android:name=".AdvisorBookingActivity" />
         <activity android:name=".StudentMeetingsActivity" />
         <activity android:name=".AdvisorMeetingsActivity" />

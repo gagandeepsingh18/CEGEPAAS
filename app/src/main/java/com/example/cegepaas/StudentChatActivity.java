@@ -91,7 +91,10 @@ public class StudentChatActivity extends AppCompatActivity {
                 }
             }
 
-           
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
 
     }

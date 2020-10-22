@@ -1,17 +1,17 @@
 package com.example.cegepaas.Model;
 
-public class StudentChatPojo {
+public class ChatPojo {
     String sender;
     String receiver;
     String message;
 
-    public StudentChatPojo(String sender, String receiver, String message) {
+    public ChatPojo(String sender, String receiver, String message) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
     }
 
-    public StudentChatPojo() {
+    public ChatPojo() {
     }
 
     public String getSender() {

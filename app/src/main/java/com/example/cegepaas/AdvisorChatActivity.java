@@ -13,6 +13,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.cegepaas.Adapters.ChatAdapter;
+import com.example.cegepaas.Model.ChatPojo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class AdvisorChatActivity extends AppCompatActivity {
     String advisorId,studentId,message;
     EditText text_message;
@@ -22,7 +34,39 @@ public class AdvisorChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference reference;
 
-   
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+        text_message = findViewById(R.id.text_send);
+        studentId = getIntent().getStringExtra("sname");
+        text_message = findViewById(R.id.text_send);
+        sendMessage = findViewById(R.id.btn_send);
+        recyclerView = findViewById(R.id.recycler_view);
+
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        SharedPreferences sp = getSharedPreferences("AA",0);
+        advisorId = sp.getString("auname","-");
+
+        text_message.setText(advisorId);
+        sendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                message = text_message.getText().toString();
+                if(!message.equals("")){
+                    sendMessage(advisorId,studentId,message);
+                }else {
+                    Toast.makeText(AdvisorChatActivity.this, "Can't send empty message..", Toast.LENGTH_SHORT).show();
+                }
+                text_message.setText("");
+            }
+        });
+        readMessages(advisorId,studentId,message);
+    }
 
     private void sendMessage(String sender, String receiver, String message) {
         reference = FirebaseDatabase.getInstance().getReference();

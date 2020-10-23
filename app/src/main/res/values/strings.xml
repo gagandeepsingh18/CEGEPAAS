@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">CEGEPAAS</string>
     <string name="schedule_meeting">Schedule Meeting</string>
+    <string-array name="department_name">
+        <item>MAD</item>
+        <item>Finance</item>
+        <item>Social Worker</item>
+        <item>Administration</item>
+    </string-array>
+    <string-array name="campus_name">
+        <item>Montreal</item>
+        <item>Gaspse</item>
+        <item>Ottawa</item>
+    </string-array>
 </resources>

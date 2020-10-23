@@ -55,7 +55,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ap_email = findViewById(R.id.upAdvisorEmail);
+        ap_email = findViewById(R.id.advisorEmail);
         ap_name = findViewById(R.id.upAdvisor_name);
         ap_id = findViewById(R.id.upAdvisorId);
         ap_profile = findViewById(R.id.upAdvisor_image);

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context=".StudentAdvisorDetails">
+
+    <ImageView
+        android:id="@+id/advisorImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/advisorName"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Advisor Name"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorImage" />
+    
+    <TextView
+        android:id="@+id/advisorEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Email"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorName" />
+
+    <TextView
+        android:id="@+id/advisorPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Phone Number"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorEmail" />
+
+    <TextView
+        android:id="@+id/advisorCampus"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Campus"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorPhone" />
+
+    <TextView
+        android:id="@+id/advisorDepartment"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Department"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorCampus" />
+
+    <TextView
+        android:id="@+id/advisorWD"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Working Days"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorDepartment" />
+
+    <TextView
+        android:id="@+id/advisorDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Description"
+        android:maxLines="4"
+        android:lines="4"
+        android:scrollbars="vertical"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorWD" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisorDescription">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/ScheduleMeetingButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/schedule_meeting" />
+            <Button
+                android:id="@+id/chatbutton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Chat" />
+
+        </LinearLayout>
+
+       
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+ 
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,10 @@ public class StudentEditPassword extends AppCompatActivity {
                 String pass1 = password1.getText().toString();
                 String pass2 = password2.getText().toString();
                 if(pass1.equals( pass2)){
+                    if(pass1.isEmpty() ){
+                        Intent i = new Intent(getApplicationContext(),AdvisorProfileActivity.class);
+                        startActivity(i);
+                    } else {
                     dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,6 +99,7 @@ public class StudentEditPassword extends AppCompatActivity {
                         }
 
                     });
+                    }
 
                 }else{
                     Toast.makeText(getApplicationContext(),"Password was not matched!",Toast.LENGTH_SHORT).show();

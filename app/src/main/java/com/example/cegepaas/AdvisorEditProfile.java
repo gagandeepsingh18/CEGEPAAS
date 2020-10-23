@@ -63,7 +63,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         save = findViewById(R.id.up_AdvisorSave);
 
         SharedPreferences sp=getSharedPreferences("AA",0);
-        String advisorId = data.getStringExtra("id");
+        String advisorId = sp.getString("auname","-");
         ap_id.setText(advisorId);
         ap_email.setText(data.getStringExtra("email"));
         ap_name.setText(data.getStringExtra("name"));
@@ -110,7 +110,6 @@ public class AdvisorEditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
-                i.putExtra("un",data.getStringExtra("id"));
                 startActivity(i);
             }
         });
@@ -178,7 +177,8 @@ public class AdvisorEditProfile extends AppCompatActivity {
         AdvisorsPojo users = new AdvisorsPojo();
         storageReference = FirebaseStorage.getInstance().getReference();
         dbAdvisor = FirebaseDatabase.getInstance().getReference();
-         String advisorId = getIntent().getStringExtra("id");
+        SharedPreferences sp=getSharedPreferences("AA",0);
+        String advisorId = sp.getString("auname","-");
         final StorageReference imageUpload = storageReference.child("Advisor/" + advisorId + " Profile.jpg");
         imageUpload.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

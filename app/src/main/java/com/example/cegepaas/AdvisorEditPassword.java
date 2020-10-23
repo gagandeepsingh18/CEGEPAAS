@@ -60,44 +60,50 @@ public class AdvisorEditPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 {
-                    String advisorId = getIntent().getStringExtra("id");
+                    SharedPreferences sp=getSharedPreferences("AA",0);
+                    String advisorId = sp.getString("auname","-");
                     adAdvisor = FirebaseDatabase.getInstance().getReference();
                     String pass1 = password1.getText().toString();
                     String pass2 = password2.getText().toString();
+
                     if(pass1.equals( pass2)){
-                        adAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                HashMap<String,Object> passwordDetails = new HashMap<>();
-                                passwordDetails.put("password",pass1);
+                        if(pass1.isEmpty() ){
+                            Intent i = new Intent(getApplicationContext(),AdvisorProfileActivity.class);
+                            startActivity(i);
+                        }else {
+                            adAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    HashMap<String, Object> passwordDetails = new HashMap<>();
+                                    passwordDetails.put("password", pass1);
 
 
-                                adAdvisor.child(parentDbName).child(advisorId).updateChildren(passwordDetails)
-                                        .addOnCompleteListener(new OnCompleteListener() {
-                                            @Override
-                                            public void onComplete(@NonNull Task task) {
-                                                if(task.isSuccessful()){
-                                                    Toast.makeText(getApplicationContext(),"Successfully updated",Toast.LENGTH_SHORT).show();
-                                                    Intent i = new Intent(getApplicationContext(),AdvisorProfileActivity.class);
-                                                    startActivity(i);
-                                                }else{
-                                                    Toast.makeText(getApplicationContext(), "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
+                                    adAdvisor.child(parentDbName).child(advisorId).updateChildren(passwordDetails)
+                                            .addOnCompleteListener(new OnCompleteListener() {
+                                                @Override
+                                                public void onComplete(@NonNull Task task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(getApplicationContext(), "Successfully updated", Toast.LENGTH_SHORT).show();
+                                                        Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
+                                                        startActivity(i);
+                                                    } else {
+                                                        Toast.makeText(getApplicationContext(), "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
 
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
 
-                            }
+                                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
 
-                            }
+                                }
 
-                        });
-
+                            });
+                        }
                     }else{
                         Toast.makeText(getApplicationContext(),"Password was not matched!",Toast.LENGTH_SHORT).show();
                     }

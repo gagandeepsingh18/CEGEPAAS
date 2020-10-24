@@ -24,10 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AdvisorProfileActivity extends AppCompatActivity {
     ImageView profile;
-    String password;
-    TextView name,email,id;
+    String password, uId;
+    TextView name, email, id;
     Button update_profile, change_password;
     private String parentDbName = "Advisor_Details";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,26 +44,27 @@ public class AdvisorProfileActivity extends AppCompatActivity {
         id = findViewById(R.id.advisorId);
         update_profile = findViewById(R.id.ad_edit_profile);
         change_password = findViewById(R.id.ad_edit_password);
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        String uname = sp.getString("auname","-");
+        uId = getIntent().getStringExtra("un");
 
-        getAdvisorDetails(uname);
+        getAdvisorDetails(uId);
 
         update_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),AdvisorEditProfile.class);
-                i.putExtra("name",name.getText().toString());
-                i.putExtra("email",email.getText().toString());
+                Intent i = new Intent(getApplicationContext(), AdvisorEditProfile.class);
+                i.putExtra("name", name.getText().toString());
+                i.putExtra("email", email.getText().toString());
+                i.putExtra("id", uId);
                 startActivity(i);
             }
         });
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),AdvisorEditPassword.class);
-                i.putExtra("password",password);
-                i.putExtra("name",name.getText().toString());
+                Intent i = new Intent(getApplicationContext(), AdvisorEditPassword.class);
+                i.putExtra("password", password);
+                i.putExtra("name", name.getText().toString());
+                i.putExtra("id", uId);
                 startActivity(i);
             }
         });
@@ -76,20 +78,22 @@ public class AdvisorProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                 if(snapshot.child(parentDbName).child(auname).exists()){
-                    AdvisorsPojo users =snapshot.child(parentDbName).child(auname).getValue(AdvisorsPojo.class);
+                if (snapshot.child(parentDbName).child(auname).exists()) {
+                    AdvisorsPojo users = snapshot.child(parentDbName).child(auname).getValue(AdvisorsPojo.class);
                     Glide.with(getApplicationContext()).load(users.getImage()).into(profile);
                     name.setText(users.getName());
                     email.setText(users.getEmail());
                     id.setText(users.getUsername());
                     password = users.getPassword();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

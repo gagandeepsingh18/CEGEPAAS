@@ -37,13 +37,12 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class StudentProfileActivity extends AppCompatActivity {
-    String imageUrl, studentName, studentEmail, studentId,password;
+    String imageUrl, studentName, studentEmail, studentId, password;
     ImageView profile;
     TextView name, email, id;
     Button edit_profile, edit_password;
     DatabaseReference dbStudent;
     private String parentDbName = "Student_Details";
-
 
 
     @Override
@@ -67,10 +66,10 @@ public class StudentProfileActivity extends AppCompatActivity {
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(),StudentEditProfile.class);
-                i.putExtra("name",name.getText().toString());
-                i.putExtra("email",email.getText().toString());
-                i.putExtra("id",sp.getString("suname", "-"));
+                Intent i = new Intent(v.getContext(), StudentEditProfile.class);
+                i.putExtra("name", name.getText().toString());
+                i.putExtra("email", email.getText().toString());
+                i.putExtra("id", sp.getString("suname", "-"));
                 startActivity(i);
 
             }
@@ -78,9 +77,9 @@ public class StudentProfileActivity extends AppCompatActivity {
         edit_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(),StudentEditPassword.class);
-                i.putExtra("name",name.getText().toString());
-                i.putExtra("password",password);
+                Intent i = new Intent(v.getContext(), StudentEditPassword.class);
+                i.putExtra("name", name.getText().toString());
+                i.putExtra("password", password);
                 startActivity(i);
 
 
@@ -89,7 +88,6 @@ public class StudentProfileActivity extends AppCompatActivity {
 
 
     }
-
 
 
     private void getUserDetails(String suname) {
@@ -119,7 +117,6 @@ public class StudentProfileActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override

@@ -78,15 +78,6 @@ public class AdvisorEditProfile extends AppCompatActivity {
             }
 
         });
-        ap_name.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                ap_name.onTouchEvent(event);
-                ap_name.setSelection(ap_name.getText().length());
-                return true;
-            }
-
-        });
         storageReference = FirebaseStorage.getInstance().getReference();
         dbAdvisor = FirebaseDatabase.getInstance().getReference();
 

@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cegepaas.Model.AdvisorIdsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,7 @@ import java.util.List;
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register, btn_img_upload;
     EditText et_name, et_uname, et_Email, et_pwd;
+    TextInputLayout editTextname;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     String downloadImageUrl;
@@ -46,7 +49,8 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_name = (EditText) findViewById(R.id.et_name);
+       // et_name = (EditText) findViewById(R.id.et_name);
+        editTextname = findViewById(R.id.et_name);
         et_uname = (EditText) findViewById(R.id.et_uname);
         et_Email = (EditText) findViewById(R.id.et_Email);
         et_pwd = (EditText) findViewById(R.id.et_pwd);

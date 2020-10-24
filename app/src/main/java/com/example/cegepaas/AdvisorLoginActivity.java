@@ -92,20 +92,20 @@ public class AdvisorLoginActivity extends AppCompatActivity {
                 if (snapshot.child(parentDbName).child(username).exists()) {
                     AdvisorsPojo usersData = snapshot.child(parentDbName).child(username).getValue(AdvisorsPojo.class);
                     if (usersData.getUsername().equals(username)) {
-                        if(usersData.getPassword().equals(password)){
-                            if(usersData.getStatus().equals("active")) {
+                        if (usersData.getPassword().equals(password)) {
+                            if (usersData.getStatus().equals("active")) {
                                 Toast.makeText(AdvisorLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
-                                SharedPreferences sp=getSharedPreferences("AA",0);
-                                SharedPreferences.Editor et=sp.edit();
-                                et.putString("auname",username);
+                                SharedPreferences sp = getSharedPreferences("AA", 0);
+                                SharedPreferences.Editor et = sp.edit();
+                                et.putString("auname", username);
                                 et.commit();
 
                                 Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }else{
+                            } else {
                                 loadingBar.dismiss();
                                 Toast.makeText(AdvisorLoginActivity.this, "Your account is not actived,please contact admin...", Toast.LENGTH_SHORT).show();
                             }

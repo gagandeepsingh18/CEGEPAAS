@@ -45,6 +45,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
     DatabaseReference dbAdvisor;
     StorageReference storageReference;
     private String parentDbName = "Advisor_Details";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +56,15 @@ public class AdvisorEditProfile extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ap_email = findViewById(R.id.advisorEmail);
+        ap_email = findViewById(R.id.upAdvisorEmail);
         ap_name = findViewById(R.id.upAdvisor_name);
         ap_id = findViewById(R.id.upAdvisorId);
         ap_profile = findViewById(R.id.upAdvisor_image);
         cancel = findViewById(R.id.up_AdvisorCancel);
         save = findViewById(R.id.up_AdvisorSave);
 
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        String advisorId = sp.getString("auname","-");
+        SharedPreferences sp = getSharedPreferences("AA", 0);
+        String advisorId = data.getStringExtra("id");
         ap_id.setText(advisorId);
         ap_email.setText(data.getStringExtra("email"));
         ap_name.setText(data.getStringExtra("name"));
@@ -110,6 +111,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
+                i.putExtra("un", data.getStringExtra("id"));
                 startActivity(i);
             }
         });
@@ -117,7 +119,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ap_email.getText().toString().isEmpty()  || ap_name.getText().toString().isEmpty()) {
+                if (ap_email.getText().toString().isEmpty() || ap_name.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "One or more fields are empty", Toast.LENGTH_SHORT).show();
                 } else {
                     dbAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -177,8 +179,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         AdvisorsPojo users = new AdvisorsPojo();
         storageReference = FirebaseStorage.getInstance().getReference();
         dbAdvisor = FirebaseDatabase.getInstance().getReference();
-        SharedPreferences sp=getSharedPreferences("AA",0);
-        String advisorId = sp.getString("auname","-");
+        String advisorId = getIntent().getStringExtra("id");
         final StorageReference imageUpload = storageReference.child("Advisor/" + advisorId + " Profile.jpg");
         imageUpload.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

@@ -52,7 +52,6 @@ public class AdvisorChatActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("AA", 0);
         advisorId = sp.getString("auname", "-");
 
-        text_message.setText(advisorId);
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

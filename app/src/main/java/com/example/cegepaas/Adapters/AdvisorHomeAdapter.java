@@ -2,6 +2,7 @@ package com.example.cegepaas.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.cegepaas.AdvisorChatActivity;
 import com.example.cegepaas.R;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,6 +71,17 @@ public class AdvisorHomeAdapter extends BaseAdapter {
                 UpdateStatus("reject", ar.get(pos).getTimestamp());
             }
         });
+
+        Button chat = obj2.findViewById(R.id.chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(cnt, AdvisorChatActivity.class);
+                intent.putExtra("sname", ar.get(pos).getBooked_by());
+                cnt.startActivity(intent);
+            }
+        });
+
         return obj2;
     }
 

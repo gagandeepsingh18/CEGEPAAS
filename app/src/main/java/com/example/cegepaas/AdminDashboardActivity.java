@@ -82,22 +82,21 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id)
-                {
+                switch (id) {
                     case R.id.admin_home:
-                        Intent adminHome=new Intent(getApplicationContext(), AdminDashboardActivity.class);
+                        Intent adminHome = new Intent(getApplicationContext(), AdminDashboardActivity.class);
                         startActivity(adminHome);
                         break;
                     case R.id.student_delete:
-                        Intent studentDelete=new Intent(getApplicationContext(), AdminStudentDeleteActivity.class);
+                        Intent studentDelete = new Intent(getApplicationContext(), AdminStudentDeleteActivity.class);
                         startActivity(studentDelete);
                         break;
                     case R.id.advisor_delete:
-                        Intent advisorDelete=new Intent(getApplicationContext(), AdminAdvisorDeleteActivity.class);
+                        Intent advisorDelete = new Intent(getApplicationContext(), AdminAdvisorDeleteActivity.class);
                         startActivity(advisorDelete);
                         break;
                     case R.id.logout:
-                        Intent logout=new Intent(getApplicationContext(), AdminLoginActivity.class);
+                        Intent logout = new Intent(getApplicationContext(), AdminLoginActivity.class);
                         startActivity(logout);
                         finish();
                         break;

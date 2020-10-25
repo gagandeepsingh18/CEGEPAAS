@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +17,6 @@ import com.example.cegepaas.Model.AdvisorIdsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,9 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
-    Button btn_register, btn_img_upload;
-    EditText et_name, et_uname, et_Email, et_pwd;
-    TextInputLayout editTextname;
+    Button btn_register;
+    TextInputEditText et_name, et_uname, et_email, et_pwd;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     String downloadImageUrl;
@@ -49,11 +47,10 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-       // et_name = (EditText) findViewById(R.id.et_name);
-        editTextname = findViewById(R.id.et_name);
-        et_uname = (EditText) findViewById(R.id.et_uname);
-        et_Email = (EditText) findViewById(R.id.et_Email);
-        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        et_name = findViewById(R.id.et_name);
+        et_uname =  findViewById(R.id.et_uname);
+        et_email =  findViewById(R.id.et_Email);
+        et_pwd =  findViewById(R.id.et_pwd);
         loadingBar = new ProgressDialog(AdvisorRegistrationActivity.this);
 
         btn_register = (Button) findViewById(R.id.btn_register);
@@ -76,10 +73,11 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
     private void CreateAccount() {
 
-        name = et_name.getText().toString();
-        email = et_Email.getText().toString();
-        password = et_pwd.getText().toString();
-        username = et_uname.getText().toString();
+
+        name= et_name.getEditableText().toString();
+        email = et_email.getEditableText().toString();
+        password = et_pwd.getEditableText().toString();
+        username = et_uname.getEditableText().toString();
         downloadImageUrl = "https://firebasestorage.googleapis.com/v0/b/cegepaas.appspot.com/o/Default%2Fprofile.png?alt=media&token=b6e336d0-f12d-4c56-9c53-1c65cfbbb9bc";
 
         if (TextUtils.isEmpty(name)) {
@@ -94,6 +92,8 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Advisor Id is not authorized...", Toast.LENGTH_SHORT).show();
             return;
         } else {
+            Log.d("abc", name);
+            Toast.makeText(this, name, Toast.LENGTH_LONG).show();
             ValidateDetails();
         }
     }

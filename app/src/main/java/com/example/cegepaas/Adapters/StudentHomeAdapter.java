@@ -15,30 +15,36 @@ import com.example.cegepaas.AdvisorBookingActivity;
 import com.example.cegepaas.R;
 import com.bumptech.glide.Glide;
 import com.example.cegepaas.Model.AdvisorsPojo;
+import com.example.cegepaas.StudentAdvisorDetails;
 
 import java.util.List;
 
-public class StudentHomeAdapter extends BaseAdapter {
+public class StudentHomeAdapter extends BaseAdapter
+{
     List<AdvisorsPojo> ar;
     Context cnt;
 
-    public StudentHomeAdapter(List<AdvisorsPojo> ar, Context cnt) {
+    public StudentHomeAdapter(List<AdvisorsPojo> ar, Context cnt)
+    {
         this.ar = ar;
         this.cnt = cnt;
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return ar.size();
     }
 
     @Override
-    public Object getItem(int i) {
+    public Object getItem(int i)
+    {
         return i;
     }
 
     @Override
-    public long getItemId(int i) {
+    public long getItemId(int i)
+    {
         return i;
     }
 
@@ -60,9 +66,11 @@ public class StudentHomeAdapter extends BaseAdapter {
         CardView cvParent = (CardView) obj2.findViewById(R.id.cvParent);
         cvParent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(cnt, AdvisorBookingActivity.class);
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(cnt, StudentAdvisorDetails.class);
                 intent.putExtra("uname", ar.get(pos).getUsername());
+                intent.putExtra("aname", ar.get(pos).getName());
                 cnt.startActivity(intent);
             }
         });
@@ -70,7 +78,8 @@ public class StudentHomeAdapter extends BaseAdapter {
         return obj2;
     }
 
-    public void filterList(List<AdvisorsPojo> advisors) {
+    public void filterList(List<AdvisorsPojo> advisors)
+    {
         this.ar = advisors;
         notifyDataSetChanged();
     }

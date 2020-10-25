@@ -14,14 +14,16 @@ import com.example.cegepaas.R;
 
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
+{
     public static final  int MSG_TYPE_LEFT = 0;
     public static final  int MSG_TYPE_RIGHT = 1;
     private List<ChatPojo> chatList;
     private Context context;
     private String sender;
 
-    public ChatAdapter(List<ChatPojo> chatList, Context context,String sender) {
+    public ChatAdapter(List<ChatPojo> chatList, Context context,String sender)
+    {
         this.chatList = chatList;
         this.context = context;
         this.sender = sender;
@@ -30,45 +32,56 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view;
-        if(viewType == MSG_TYPE_LEFT){
+        if(viewType == MSG_TYPE_LEFT)
+        {
             view = LayoutInflater.from(context).inflate(R.layout.chat_item_left,parent,false);
-        }else {
-            view = LayoutInflater.from(context).inflate(R.layout.chat_item_right,parent,false);
         }
+        else
+            {
+            view = LayoutInflater.from(context).inflate(R.layout.chat_item_right,parent,false);
+            }
         return new ChatAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position)
+    {
         ChatPojo chat = chatList.get(position);
         holder.show_message.setText(chat.getMessage());
 
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
 
-        if(chatList.get(position).getSender().equals(sender)){
+        if(chatList.get(position).getSender().equals(sender))
+        {
             return  MSG_TYPE_RIGHT;
         }
-        else {
+        else
+            {
             return MSG_TYPE_LEFT;
-        }
+            }
 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return chatList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder
+    {
 
         public TextView show_message;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView)
+        {
             super(itemView);
             show_message = itemView.findViewById(R.id.show_message);
         }

@@ -69,7 +69,7 @@ public class StudentEditProfile extends AppCompatActivity {
 
         up_studentName.setText(data.getStringExtra("name"));
         up_studentEmail.setText(data.getStringExtra("email"));
-        up_studentId.setText( data.getStringExtra("id"));
+        up_studentId.setText(data.getStringExtra("id"));
         up_studentEmail.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -116,7 +116,7 @@ public class StudentEditProfile extends AppCompatActivity {
         up_studentSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (up_studentEmail.getText().toString().isEmpty()  || up_studentName.getText().toString().isEmpty()) {
+                if (up_studentEmail.getText().toString().isEmpty() || up_studentName.getText().toString().isEmpty()) {
                     Toast.makeText(StudentEditProfile.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
                 } else {
                     dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -224,8 +224,6 @@ public class StudentEditProfile extends AppCompatActivity {
 
                     }
                 });
-
-
 
 
             }

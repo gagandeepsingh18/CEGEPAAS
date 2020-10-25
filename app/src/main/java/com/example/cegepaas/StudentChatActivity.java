@@ -27,13 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class StudentChatActivity extends AppCompatActivity {
-    String advisorId,message,studentId;
+    String advisorId, message, studentId;
     ImageButton sendMessage;
     EditText textMessage;
     ChatAdapter chatAdapter;
     List<ChatPojo> chatList;
     RecyclerView recyclerView;
     DatabaseReference reference;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,45 +50,46 @@ public class StudentChatActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        SharedPreferences sp = getSharedPreferences("AA",0);
-        studentId = sp.getString("suname","-");
+        SharedPreferences sp = getSharedPreferences("AA", 0);
+        studentId = sp.getString("suname", "-");
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 message = textMessage.getText().toString();
-                if(!message.equals("")){
-                    sendMessage(studentId,advisorId,message);
-                }else {
+                if (!message.equals("")) {
+                    sendMessage(studentId, advisorId, message);
+                } else {
                     Toast.makeText(StudentChatActivity.this, "Can't send empty message..", Toast.LENGTH_SHORT).show();
                 }
                 textMessage.setText("");
             }
         });
-        readMessages(studentId,advisorId,message);
+        readMessages(studentId, advisorId, message);
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    private void sendMessage(String sender, String receiver, String message) {
         reference = FirebaseDatabase.getInstance().getReference();
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("sender",sender);
-        hashMap.put("receiver",receiver);
-        hashMap.put("message",message);
-        reference.child("Chats").child(""+System.currentTimeMillis()/1000).setValue(hashMap);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", sender);
+        hashMap.put("receiver", receiver);
+        hashMap.put("message", message);
+        reference.child("Chats").child("" + System.currentTimeMillis() / 1000).setValue(hashMap);
     }
-    private void readMessages(String sender, String receiver, String message){
+
+    private void readMessages(String sender, String receiver, String message) {
         chatList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chatList.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ChatPojo chat = snapshot.getValue(ChatPojo.class);
-                    if((chat.getReceiver().equals(receiver) && chat.getSender().equals(sender)) ||
-                            (chat.getReceiver().equals(sender) && chat.getSender().equals(receiver))){
+                    if ((chat.getReceiver().equals(receiver) && chat.getSender().equals(sender)) ||
+                            (chat.getReceiver().equals(sender) && chat.getSender().equals(receiver))) {
                         chatList.add(chat);
                     }
-                    recyclerView.setAdapter(new ChatAdapter(chatList,StudentChatActivity.this,studentId));
+                    recyclerView.setAdapter(new ChatAdapter(chatList, StudentChatActivity.this, studentId));
                 }
             }
 

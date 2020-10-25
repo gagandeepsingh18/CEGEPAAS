@@ -27,32 +27,38 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminAdvisorDeleteAdapter extends BaseAdapter {
+public class AdminAdvisorDeleteAdapter extends BaseAdapter
+{
     List<AdvisorsPojo> ar;
     Context cnt;
 
-    public AdminAdvisorDeleteAdapter(List<AdvisorsPojo> ar, Context cnt) {
+    public AdminAdvisorDeleteAdapter(List<AdvisorsPojo> ar, Context cnt)
+    {
         this.ar = ar;
         this.cnt = cnt;
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return ar.size();
     }
 
     @Override
-    public Object getItem(int i) {
+    public Object getItem(int i)
+    {
         return i;
     }
 
     @Override
-    public long getItemId(int i) {
+    public long getItemId(int i)
+    {
         return i;
     }
 
     @Override
-    public View getView(final int pos, View view, ViewGroup viewGroup) {
+    public View getView(final int pos, View view, ViewGroup viewGroup)
+    {
         LayoutInflater obj1 = (LayoutInflater) cnt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View obj2 = obj1.inflate(R.layout.adapter_admin_advisor_delete, null);
 

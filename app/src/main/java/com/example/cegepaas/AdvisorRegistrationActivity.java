@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cegepaas.Model.AdvisorIdsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,14 +30,15 @@ import java.util.List;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register;
-    TextInputEditText et_name, et_uname, et_email, et_pwd;
+    EditText et_name, et_uname, et_Email, et_pwd;
+    Spinner campusName,departmentName;
     private ProgressDialog loadingBar;
     ProgressDialog progressDialog;
     String downloadImageUrl;
     private List<AdvisorIdsPojo> mAdvisorIds;
     DatabaseReference dbAdvisors;
-    String name, email, password, username;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private List<String> campusList,departmentList;
+    String name, email, password, username, campus, department;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,16 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_name = findViewById(R.id.et_name);
-        et_uname =  findViewById(R.id.et_uname);
-        et_email =  findViewById(R.id.et_Email);
-        et_pwd =  findViewById(R.id.et_pwd);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_uname = (EditText) findViewById(R.id.et_uname);
+        et_Email = (EditText) findViewById(R.id.et_Email);
+        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        departmentName = (Spinner)findViewById(R.id.departmentName);
+        loadDepartment();
+        campusName = (Spinner)findViewById(R.id.campusName);
+        loadCampuses();
+
+
         loadingBar = new ProgressDialog(AdvisorRegistrationActivity.this);
 
         btn_register = (Button) findViewById(R.id.btn_register);
@@ -64,20 +72,74 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getAIDs();
     }
 
+    private void loadDepartment() {
+        departmentList = new ArrayList<>();
+        DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Department");
+
+        campusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                departmentList.clear();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        String department = snapshot.child("name").getValue(String.class);
+                        departmentList.add(department);
+                    }
+
+                    ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AdvisorRegistrationActivity.this, android.R.layout.simple_spinner_item, departmentList);
+                    areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    departmentName.setAdapter(areasAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadCampuses() {
+        campusList = new ArrayList<>();
+        DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Campus");
+
+        campusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                campusList.clear();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        String campus = snapshot.child("name").getValue(String.class);
+                        campusList.add(campus);
+                    }
+
+                    ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AdvisorRegistrationActivity.this, android.R.layout.simple_spinner_item, campusList);
+                    areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    campusName.setAdapter(areasAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
     }
 
 
     private void CreateAccount() {
 
-
-        name= et_name.getEditableText().toString();
-        email = et_email.getEditableText().toString();
-        password = et_pwd.getEditableText().toString();
-        username = et_uname.getEditableText().toString();
+        name = et_name.getText().toString();
+        email = et_Email.getText().toString();
+        password = et_pwd.getText().toString();
+        username = et_uname.getText().toString();
+        campus = campusName.getSelectedItem().toString();
+        department = departmentName.getSelectedItem().toString();
         downloadImageUrl = "https://firebasestorage.googleapis.com/v0/b/cegepaas.appspot.com/o/Default%2Fprofile.png?alt=media&token=b6e336d0-f12d-4c56-9c53-1c65cfbbb9bc";
 
         if (TextUtils.isEmpty(name)) {
@@ -88,12 +150,14 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Please Choose your Username...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
-        } else if (!checkAID()) {
+        }else if(departmentName.getSelectedItemId() == 0){
+            Toast.makeText(this, "Select your department...", Toast.LENGTH_SHORT).show();
+        }else if(campusName.getSelectedItemId() == 0){
+            Toast.makeText(this, "Select your campus...", Toast.LENGTH_SHORT).show();
+        }else if (!checkAID()) {
             Toast.makeText(this, "Advisor Id is not authorized...", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Log.d("abc", name);
-            Toast.makeText(this, name, Toast.LENGTH_LONG).show();
             ValidateDetails();
         }
     }
@@ -112,12 +176,18 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
                 if (!(dataSnapshot.child("Advisor_Details").child(username).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
+                    userdataMap.put("username", username);
+                    userdataMap.put("email", email);
                     userdataMap.put("name", name);
                     userdataMap.put("image", downloadImageUrl);
-                    userdataMap.put("email", email);
-                    userdataMap.put("username", username);
                     userdataMap.put("password", password);
                     userdataMap.put("status", "inactive");
+                    userdataMap.put("phoneNumber","");
+                    userdataMap.put("campus",campus);
+                    userdataMap.put("department",department);
+                    userdataMap.put("workingDays","");
+                    userdataMap.put("description","");
+
 
                     RootRef.child("Advisor_Details").child(username).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

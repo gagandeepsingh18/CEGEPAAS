@@ -1,136 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
+    android:layout_gravity="center"
     tools:context=".StudentAdvisorDetails">
 
-    <ImageView
-        android:id="@+id/advisorImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/advisorName"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:text="Advisor Name"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorImage" />
-    
-    <TextView
-        android:id="@+id/advisorEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Email"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorName" />
-
-    <TextView
-        android:id="@+id/advisorPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Phone Number"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorEmail" />
-
-    <TextView
-        android:id="@+id/advisorCampus"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Campus"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorPhone" />
-
-    <TextView
-        android:id="@+id/advisorDepartment"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Department"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorCampus" />
-
-    <TextView
-        android:id="@+id/advisorWD"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Working Days"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorDepartment" />
-
-    <TextView
-        android:id="@+id/advisorDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Description"
-        android:maxLines="4"
-        android:lines="4"
-        android:scrollbars="vertical"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorWD" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advisorDescription">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <Button
-                android:id="@+id/ScheduleMeetingButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/schedule_meeting" />
-            <Button
-                android:id="@+id/chatbutton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Chat" />
-
-        </LinearLayout>
-
-       
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
- 
+        android:layout_height="210dp">
 
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/advisorImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp">
 
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <TextView
+            android:id="@+id/advisorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="175dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Email"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/advisorEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Phone Number"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/advisorPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Campus"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/advisorCampus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Department"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/advisorDepartment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Available Days"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/advisorWD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="About"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/advisorDescription"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:lines="4"
+            android:scrollbars="vertical"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:elevation="7dp"
+        android:background="#FFFFFE"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp">
+        <Button
+            android:id="@+id/ScheduleMeetingButton"
+            android:layout_width="150dp"
+            android:background="@drawable/button1_rounded"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="10dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedule_meeting" />
+        <Button
+            android:id="@+id/chatbutton"
+            android:layout_width="150dp"
+            android:background="@drawable/button1_rounded"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp"
+            android:layout_height="wrap_content"
+            android:text="Chat" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -46,7 +46,6 @@ import java.util.Locale;
 public class AdvisorBookingActivity extends AppCompatActivity {
     List<BookingTimesPojo> ab = new ArrayList<>();
     Button btn_select_date, btn_submit, btn_select_time;
-    FloatingActionButton btn_chat;
     GridView gridview;
     String _time = null;
     private com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
@@ -74,7 +73,6 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         btn_select_date = (Button) findViewById(R.id.btn_select_date);
         btn_select_time = (Button) findViewById(R.id.btn_select_time);
         btn_submit = (Button) findViewById(R.id.btn_submit);
-        btn_chat = (FloatingActionButton) findViewById(R.id.chat_button);
         btn_select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,15 +83,6 @@ public class AdvisorBookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 advisorBooking();
-            }
-        });
-
-        btn_chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdvisorBookingActivity.this, StudentChatActivity.class);
-                intent.putExtra("uname", getIntent().getStringExtra("uname"));
-                startActivity(intent);
             }
         });
 

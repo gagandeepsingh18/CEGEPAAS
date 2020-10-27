@@ -48,6 +48,13 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         getMeetings();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     ProgressDialog progressDialog;
     private List<AdvisorBookingPojo> mAdvisors;
     DatabaseReference dbArtists;

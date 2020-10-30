@@ -6,14 +6,13 @@
     xmlns:app1="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:scrollbars="vertical"
     app:ignore="NamespaceTypo">
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="8dp"
@@ -48,10 +47,10 @@
             android:id="@+id/et_uname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
             android:drawableStart="@drawable/username"
             android:drawablePadding="10dp"
             android:hint="Advisor ID"
+            android:textSize="20sp"
             android:textColor="@color/colorBlack"
             android:padding="10dp"
             android:singleLine="true" />
@@ -61,7 +60,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:drawablePadding="10dp"
         app:boxCornerRadiusBottomEnd="5dp"
         app:boxCornerRadiusTopEnd="5dp"
@@ -78,45 +76,51 @@
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
             android:drawableStart="@drawable/password"
             android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
+            android:textSize="20sp"
             android:textColor="@color/colorBlack"
             android:padding="10dp"
             android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/button1_rounded"
         android:text="Login"
+        app1:strokeColor="@color/primaryDarkColor"
+        app1:strokeWidth="2dp"
+        android:backgroundTint="@color/colorWhite"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textSize="25sp"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/primaryColor"
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/layoutNewUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/tv_newuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New User ?"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
 
 
         <TextView
@@ -126,8 +130,8 @@
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif"
             android:text="Register Here"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

@@ -15,5 +15,6 @@
     </style>
     <string name="Open">Open navigation drawer</string>
     <string name="Close">Close navigation drawer</string>
-    Theme.AppCompat.Light.DarkActionBar
+    
+
 </resources>

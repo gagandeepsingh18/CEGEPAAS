@@ -21,11 +21,11 @@
         android:layout_gravity="end"
         android:layout_marginTop="100dp"
         android:background="@color/primaryDarkColor"
-        android:drawableRight="@drawable/ic_baseline_chevron_right_24"
         android:gravity="center"
         android:text="I am a Student"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        app:drawableRightCompat="@drawable/ic_baseline_chevron_right_24" />
 
     <TextView
         android:id="@+id/advisor"
@@ -34,11 +34,11 @@
         android:layout_gravity="end"
         android:layout_marginTop="50dp"
         android:background="@color/primaryDarkColor"
-        android:drawableRight="@drawable/ic_baseline_chevron_right_24"
+        app:drawableRightCompat="@drawable/ic_baseline_chevron_right_24"
         android:gravity="center"
         android:text="I am an Advisor"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp">
+        android:textSize="30sp">
 
     </TextView>
 
@@ -49,11 +49,11 @@
         android:layout_gravity="end"
         android:layout_marginTop="50dp"
         android:background="@color/primaryDarkColor"
-        android:drawableRight="@drawable/ic_baseline_chevron_right_24"
+        app:drawableRightCompat="@drawable/ic_baseline_chevron_right_24"
         android:gravity="center"
         android:text="Admin"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        android:textSize="30sp" />
 
     <ImageView
         android:layout_width="match_parent"

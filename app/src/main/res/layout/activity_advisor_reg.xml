@@ -6,14 +6,24 @@
     xmlns:app1="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:scrollbars="vertical"
     app:ignore="NamespaceTypo">
 
-    <ImageView
+
+    <ScrollView
+        android:id="@+id/AdvRegScroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/logo" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo" />
 
         <com.google.android.material.textfield.TextInputLayout
 
@@ -35,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_name"
                 android:hint="Name"
+                android:textSize="20sp"
                 android:textColor="@color/colorBlack"
                 android:inputType="textPersonName"
                 />
@@ -61,6 +72,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_Email"
             android:hint="Email"
+            android:textSize="20sp"
             android:textColor="@color/colorBlack"
             android:inputType="textEmailAddress"
             />
@@ -87,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Advisor ID"
+            android:textSize="20sp"
             android:inputType="textNoSuggestions|textCapWords"
             android:textColor="@color/colorBlack" />
 
@@ -114,9 +127,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_pwd"
             android:hint="Password"
+            android:textSize="20sp"
             android:textColor="@color/colorBlack"
             android:inputType="textPassword"
-
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +152,8 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
             android:id="@+id/departmentName"
             android:entries="@array/department_name"/>
 
@@ -162,22 +177,28 @@
             android:layout_height="50dp"
             android:id="@+id/campusName"
             android:entries="@array/campus_name"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
 
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/button1_rounded"
+        app1:strokeColor="@color/primaryLightColor"
+        app1:strokeWidth="2dp"
+        android:backgroundTint="@color/colorWhite"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textSize="25sp"
         android:text="Register"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/primaryColor"
         android:textStyle="bold" />
 
 
@@ -186,5 +207,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:src="@drawable/cegep" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

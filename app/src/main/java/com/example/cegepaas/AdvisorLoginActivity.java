@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
     Button btn_login;
     EditText et_uname, et_pwd;
     ProgressDialog loadingBar;
+    LinearLayout newUser;
     private String parentDbName = "Advisor_Details";
 
     @Override
@@ -43,9 +45,10 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         et_uname = (EditText) findViewById(R.id.et_uname);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         loadingBar = new ProgressDialog(AdvisorLoginActivity.this);
+        newUser = findViewById(R.id.layoutNewUser);
 
         tv_signup = (TextView) findViewById(R.id.tv_signup);
-        tv_signup.setOnClickListener(new View.OnClickListener() {
+        newUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorRegistrationActivity.class);

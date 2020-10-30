@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.cegepaas.Model.Users;
 import com.example.cegepaas.R;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,15 +54,38 @@ public class AdvisorMeetingAdapter extends BaseAdapter {
         View obj2 = obj1.inflate(R.layout.adapter_student_meeting, null);
 
         TextView tv_name = (TextView) obj2.findViewById(R.id.tv_name);
-        tv_name.setText("Student Uname  :" + ar.get(pos).getBooked_by());
+        getStudentName(tv_name,pos);
 
         TextView tv_date_time = (TextView) obj2.findViewById(R.id.tv_date_time);
-        tv_date_time.setText("Date & Time :" + ar.get(pos).getBooked_date() + "  " + ar.get(pos).getBooked_time());
+        tv_date_time.setText("Booking Slot: " + ar.get(pos).getBooked_date() + "  " + ar.get(pos).getBooked_time());
 
         TextView tv_desc = (TextView) obj2.findViewById(R.id.tv_desc);
-        tv_desc.setText("Desc  :" + ar.get(pos).getDescription());
+        tv_desc.setText("Details: " + ar.get(pos).getDescription());
         return obj2;
     }
+
+    private void getStudentName( TextView tv_name, int pos) {
+        String studentId = ar.get(pos).getBooked_by();
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child("Student_Details").child(studentId).exists()) {
+                    Users users = snapshot.child("Student_Details").child(studentId).getValue(Users.class);
+                    tv_name.setText("Student: "+users.getName()+" (" + studentId+")");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(cnt, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 
     private void UpdateStatus(final String status, final String time_stamp) {
         final DatabaseReference RootRef;

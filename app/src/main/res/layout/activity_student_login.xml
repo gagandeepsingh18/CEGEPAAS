@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#F5F5F5"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    app:ignore="NamespaceTypo">
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -26,71 +29,86 @@
     </androidx.cardview.widget.CardView>
 
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="8dp"
-        card_view:cardUseCompatPadding="true">
+        android:background="#FFFFFF"
+        android:drawablePadding="10dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusRightEnd="5dp"
+        app:boxCornerRadiusLeftEnd="5dp"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:padding="10dp"
+        android:singleLine="true">
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_uname"
-            android:singleLine="true"
             android:hint="Student ID"
-            android:drawableLeft="@drawable/username"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/username"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            android:padding="10dp"
+            android:singleLine="true"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="8dp"
-        card_view:cardUseCompatPadding="true">
+        android:drawablePadding="10dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusRightEnd="5dp"
+        app:boxCornerRadiusLeftEnd="5dp"
+        app:boxBackgroundMode="outline"
+        app1:passwordToggleEnabled="true"
+        app1:passwordToggleTint="@color/colorBlack"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:padding="10dp"
+        android:singleLine="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_pwd"
-            android:singleLine="true"
-            android:drawableLeft="@drawable/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/password"
             android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:background="#FFFFFF"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
             android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:singleLine="true" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
         android:text="Login"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
+        app1:strokeColor="@color/primaryDarkColor"
+        app1:strokeWidth="2dp"
+        android:backgroundTint="@color/colorWhite"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textSize="25sp"
         android:textAllCaps="false"
-        android:background="@drawable/button1_rounded" />
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/layoutNewStudent"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
@@ -100,8 +118,8 @@
         <TextView
             android:id="@+id/tv_newuser"
             android:text="New User ?"
-            android:textColor="#000"
-            android:textSize="15dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -109,10 +127,9 @@
         <TextView
             android:id="@+id/tv_signup"
             android:text="Register Here"
-            android:layout_marginLeft="8dp"
-            android:fontFamily="sans-serif"
-            android:textColor="#000"
-            android:textSize="15dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

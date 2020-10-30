@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class StudentLoginActivity extends AppCompatActivity {
-    TextView tv_signup;
+
     Button btn_login;
     EditText et_uname, et_pwd;
     ProgressDialog loadingBar;
-    private String parentDbName = "Student_Details";
+    LinearLayout newStudent;
+    private final String parentDbName = "Student_Details";
 
     @Override
 
@@ -40,13 +42,13 @@ public class StudentLoginActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_uname = (EditText) findViewById(R.id.et_uname);
-        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        et_uname =  findViewById(R.id.et_uname);
+        et_pwd =  findViewById(R.id.et_pwd);
         loadingBar = new ProgressDialog(StudentLoginActivity.this);
 
-        tv_signup = (TextView) findViewById(R.id.tv_signup);
+        newStudent = findViewById(R.id.layoutNewStudent);
 
-        tv_signup.setOnClickListener(new View.OnClickListener() {
+        newStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StudentLoginActivity.this, StudentRegistrationActivity.class);
@@ -55,7 +57,7 @@ public class StudentLoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

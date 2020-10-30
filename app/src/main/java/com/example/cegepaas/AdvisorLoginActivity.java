@@ -11,14 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cegepaas.Model.AdvisorsPojo;
-import com.example.cegepaas.Model.Users;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,12 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AdvisorLoginActivity extends AppCompatActivity {
-    TextView tv_signup;
     Button btn_login;
     EditText et_uname, et_pwd;
     ProgressDialog loadingBar;
-    LinearLayout newUser;
-    private String parentDbName = "Advisor_Details";
+    LinearLayout newAdvisor;
+    private final String parentDbName = "Advisor_Details";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +39,12 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_uname = (EditText) findViewById(R.id.et_uname);
-        et_pwd = (EditText) findViewById(R.id.et_pwd);
+        et_uname = findViewById(R.id.et_uname);
+        et_pwd = findViewById(R.id.et_pwd);
         loadingBar = new ProgressDialog(AdvisorLoginActivity.this);
-        newUser = findViewById(R.id.layoutNewUser);
+        newAdvisor = findViewById(R.id.layoutNewAdvisor);
 
-        tv_signup = (TextView) findViewById(R.id.tv_signup);
-        newUser.setOnClickListener(new View.OnClickListener() {
+        newAdvisor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorRegistrationActivity.class);
@@ -56,7 +52,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_login =  findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

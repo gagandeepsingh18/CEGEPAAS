@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.cegepaas.Model.AdvisorsPojo;
 import com.example.cegepaas.Model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,17 +51,20 @@ public class StudentEditProfile extends AppCompatActivity {
     TextView up_studentId;
     Button up_studentSave, up_studentCancel;
     DatabaseReference dbStudent;
+    String studentId;
     StorageReference storageReference;
+    Uri imageUri;
     private String parentDbName = "Student_Details";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_edit_profile);
+
         getSupportActionBar().setTitle("Edit Profile");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent data = getIntent();
+
         up_studentEmail = findViewById(R.id.upStudentEmail);
         up_studentId = findViewById(R.id.upStudentId);
         up_studentImage = findViewById(R.id.upStudent_image);
@@ -67,48 +72,15 @@ public class StudentEditProfile extends AppCompatActivity {
         up_studentSave = findViewById(R.id.upStudentSave);
         up_studentCancel = findViewById(R.id.up_studentCancel);
 
-        up_studentName.setText(data.getStringExtra("name"));
-        up_studentEmail.setText(data.getStringExtra("email"));
-        up_studentId.setText(data.getStringExtra("id"));
-        up_studentEmail.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                up_studentEmail.onTouchEvent(event);
-                up_studentEmail.setSelection(up_studentEmail.getText().length());
-                return true;
-            }
-
-        });
-        up_studentName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                up_studentName.onTouchEvent(event);
-                up_studentName.setSelection(up_studentName.getText().length());
-                return true;
-            }
-
-        });
-
         storageReference = FirebaseStorage.getInstance().getReference();
         dbStudent = FirebaseDatabase.getInstance().getReference();
-        SharedPreferences sp = getSharedPreferences("AA", 0);
-        String studentId = sp.getString("suname", "-");
-        StorageReference profile_pic = storageReference.child("Student/" + studentId + " Profile.jpg");
-        profile_pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
 
-                Picasso.get().load(uri).into(up_studentImage);
-            }
-        });
-
-
+        studentId = getSharedPreferences("AA", 0).getString("suname", "-");
+        getStudentDetails(studentId);
         up_studentImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 1000);
-
+                uploadProfilePicture();
             }
         });
 
@@ -116,43 +88,8 @@ public class StudentEditProfile extends AppCompatActivity {
         up_studentSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (up_studentEmail.getText().toString().isEmpty() || up_studentName.getText().toString().isEmpty()) {
-                    Toast.makeText(StudentEditProfile.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            HashMap<String, Object> hashMap = new HashMap();
-                            hashMap.put("email", up_studentEmail.getText().toString());
-                            hashMap.put("name", up_studentName.getText().toString());
-                            dbStudent.child(parentDbName).child(up_studentId.getText().toString()).updateChildren(hashMap)
-                                    .addOnCompleteListener(new OnCompleteListener() {
-                                        @Override
-                                        public void onComplete(@NonNull Task task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(StudentEditProfile.this, "Successfully updated", Toast.LENGTH_SHORT).show();
-                                                Intent i = new Intent(getApplicationContext(), StudentProfileActivity.class);
-                                                startActivity(i);
-                                            } else {
-                                                Toast.makeText(StudentEditProfile.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        }
-                                    });
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                        }
-
-                    });
-
-
-                }
+                updateStudentDetails(studentId);
+                startActivity(new Intent(getApplicationContext(),StudentProfileActivity.class));
             }
         });
 
@@ -163,55 +100,82 @@ public class StudentEditProfile extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
 
+    private void getStudentDetails(String studentId) {
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(parentDbName).child(studentId).exists()){
+                    Users student =snapshot.child(parentDbName).child(studentId).getValue(Users.class);
+                    Glide.with(getApplicationContext()).load(student.getDownloadImageUrl()).into(up_studentImage);
+                    up_studentEmail.setText(student.getEmail());
+                    up_studentId.setText(studentId);
+                    up_studentName.setText(student.getName());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void updateStudentDetails(String studentId) {
+        dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String, Object> userdataMap = new HashMap<>();
+                userdataMap.put("email", up_studentEmail.getText().toString());
+                userdataMap.put("name", up_studentName.getText().toString());
+
+                dbStudent.child(parentDbName).child(studentId).updateChildren(userdataMap);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void uploadProfilePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-            if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-                Uri imageuri = data.getData();
-                up_studentImage.setImageURI(imageuri);
-                uploadImageToFireBase(imageuri);
-
-            }
+        if(requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
+            Picasso.get().load(imageUri).into(up_studentImage);
+            uploadPicture();
         }
     }
 
-    public void uploadImageToFireBase(Uri imageUri) {
-        Users users = new Users();
-        storageReference = FirebaseStorage.getInstance().getReference();
-        dbStudent = FirebaseDatabase.getInstance().getReference();
-        SharedPreferences sp = getSharedPreferences("AA", 0);
-        String studentId = sp.getString("suname", "-");
-        final StorageReference imageUpload = storageReference.child("Student/" + studentId + " Profile.jpg");
+    private void uploadPicture() {
+        final String randomKey = UUID.randomUUID().toString();
+        final StorageReference reference = storageReference.child("Student/"+randomKey);
 
-        imageUpload.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                imageUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(up_studentImage);
-
-                        String image = uri.toString();
-                        dbStudent.child(parentDbName).child(studentId).child("downloadImageUrl").setValue(image);
-//                    users.setDownloadImageUrl(image);
-
-
+                        final String imageUrl= uri.toString();
                         dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (!(dataSnapshot.child("Student_Details").child(studentId).exists())) {
-                                    HashMap<String, Object> userdataMap = new HashMap<>();
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                HashMap<String, Object> userdataMap = new HashMap<>();
+                                userdataMap.put("downloadImageUrl", imageUrl);
 
-                                    userdataMap.put("downloadImageUrl", users.getDownloadImageUrl());
-                                    dbStudent.child(parentDbName).child(studentId).updateChildren(userdataMap);
-                                }
-//
+                                dbStudent.child(parentDbName).child(studentId).updateChildren(userdataMap);
 
                             }
 
@@ -220,17 +184,8 @@ public class StudentEditProfile extends AppCompatActivity {
 
                             }
                         });
-
-
                     }
                 });
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

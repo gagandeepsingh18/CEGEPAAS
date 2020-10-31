@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:baselineAligned="false"
     android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/AdvRegScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +23,7 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:textColor="@color/colorBlack"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:text="Add Appointment Slots" />
     <TextView
@@ -23,23 +33,32 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:textColor="@color/colorBlack"
-        android:textSize="15dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:text="No Date Selected" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_select_date"
-        android:text="Select Date"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:background="@drawable/button1_rounded"
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="65dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="Select Date"
+        app1:strokeColor="@color/primaryDarkColor"
+        app1:strokeWidth="2dp"
+        android:backgroundTint="@color/colorWhite"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textSize="25sp"
+        android:textAllCaps="false"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:id="@+id/selectTime"
@@ -48,14 +67,13 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:text="Select the Time slots" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:layout_margin="20dp"
             android:gravity="center">
 
@@ -63,8 +81,9 @@
                 android:id="@+id/chk10_00AM"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="10:00 AM" />
 
             <CheckBox
@@ -72,6 +91,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="10:30 AM" />
 
             <CheckBox
@@ -79,6 +100,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="11:00 AM" />
 
         </LinearLayout>
@@ -88,6 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_margin="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
             android:gravity="center">
 
 
@@ -96,6 +121,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="11:30 AM" />
 
             <CheckBox
@@ -103,6 +130,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="12:00 PM" />
 
             <CheckBox
@@ -110,6 +139,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="01:30 PM" />
 
         </LinearLayout>
@@ -126,6 +157,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="02:00 PM" />
 
             <CheckBox
@@ -133,6 +166,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="02:30 PM" />
 
             <CheckBox
@@ -140,6 +175,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="03:00 PM" />
 
         </LinearLayout>
@@ -156,6 +193,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="03:30 PM" />
 
             <CheckBox
@@ -163,6 +202,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="04:00 PM" />
 
             <CheckBox
@@ -170,6 +211,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
                 android:text="04:30 PM" />
 
         </LinearLayout>
@@ -183,18 +226,25 @@
         android:layout_height="fill_parent"
         android:gravity="bottom">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            android:layout_width="500dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/button1_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
             android:text="Submit"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
+            app1:strokeColor="@color/primaryDarkColor"
+            app1:strokeWidth="2dp"
+            android:backgroundTint="@color/colorWhite"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:textSize="25sp"
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"/>
     </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

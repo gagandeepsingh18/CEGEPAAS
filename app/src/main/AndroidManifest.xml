@@ -3,6 +3,9 @@
     package="com.example.cegepaas">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentAdvisorDetails"></activity>
+
+        <activity android:name=".AdvisorNotificationsActivity"/>
+        <activity android:name=".StudentNotificationsActivity" />
+        <activity android:name=".StudentAdvisorDetails"/>
         <activity android:name=".AdvisorEditPassword" />
         <activity android:name=".AdvisorEditProfile" />
         <activity android:name=".StudentEditProfile" />
@@ -46,6 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>

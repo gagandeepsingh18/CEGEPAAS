@@ -1,7 +1,5 @@
 package com.example.cegepaas;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cegepaas.Adapters.StudentNotificationAdapter;
 import com.example.cegepaas.Model.NotificationPojo;
@@ -60,7 +60,7 @@ public class AdvisorNotificationsActivity extends AppCompatActivity {
             public void onResponse(Call<List<NotificationPojo>> call, Response<List<NotificationPojo>> response) {
                 progressDialog.dismiss();
                 if(response.body()==null){
-                    Toast.makeText(AdvisorNotificationsActivity.this,"No data found",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdvisorNotificationsActivity.this,"No data found", Toast.LENGTH_SHORT).show();
                 }else {
                     notificationPojos = response.body();
                     lv.setAdapter(new StudentNotificationAdapter(notificationPojos, AdvisorNotificationsActivity.this));

@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.cegepaas.Model.AdvisorsPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ public class AdvisorEditPassword extends AppCompatActivity {
     TextView student_name, current_pass;
     Button cancel, update_password;
     DatabaseReference adAdvisor;
+    String advisorId;
     private String parentDbName = "Advisor_Details";
 
     @Override
@@ -37,8 +40,8 @@ public class AdvisorEditPassword extends AppCompatActivity {
         getSupportActionBar().setTitle("Change Password");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent data = getIntent();
 
+        advisorId = getSharedPreferences("AA", 0).getString("auname", "-");
         password1 = findViewById(R.id.ad_new_password);
         password2 = findViewById(R.id.ad_new_password2);
         student_name = findViewById(R.id.advisor_name1);
@@ -46,8 +49,8 @@ public class AdvisorEditPassword extends AppCompatActivity {
         cancel = findViewById(R.id.ad_cancel);
         update_password = findViewById(R.id.advisor_password_edit);
 
-        current_pass.setText(data.getStringExtra("password"));
-        student_name.setText(data.getStringExtra("name"));
+
+        getCurrentPassword(advisorId);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,55 +62,70 @@ public class AdvisorEditPassword extends AppCompatActivity {
         update_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                {
-                    String advisorId = getIntent().getStringExtra("id");
-                    adAdvisor = FirebaseDatabase.getInstance().getReference();
-                    String pass1 = password1.getText().toString();
-                    String pass2 = password2.getText().toString();
-                    if (pass1.equals(pass2)) {
-                        adAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                HashMap<String, Object> passwordDetails = new HashMap<>();
-                                passwordDetails.put("password", pass1);
-
-
-                                adAdvisor.child(parentDbName).child(advisorId).updateChildren(passwordDetails)
-                                        .addOnCompleteListener(new OnCompleteListener() {
-                                            @Override
-                                            public void onComplete(@NonNull Task task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(getApplicationContext(), "Successfully updated", Toast.LENGTH_SHORT).show();
-                                                    Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
-                                                    startActivity(i);
-                                                } else {
-                                                    Toast.makeText(getApplicationContext(), "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
-
-                                                }
-                                            }
-                                        });
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                            }
-
-                        });
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Password was not matched!", Toast.LENGTH_SHORT).show();
+                String pass1 = password1.getText().toString();
+                String pass2 = password2.getText().toString();
+                if (!pass1.equals("")) {
+                    if (!pass2.equals("")) {
+                        if (pass1.equals(pass2)) {
+                            updatePassword(advisorId, pass1);
+                            Intent i = new Intent(getApplicationContext(), AdvisorProfileActivity.class);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Passwords should match!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-
-
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter both passwords", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
+    }
+
+    private void updatePassword(String advisorId,String pass1) {
+        adAdvisor = FirebaseDatabase.getInstance().getReference();
+        adAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String, Object> passwordDetails = new HashMap<>();
+                passwordDetails.put("password", pass1);
+
+                adAdvisor.child(parentDbName).child(advisorId).updateChildren(passwordDetails);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
 
+            }
+
+        });
+    }
+
+    private void getCurrentPassword(String advisorId) {
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.child(parentDbName).child(advisorId).exists()){
+                    AdvisorsPojo advisor =snapshot.child(parentDbName).child(advisorId).getValue(AdvisorsPojo.class);
+                    current_pass.setText(advisor.getPassword());
+
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -12,11 +12,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cegepaas.Adapters.AdvisorHomeAdapter;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,7 @@ public class AdvisorHomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
+    FloatingActionButton advisorNotification;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,11 +44,19 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advisor_home);
         navigationView();
 
+        advisorNotification = findViewById(R.id.advisor_notification);
         getSupportActionBar().setTitle("Home");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list_view = (ListView) findViewById(R.id.list_view);
         getMeetings();
+
+        advisorNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),AdvisorNotificationsActivity.class));
+            }
+        });
     }
 
     @Override

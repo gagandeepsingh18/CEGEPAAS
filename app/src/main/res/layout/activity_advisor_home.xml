@@ -18,8 +18,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:divider="@null"
-            android:dividerHeight="0dp"></ListView>
-
+            android:dividerHeight="0dp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/advisor_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/colorMain"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_baseline_notifications_24"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -28,5 +35,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/advisor_side_menu_navigation"></com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/advisor_side_menu_navigation"/>
 </androidx.drawerlayout.widget.DrawerLayout>

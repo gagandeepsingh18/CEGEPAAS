@@ -1,7 +1,5 @@
 package com.example.cegepaas;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -62,7 +60,7 @@ public class StudentNotificationsActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<NotificationPojo>>() {
             @Override
             public void onResponse(Call<List<NotificationPojo>> call, Response<List<NotificationPojo>> response) {
-                //Toast.makeText(GetAllSeasonsActivity.this,"ddddd   "+response.body().size(),Toast.LENGTH_SHORT).show();
+                // Toast.makeText(StudentNotificationsActivity.this,response.body().size(),Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 if(response.body()==null){
                     Toast.makeText(StudentNotificationsActivity.this,"No data found",Toast.LENGTH_SHORT).show();
@@ -76,7 +74,8 @@ public class StudentNotificationsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<NotificationPojo>> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(StudentNotificationsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(StudentNotificationsActivity.this, "Something went wrong...Please try later!"+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

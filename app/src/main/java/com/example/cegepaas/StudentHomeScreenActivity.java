@@ -14,12 +14,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cegepaas.Adapters.StudentHomeAdapter;
 import com.example.cegepaas.Model.AdvisorsPojo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
+    FloatingActionButton studentNotification;
     ListView lv;
     EditText et_search;
 
@@ -53,6 +56,7 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.lv);
         et_search = (EditText) findViewById(R.id.et_search);
+        studentNotification = findViewById(R.id.student_notification);
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,6 +72,14 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
                 filter(editable.toString());
+            }
+        });
+
+        studentNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),StudentNotificationsActivity.class);
+                startActivity(intent);
             }
         });
 

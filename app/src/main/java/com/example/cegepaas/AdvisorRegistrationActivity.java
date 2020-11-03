@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cegepaas.Model.AdvisorIdsPojo;
+import com.example.cegepaas.Model.FCMPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register;
@@ -194,6 +199,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        submitdata("admin","Advisor Registration",name+" requested for Registration.");
                                         Toast.makeText(AdvisorRegistrationActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
 
@@ -276,6 +282,19 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
+    public void submitdata(String uname,String title,String msg) {
+        EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
+        Call<FCMPojo> call = apiService.send_advisor_notification(uname,"advisor",title,msg);
+        call.enqueue(new Callback<FCMPojo>() {
+            @Override
+            public void onResponse(Call<FCMPojo> call, Response<FCMPojo> response) {
+                Toast.makeText(AdvisorRegistrationActivity.this, "Notification sent successfully.", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<FCMPojo> call, Throwable t) {
+            }
+        });
     }
 }

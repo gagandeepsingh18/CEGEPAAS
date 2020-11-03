@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface EndPointUrl {
     @GET("cegepaas/aa_fcm_register.php")
     Call<ResponseData> fcm_registor(@Query("fcm_id") String fcm_id, @Query("uname") String uname);
-    @GET("PayTracker/aa_send_notification.php")
+    @GET("cegepaas/aa_send_notification.php")
     Call<FCMPojo> send_advisor_notification(@Query("uname") String uname, @Query("user_type") String user_type, @Query("title") String title, @Query("msg") String msg);
 
 

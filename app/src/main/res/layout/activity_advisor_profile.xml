@@ -5,190 +5,226 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdvisorProfileActivity"
-    android:background="#FAFAFA"
-   >
+    android:background="@drawable/profile_background"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="243dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@drawable/gradientbackground"
-            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/advisor_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/advisor_name"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="#fff"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/advisor_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/advisor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#fff"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="45dp"
-        android:scrollbars="vertical">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_email"/>
-            <TextView
-                android:id="@+id/advisorEmail"
-                android:text="Email"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="#0C0C0C"
-                android:src="@drawable/ic_email"
-                app:srcCompat="@android:drawable/stat_sys_phone_call" />
-            <TextView
-                android:id="@+id/advisorPhone"
-                android:text="Phone"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/profile"/>
-            <TextView
-                android:id="@+id/advisorId"
-                android:textStyle="bold"
-                android:text="Advisor ID"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/advisorDepartment"
-                android:textStyle="bold"
-                android:text="Advisor Department"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/advisorWorkingdays"
-                android:text="Working Days"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/advisorCampus"
-                android:text="Campus"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/advisorDescription"
-                android:text="About Me"
-                android:textStyle="bold"
-                android:maxLines="4"
-                android:lines="4"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    card_view:cardCornerRadius="8dp"
+                    card_view:cardElevation="8dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="20dp"
+                        android:scrollbars="vertical">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_email"/>
+                            <TextView
+                                android:id="@+id/advisorEmail"
+                                android:text="Email"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="#0C0C0C"
+                                android:src="@mipmap/ic_call"
+                                app:srcCompat="@android:drawable/stat_sys_phone_call" />
+                            <TextView
+                                android:id="@+id/advisorPhone"
+                                android:text="Phone"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/profile"/>
+                            <TextView
+                                android:id="@+id/advisorId"
+                                android:textStyle="bold"
+                                android:text="Advisor ID"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_margin="10dp"
+                                android:layout_height="wrap_content"
+                                android:text="Department"/>
+                            <TextView
+                                android:id="@+id/advisorDepartment"
+                                android:textStyle="bold"
+                                android:text="Advisor Department"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+
+                                android:text="Working Days"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"/>
+                            <TextView
+                                android:id="@+id/advisorWorkingdays"
+                                android:text="Working Days"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_margin="10dp"
+                                android:layout_height="wrap_content"
+                                android:text="Campus"/>
+                            <TextView
+                                android:id="@+id/advisorCampus"
+                                android:text="Campus"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/advisorDescription"
+                                android:text="About Me"
+                                android:textStyle="bold"
+                                android:maxLines="4"
+                                android:lines="4"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/ad_edit_profile"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/button1_rounded"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Profile Details"/>
+                        <Button
+                            android:id="@+id/ad_edit_password"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/button1_rounded"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:text="Update Password"/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/ad_edit_profile"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/button1_rounded"
-        android:layout_marginTop="35dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile Details"/>
-    <Button
-        android:id="@+id/ad_edit_password"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/button1_rounded"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:text="Update Password"/>
-</LinearLayout>
 </ScrollView>

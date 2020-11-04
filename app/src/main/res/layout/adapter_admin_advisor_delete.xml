@@ -52,8 +52,15 @@
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
             android:layout_below="@+id/ll"
-            android:background="@drawable/button1_rounded"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:strokeColor="@color/primaryDarkColor"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/colorWhite"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

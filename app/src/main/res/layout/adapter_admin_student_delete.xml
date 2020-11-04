@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.cardview.widget.CardView
-    android:layout_margin="8dp"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
-    android:id="@+id/cvParent"
-    app:elevation="0dp"
-    app:cardUseCompatPadding="true"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent">
+    android:id="@+id/cvParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    app:elevation="0dp">
 
 
     <RelativeLayout
@@ -58,8 +57,14 @@
         android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:text="Delete"
-        android:background="@drawable/button1_rounded"
-        android:layout_below="@+id/ll"
+        app:strokeColor="@color/primaryDarkColor"
+        app:strokeWidth="2dp"
+        android:backgroundTint="@color/colorWhite"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold"
         android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

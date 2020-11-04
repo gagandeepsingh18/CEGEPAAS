@@ -56,6 +56,13 @@
             android:layout_below="@+id/ll"
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
-            android:text="Active" />
+            android:text="Active"
+            app:strokeColor="@color/primaryDarkColor"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/colorWhite"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:textSize="20sp"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

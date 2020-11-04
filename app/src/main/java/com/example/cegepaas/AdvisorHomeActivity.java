@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.example.cegepaas.Adapters.AdvisorHomeAdapter;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
+import com.example.cegepaas.Model.ResponseData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdvisorHomeActivity extends AppCompatActivity {
     ListView list_view;
@@ -42,6 +51,7 @@ public class AdvisorHomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advisor_home);
+        registrationToken();
         navigationView();
 
         advisorNotification = findViewById(R.id.advisor_notification);
@@ -174,4 +184,32 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void registrationToken(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        submitdata(token);
+                    }
+                });
+    }
+    public  void submitdata(String token) {
+        SharedPreferences sp=getSharedPreferences("AA",0);
+        EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
+        Call<ResponseData> call = apiService.fcm_registor(token,sp.getString("auname","-"));
+        call.enqueue(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+            }
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+            }
+        });
+    }
+
 }

@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.cegepaas.EndPointUrl;
+import com.example.cegepaas.Model.FCMPojo;
 import com.example.cegepaas.R;
 import com.example.cegepaas.Model.AdvisorBookingPojo;
+import com.example.cegepaas.RetrofitInstance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdvisorAcceptRejectAdapter extends BaseAdapter {
     List<AdvisorBookingPojo> ar;
@@ -67,6 +74,7 @@ public class AdvisorAcceptRejectAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 UpdateStatus("accept", ar.get(pos).getTimestamp());
+                submitdata(ar.get(pos).getBooked_by(),"Accepted Status","Your requested is accepted.");
             }
         });
 
@@ -76,6 +84,7 @@ public class AdvisorAcceptRejectAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 UpdateStatus("reject", ar.get(pos).getTimestamp());
+                submitdata(ar.get(pos).getBooked_by(),"Rejected Status","Your requested is rejected.");
             }
         });
 
@@ -114,5 +123,18 @@ public class AdvisorAcceptRejectAdapter extends BaseAdapter {
             }
         });
 
+    }
+    public void submitdata(String uname,String title,String msg) {
+        EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
+        Call<FCMPojo> call = apiService.send_advisor_notification(uname,"student",title,msg);
+        call.enqueue(new Callback<FCMPojo>() {
+            @Override
+            public void onResponse(Call<FCMPojo> call, Response<FCMPojo> response) {
+                Toast.makeText(cnt, "Notification sent successfully.", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<FCMPojo> call, Throwable t) {
+            }
+        });
     }
 }

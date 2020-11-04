@@ -24,6 +24,7 @@ import com.example.cegepaas.Adapters.AdvisorBookingAdapter;
 import com.example.cegepaas.Model.AdvisorAvailableDates;
 import com.example.cegepaas.Model.AvailableTimings;
 import com.example.cegepaas.Model.BookingTimesPojo;
+import com.example.cegepaas.Model.FCMPojo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,6 +43,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdvisorBookingActivity extends AppCompatActivity {
     List<BookingTimesPojo> ab = new ArrayList<>();
@@ -301,6 +306,7 @@ public class AdvisorBookingActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        submitdata(getIntent().getStringExtra("uname"), sp.getString("suname","-")+ " has booked appointment for "+btn_select_date.getText().toString()+ " at "+_time,et_des.getText().toString());
                                         Toast.makeText(AdvisorBookingActivity.this, "Congratulations, your appointment has been created.", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                         finish();
@@ -333,6 +339,19 @@ public class AdvisorBookingActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void submitdata(String uname,String title,String msg) {
+        EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
+        Call<FCMPojo> call = apiService.send_advisor_notification(uname,"advisor",title,msg);
+        call.enqueue(new Callback<FCMPojo>() {
+            @Override
+            public void onResponse(Call<FCMPojo> call, Response<FCMPojo> response) {
+            }
+            @Override
+            public void onFailure(Call<FCMPojo> call, Throwable t) {
+            }
+        });
     }
 
 

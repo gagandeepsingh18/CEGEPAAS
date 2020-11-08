@@ -55,14 +55,15 @@ public class StudentMeetingsActivity extends AppCompatActivity {
             progressDialog.dismiss();
             mAdvisorBooking.clear();
             if (dataSnapshot.exists()) {
+                String status =getIntent().getStringExtra("fg");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AdvisorBookingPojo ab = snapshot.getValue(AdvisorBookingPojo.class);
-                    if (ab.getStatus().equals(getIntent().getStringExtra("fg"))) {
+                    if (ab.getStatus().equals(status)) {
                         mAdvisorBooking.add(ab);
                     }
                 }
 
-                lv.setAdapter(new StudentMeetingAdapter(mAdvisorBooking, StudentMeetingsActivity.this));
+                lv.setAdapter(new StudentMeetingAdapter(status, mAdvisorBooking,getSharedPreferences("AA",0).getString("suname", "-"), StudentMeetingsActivity.this));
 
                 if (mAdvisorBooking.size() == 0)
                     Toast.makeText(StudentMeetingsActivity.this, "No data found", Toast.LENGTH_SHORT).show();

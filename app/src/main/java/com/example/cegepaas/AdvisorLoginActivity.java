@@ -29,6 +29,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
     ProgressDialog loadingBar;
     LinearLayout newAdvisor;
     private final String parentDbName = "Advisor_Details";
+    int numberOfAttempts =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
-
+        if(numberOfAttempts <=3){
         if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your Username...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
@@ -77,6 +78,9 @@ public class AdvisorLoginActivity extends AppCompatActivity {
             loadingBar.show();
 
             AllowAccessToAccount(username, password);
+        }}else{
+            Toast.makeText(this,"4 failure attempts, please try again later", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -100,7 +104,7 @@ public class AdvisorLoginActivity extends AppCompatActivity {
                                 SharedPreferences.Editor et = sp.edit();
                                 et.putString("auname", username);
                                 et.commit();
-
+                                numberOfAttempts =0;
                                 Intent intent = new Intent(AdvisorLoginActivity.this, AdvisorHomeActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -109,13 +113,14 @@ public class AdvisorLoginActivity extends AppCompatActivity {
                                 Toast.makeText(AdvisorLoginActivity.this, "Your account is not actived,please contact admin...", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    } else {
-                        loadingBar.dismiss();
-                        Toast.makeText(AdvisorLoginActivity.this, "Password is incorrect", Toast.LENGTH_SHORT).show();
-                    }
+                     else {
+                         numberOfAttempts++;
+                         loadingBar.dismiss();
+                         Toast.makeText(AdvisorLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" left", Toast.LENGTH_SHORT).show();
+                    }}
 
                 } else {
-                    Toast.makeText(AdvisorLoginActivity.this, "Account with this " + username + " number do not exists.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdvisorLoginActivity.this, "Account with this " + username + " does not exist.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
 

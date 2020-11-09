@@ -31,6 +31,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     ProgressDialog loadingBar;
     LinearLayout newStudent;
     private final String parentDbName = "Student_Details";
+    int numberOfAttempts =0;
 
     @Override
 
@@ -61,8 +62,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginUser();
-
+                  LoginUser();
             }
         });
 
@@ -71,6 +71,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
+        if(numberOfAttempts<=3){
 
         if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your Username...", Toast.LENGTH_SHORT).show();
@@ -83,6 +84,8 @@ public class StudentLoginActivity extends AppCompatActivity {
             loadingBar.show();
 
             AllowAccessToAccount(username, password);
+        }}else{
+            Toast.makeText(this,"4 failure attempts, please try again later", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -100,7 +103,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                         if (usersData.getPassword().equals(password)) {
                             Toast.makeText(StudentLoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
-
+                            numberOfAttempts=0;
                             Intent intent = new Intent(StudentLoginActivity.this, StudentHomeScreenActivity.class);
                             SharedPreferences sp = getSharedPreferences("AA", 0);
                             SharedPreferences.Editor et = sp.edit();
@@ -108,14 +111,14 @@ public class StudentLoginActivity extends AppCompatActivity {
                             et.commit();
                             startActivity(intent);
                             finish();
-                        }
-                    } else {
-                        loadingBar.dismiss();
-                        Toast.makeText(StudentLoginActivity.this, "Password is incorrect", Toast.LENGTH_SHORT).show();
-                    }
+                        } else {
+                            numberOfAttempts++;
+                            loadingBar.dismiss();
+                            Toast.makeText(StudentLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" left", Toast.LENGTH_SHORT).show();
+                    }}
 
                 } else {
-                    Toast.makeText(StudentLoginActivity.this, "Account with this " + username + " do not exists.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentLoginActivity.this, "Account with this " + username + " does not exist.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
 

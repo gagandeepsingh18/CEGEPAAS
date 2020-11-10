@@ -1,5 +1,8 @@
 package com.example.cegepaas.Model;
 
+/**
+ * Advisors POJO Class
+ */
 public class AdvisorsPojo {
     private String username;
     private String email;
@@ -13,10 +16,25 @@ public class AdvisorsPojo {
     private String workingDays;
     private String description;
 
+    /**
+     * Non-parameterized constructor
+     */
     public AdvisorsPojo() {
 
     }
 
+    /**
+     * Parameterized constructor
+     * @param username : Advisor Id
+     * @param email : email
+     * @param name : name
+     * @param image : image URL
+     * @param phoneNumber : phone Number
+     * @param campus : campus
+     * @param department : department
+     * @param workingDays : working Days
+     * @param description : description
+     */
     public AdvisorsPojo(String username, String email, String name, String image, String phoneNumber, String campus, String department, String workingDays, String description) {
         this.username = username;
         this.email = email;
@@ -28,6 +46,21 @@ public class AdvisorsPojo {
         this.workingDays = workingDays;
         this.description = description;
     }
+
+    /**
+     * Parameterized constructor
+     * @param username : Advisor Id
+     * @param email: email
+     * @param name: name
+     * @param image: image URL
+     * @param password : password
+     * @param status : status
+     * @param phoneNumber: phone Number
+     * @param campus: campus
+     * @param department: department
+     * @param workingDays: working Days
+     * @param description: description
+     */
     public AdvisorsPojo(String username, String email, String name, String image, String password, String status, String phoneNumber, String campus, String department, String workingDays, String description) {
         this.username = username;
         this.email = email;
@@ -49,6 +82,11 @@ public class AdvisorsPojo {
         this.password = password;
         this.status = status;
     }
+
+    /**
+     * get Phone
+     * @return : phone
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -57,6 +95,10 @@ public class AdvisorsPojo {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * get Campus
+     * @return : campus
+     */
     public String getCampus() {
         return campus;
     }
@@ -65,6 +107,10 @@ public class AdvisorsPojo {
         this.campus = campus;
     }
 
+    /**
+     * get Department
+     * @return : department
+     */
     public String getDepartment() {
         return department;
     }
@@ -73,6 +119,10 @@ public class AdvisorsPojo {
         this.department = department;
     }
 
+    /**
+     * get Working Days
+     * @return : working Days
+     */
     public String getWorkingDays() {
         return workingDays;
     }
@@ -81,6 +131,10 @@ public class AdvisorsPojo {
         this.workingDays = workingDays;
     }
 
+    /**
+     * get Description
+     * @return : description
+     */
     public String getDescription() {
         return description;
     }
@@ -89,6 +143,10 @@ public class AdvisorsPojo {
         this.description = description;
     }
 
+    /**
+     * get Image URL
+     * @return : image URL
+     */
     public String getImage() {
         return image;
     }
@@ -97,42 +155,82 @@ public class AdvisorsPojo {
         this.image = image;
     }
 
+    /**
+     * get Status
+     * @return : status
+     */
     public String getStatus() {
         return status;
     }
 
+    /**
+     * set Status
+     * @param status : status
+     */
     public void setStatus(String status) {
         this.status = status;
     }
 
+    /**
+     * get Advisor Id
+     * @return : advisor Id
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * set Advisor Name
+     * @param username : userName
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * get Email
+     * @return : email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * set Email
+     * @param email: email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * get Name
+     * @return : name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * set Name
+     * @param name : name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * get Password
+     * @return : password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * set Password
+     * @param password : password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

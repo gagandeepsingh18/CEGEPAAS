@@ -1,5 +1,8 @@
 package com.example.cegepaas.Model;
 
+/**
+ * Available Timings POJO
+ */
 public class AvailableTimings {
     private String booked_time;
     private String status;
@@ -12,6 +15,10 @@ public class AvailableTimings {
         this.status = status;
     }
 
+    /**
+     * get Booked time
+     * @return : booked Time
+     */
     public String getBooked_time() {
         return booked_time;
     }
@@ -20,6 +27,10 @@ public class AvailableTimings {
         this.booked_time = booked_time;
     }
 
+    /**
+     * get Status
+     * @return : Status
+     */
     public String getStatus() {
         return status;
     }

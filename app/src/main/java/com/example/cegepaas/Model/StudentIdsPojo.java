@@ -1,5 +1,8 @@
 package com.example.cegepaas.Model;
 
+/**
+ * StudentIds POJO
+ */
 public class StudentIdsPojo {
     private String sid;
 
@@ -10,6 +13,10 @@ public class StudentIdsPojo {
     public StudentIdsPojo() {
     }
 
+    /**
+     * get StudentID
+     * @return : studentId
+     */
     public String getSid() {
         return sid;
     }

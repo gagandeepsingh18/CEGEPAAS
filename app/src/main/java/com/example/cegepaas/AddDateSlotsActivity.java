@@ -32,6 +32,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * AddDateSlots Activity Class
+ */
 public class AddDateSlotsActivity extends AppCompatActivity {
     Button btn_select_date, btn_submit;
     CheckBox chk10AM, chk1030AM, chk11AM, chk1130AM, chk12PM, chk130PM, chk2PM, chk230PM, chk3PM, chk330PM, chk4PM, chk430PM;
@@ -41,6 +44,10 @@ public class AddDateSlotsActivity extends AppCompatActivity {
     String sel_timings = "";
     TextView showDate;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +129,9 @@ public class AddDateSlotsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * method for uncheck all checkboxes
+     */
     private void unCheck() {
         chk10AM.setChecked(false);
         chk1030AM.setChecked(false);
@@ -137,6 +147,10 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         chk430PM.setChecked(false);
     }
 
+    /**
+     * method for checking the corresponding checkbox
+     * @param time : time
+     */
     private void checkBox(String time) {
         if (time.equals(chk10AM.getText())) {
             chk10AM.setChecked(true);
@@ -165,6 +179,9 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * enable or disable corresponding checkbox
+     */
     void enableDisableCheckbox() {
         if (btn_select_date.getText().toString().equals("Select Date")) {
             chk10AM.setEnabled(false);
@@ -195,6 +212,9 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Date picker method
+     */
     public void datepicker() {
 
         final Calendar c = Calendar.getInstance();
@@ -220,6 +240,9 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    /**
+     * advisor booking method
+     */
     private void advisorBooking() {
         sel_timings = "";
         if (chk10AM.isChecked()) {
@@ -311,6 +334,11 @@ public class AddDateSlotsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -29,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * StudentMeetingAdapter class is used to load the list of StudentMeeting details
+ */
 public class StudentMeetingAdapter extends BaseAdapter {
     List<AdvisorBookingPojo> ar;
     Context cnt;
@@ -36,27 +39,57 @@ public class StudentMeetingAdapter extends BaseAdapter {
     DatabaseReference RootRef;
     String uname;
 
+    /**
+     * Constructor to get the details
+     * @param status current status
+     * @param ar advisor booking list
+     * @param uname user id
+     * @param cnt context
+     */
     public StudentMeetingAdapter(String status,List<AdvisorBookingPojo> ar, String uname,Context cnt) {
         this.status = status;
         this.ar = ar;
         this.cnt = cnt;
         this.uname=uname;
     }
+
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getCount() {
         return ar.size();
     }
 
+    /**
+     * To get the item.
+     * @param i passing the value item
+     * @return returns the object value
+     */
     @Override
     public Object getItem(int i) {
         return i;
     }
 
+    /**
+     * Return the Id
+     * @param i passing the id
+     * @return returns the item Id
+     */
     @Override
     public long getItemId(int i) {
         return i;
     }
 
+
+    /**
+     * Gets the view type
+     * @param pos shows the position
+     * @param view inflate the view
+     * @param viewGroup rootValue
+     * @return reflects the page
+     */
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup) {
         LayoutInflater obj1;
@@ -91,6 +124,12 @@ public class StudentMeetingAdapter extends BaseAdapter {
         }
         return obj2;
     }
+
+    /**
+     * updating the bookings
+     * @param timestamp timestamp
+     * @param pos position
+     */
     private void cancelMeeting(String timestamp,int pos){
         RootRef = FirebaseDatabase.getInstance().getReference();
         AlertDialog.Builder builder = new AlertDialog.Builder(cnt);
@@ -132,6 +171,11 @@ public class StudentMeetingAdapter extends BaseAdapter {
         alertDialog.show();
     }
 
+    /**
+     * gets the advisor name
+     * @param tv_name name
+     * @param pos position
+     */
     private void getAdvisorName( TextView tv_name, int pos) {
         String advisorId = ar.get(pos).getAdv_username();
         final DatabaseReference RootRef;
@@ -155,6 +199,11 @@ public class StudentMeetingAdapter extends BaseAdapter {
     }
 
 
+    /**
+     * UpdateStatus in database
+     * @param status current status
+     * @param time_stamp time stamp
+     */
     private void UpdateStatus(final String status, final String time_stamp) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();

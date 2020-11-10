@@ -27,35 +27,65 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AdminAdvisorDeleteAdapter class to load the AdminAdvisorDelete details.
+ */
 public class AdminAdvisorDeleteAdapter extends BaseAdapter
 {
+
     List<AdvisorsPojo> ar;
     Context cnt;
 
+    /**
+     * AdminAdvisorDeleteAdapter constructor to get the details
+     * @param ar list of the Advisors
+     * @param cnt context
+     */
     public AdminAdvisorDeleteAdapter(List<AdvisorsPojo> ar, Context cnt)
     {
         this.ar = ar;
         this.cnt = cnt;
     }
 
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getCount()
     {
         return ar.size();
     }
 
+    /**
+     * To get the item.
+     * @param i passing the value item
+     * @return returns the object value
+     */
     @Override
     public Object getItem(int i)
     {
         return i;
     }
 
+    /**
+     * Return the Id
+     * @param i passing the id
+     * @return returns the item Id
+     */
     @Override
     public long getItemId(int i)
     {
         return i;
     }
 
+    /**
+     * Gets the view type
+     * @param pos shows the position
+     * @param view inflate the view
+     * @param viewGroup rootValue
+     * @return reflects the page
+     */
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup)
     {
@@ -87,6 +117,11 @@ public class AdminAdvisorDeleteAdapter extends BaseAdapter
         return obj2;
     }
 
+    /**
+     * Deletes the details in the database
+     * @param adv Advisor detsails
+     * @param btn button
+     */
     private void deleteAdvisor(final AdvisorsPojo adv, final Button btn) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();

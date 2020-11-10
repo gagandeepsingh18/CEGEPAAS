@@ -19,35 +19,64 @@ import com.example.cegepaas.StudentAdvisorDetails;
 
 import java.util.List;
 
+/**
+ * StudentHomeAdapter class is used to load the list of Advisors details
+ */
 public class StudentHomeAdapter extends BaseAdapter
 {
     List<AdvisorsPojo> ar;
     Context cnt;
 
+    /**
+     * Constructor is used to get the details
+     * @param ar Advisor details
+     * @param cnt context
+     */
     public StudentHomeAdapter(List<AdvisorsPojo> ar, Context cnt)
     {
         this.ar = ar;
         this.cnt = cnt;
     }
 
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getCount()
     {
         return ar.size();
     }
 
+    /**
+     * To get the item.
+     * @param i passing the value item
+     * @return returns the object value
+     */
     @Override
     public Object getItem(int i)
     {
         return i;
     }
 
+    /**
+     * Return the Id
+     * @param i passing the id
+     * @return returns the item Id
+     */
     @Override
     public long getItemId(int i)
     {
         return i;
     }
 
+    /**
+     * Gets the view type
+     * @param pos shows the position
+     * @param view inflate the view
+     * @param viewGroup rootValue
+     * @return reflects the page
+     */
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup) {
         LayoutInflater obj1 = (LayoutInflater) cnt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,6 +107,10 @@ public class StudentHomeAdapter extends BaseAdapter
         return obj2;
     }
 
+    /**
+     * To filter the list
+     * @param advisors Advisors list
+     */
     public void filterList(List<AdvisorsPojo> advisors)
     {
         this.ar = advisors;

@@ -14,6 +14,9 @@ import com.example.cegepaas.R;
 
 import java.util.List;
 
+/**
+ * ChatAdapter class is used to load the of chat details
+ */
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
 {
     public static final  int MSG_TYPE_LEFT = 0;
@@ -22,6 +25,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
     private Context context;
     private String sender;
 
+    /**
+     * Constructor used to get the details
+     * @param chatList list of the chat
+     * @param context context
+     * @param sender sender information
+     */
     public ChatAdapter(List<ChatPojo> chatList, Context context,String sender)
     {
         this.chatList = chatList;
@@ -29,7 +38,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
         this.sender = sender;
     }
 
-
+    /**
+     * onCreateViewHolder to view the data
+     * @param parent viewGroup
+     * @param viewType viewType
+     * @return view
+     */
     @NonNull
     @Override
     public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -46,6 +60,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
         return new ChatAdapter.ViewHolder(view);
     }
 
+    /**
+     * onBindViewHolder method
+     * @param holder  ChatAdapter viewHolder item
+     * @param position current position
+     */
     @Override
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position)
     {
@@ -54,6 +73,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
 
     }
 
+    /**
+     * gets the item position
+     * @param position current position
+     * @return return the view type
+     */
     @Override
     public int getItemViewType(int position)
     {
@@ -69,17 +93,28 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>
 
     }
 
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getItemCount()
     {
         return chatList.size();
     }
 
+    /**
+     * ViewHolder class for the RecyclerView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder
     {
 
         public TextView show_message;
 
+        /**
+         * Constructor for the ViewHolder
+         * @param itemView view object
+         */
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);

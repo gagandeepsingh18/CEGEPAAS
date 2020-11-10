@@ -28,30 +28,59 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AdminStudentDeleteAdapter class is used to load the list of AdminStudentDelete details
+ */
 public class AdminStudentDeleteAdapter extends BaseAdapter {
     List<Users> ar;
     Context cnt;
 
+    /**
+     * Constructor is used to get the details
+     * @param ar Advisors details
+     * @param cnt context
+     */
     public AdminStudentDeleteAdapter(List<Users> ar, Context cnt) {
         this.ar = ar;
         this.cnt = cnt;
     }
 
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getCount() {
         return ar.size();
     }
 
+    /**
+     * To get the item.
+     * @param i passing the value item
+     * @return returns the object value
+     */
     @Override
     public Object getItem(int i) {
         return i;
     }
 
+    /**
+     * Return the Id
+     * @param i passing the id
+     * @return returns the item Id
+     */
     @Override
     public long getItemId(int i) {
         return i;
     }
 
+    /**
+     * Gets the view type
+     * @param pos shows the position
+     * @param view inflate the view
+     * @param viewGroup rootValue
+     * @return reflects the page
+     */
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup) {
         LayoutInflater obj1 = (LayoutInflater) cnt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -81,7 +110,11 @@ public class AdminStudentDeleteAdapter extends BaseAdapter {
 
         return obj2;
     }
-
+    /**
+     * Deletes the details in the database
+     * @param adv Students detsails
+     * @param btn button
+     */
     private void deleteAdvisor(final Users adv, final Button btn) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();

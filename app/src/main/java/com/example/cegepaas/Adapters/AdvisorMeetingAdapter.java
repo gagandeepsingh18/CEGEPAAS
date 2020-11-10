@@ -24,30 +24,59 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AdvisorMeetingAdapter class is used to load the list of AdvisorMeeting details
+ */
 public class AdvisorMeetingAdapter extends BaseAdapter {
     List<AdvisorBookingPojo> ar;
     Context cnt;
 
+    /**
+     * Constructor is used to get the details
+     * @param ar Advisor Booking details
+     * @param cnt context
+     */
     public AdvisorMeetingAdapter(List<AdvisorBookingPojo> ar, Context cnt) {
         this.ar = ar;
         this.cnt = cnt;
     }
 
+    /**
+     * To get the count
+     * @return returns the count.
+     */
     @Override
     public int getCount() {
         return ar.size();
     }
 
+    /**
+     * To get the item.
+     * @param i passing the value item
+     * @return returns the object value
+     */
     @Override
     public Object getItem(int i) {
         return i;
     }
 
+    /**
+     * Return the Id
+     * @param i passing the id
+     * @return returns the item Id
+     */
     @Override
     public long getItemId(int i) {
         return i;
     }
 
+    /**
+     * Gets the view type
+     * @param pos shows the position
+     * @param view inflate the view
+     * @param viewGroup rootValue
+     * @return reflects the page
+     */
     @Override
     public View getView(final int pos, View view, ViewGroup viewGroup) {
         LayoutInflater obj1 = (LayoutInflater) cnt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,6 +93,11 @@ public class AdvisorMeetingAdapter extends BaseAdapter {
         return obj2;
     }
 
+    /**
+     * Gets the student details
+     * @param tv_name student name
+     * @param pos respective position
+     */
     private void getStudentName( TextView tv_name, int pos) {
         String studentId = ar.get(pos).getBooked_by();
         final DatabaseReference RootRef;
@@ -86,7 +120,11 @@ public class AdvisorMeetingAdapter extends BaseAdapter {
 
     }
 
-
+    /**
+     * Updating the status in the database
+     * @param status status
+     * @param time_stamp time stamp
+     */
     private void UpdateStatus(final String status, final String time_stamp) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();

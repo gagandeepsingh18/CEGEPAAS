@@ -23,12 +23,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdminStudentDelete Activity Class
+ */
 public class AdminStudentDeleteActivity extends AppCompatActivity {
-    private ActionBarDrawerToggle t;
-    private NavigationView nv;
-    private DrawerLayout dl;
     ListView lv;
+    ProgressDialog progressDialog;
+    private List<Users> mStudents;
+    DatabaseReference dbAdvisors;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,11 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
         getAdvisorsDetails();
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -58,10 +70,9 @@ public class AdminStudentDeleteActivity extends AppCompatActivity {
         }
     }
 
-    ProgressDialog progressDialog;
-    private List<Users> mStudents;
-    DatabaseReference dbAdvisors;
-
+    /**
+     * get Advisor Details Method
+     */
     private void getAdvisorsDetails() {
         mStudents = new ArrayList<>();
         progressDialog = new ProgressDialog(AdminStudentDeleteActivity.this);

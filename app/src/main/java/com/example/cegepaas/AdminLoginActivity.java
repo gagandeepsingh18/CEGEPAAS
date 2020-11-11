@@ -28,6 +28,10 @@ public class AdminLoginActivity extends AppCompatActivity {
     ProgressDialog loadingBar;
     private String parentDbName = "Admin_Details";
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,9 @@ public class AdminLoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * login user method
+     */
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
@@ -68,6 +75,11 @@ public class AdminLoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * allow Access to account
+     * @param username : userName
+     * @param password : password
+     */
     private void AllowAccessToAccount(final String username, final String password) {
 
         final DatabaseReference RootRef;
@@ -106,6 +118,11 @@ public class AdminLoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

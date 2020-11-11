@@ -44,6 +44,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * AdvisorEditProfile Activity Class
+ */
 public class AdvisorEditProfile extends AppCompatActivity {
     EditText advisorEmail, advisorName,advisorPhone,advisorDescription;
     Spinner advisorDepartment,advisorCampus;
@@ -56,6 +59,11 @@ public class AdvisorEditProfile extends AppCompatActivity {
     StorageReference storageReference;
     Uri imageUri;
     private String parentDbName = "Advisor_Details";
+
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +128,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * Update Advisor Details Method
+     * @param advisorId : advisor ID
+     */
     private void updateAdvisorDetails(String advisorId) {
         dbAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -143,6 +155,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * get workingDays
+     * @return :workingDays
+     */
     private String getWD() {
         String workingDays = "";
 
@@ -177,6 +193,9 @@ public class AdvisorEditProfile extends AppCompatActivity {
         return workingDays;
     }
 
+    /**
+     * upload Profile Picture method
+     */
     private void uploadProfilePicture() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -184,6 +203,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         startActivityForResult(intent,1);
     }
 
+    /**
+     * get Advisor Details method
+     * @param advisorId
+     */
     private void getAdvisorDetails(String advisorId) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -213,6 +236,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * get working Days
+     * @param workingDays : workingDays as comma separated string
+     */
     private void getWorkingDays(String workingDays) {
         if(!workingDays.equals("")){
             String[] days = workingDays.split(",");
@@ -223,6 +250,11 @@ public class AdvisorEditProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * check uncheck given day
+     * @param day : day of week
+     * @param flag : check or uncheck
+     */
     public void checkUncheck(String day, boolean flag){
         if(day.equals(chkMonday.getText())){
             chkMonday.setChecked(flag);
@@ -241,6 +273,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * load campus details
+     * @param selectedCampus : selected campus
+     */
     private void loadCampuses(String selectedCampus) {
         List<String> campusList = new ArrayList<>();
         DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Campus");
@@ -270,6 +306,10 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * load Department method
+     * @param selectedDepartment : selected Department
+     */
     private void loadDepartment(String selectedDepartment) {
         List<String> departmentList = new ArrayList<>();
         DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Department");
@@ -298,6 +338,7 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -308,6 +349,9 @@ public class AdvisorEditProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * upload picture to firestore
+     */
     private void uploadPicture() {
         final String randomKey = UUID.randomUUID().toString();
         final StorageReference reference = storageReference.child("Advisor/"+randomKey);
@@ -340,6 +384,11 @@ public class AdvisorEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

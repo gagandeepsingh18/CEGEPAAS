@@ -25,6 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+/**
+ * AdvisorEditPassword Activity Class
+ */
 public class AdvisorEditPassword extends AppCompatActivity {
     EditText password1, password2;
     TextView student_name, current_pass;
@@ -33,6 +36,10 @@ public class AdvisorEditPassword extends AppCompatActivity {
     String advisorId;
     private String parentDbName = "Advisor_Details";
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +89,11 @@ public class AdvisorEditPassword extends AppCompatActivity {
         });
     }
 
+    /**
+     * update password
+     * @param advisorId : advisor Id
+     * @param pass1 : password
+     */
     private void updatePassword(String advisorId,String pass1) {
         adAdvisor = FirebaseDatabase.getInstance().getReference();
         adAdvisor.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,6 +115,10 @@ public class AdvisorEditPassword extends AppCompatActivity {
         });
     }
 
+    /**
+     * get current password method
+     * @param advisorId : advisor Id
+     */
     private void getCurrentPassword(String advisorId) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -128,7 +144,11 @@ public class AdvisorEditPassword extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AdvisorChat Activity Class
+ */
 public class AdvisorChatActivity extends AppCompatActivity {
     String advisorId, studentId, message;
     EditText text_message;
@@ -34,6 +37,10 @@ public class AdvisorChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference reference;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,12 @@ public class AdvisorChatActivity extends AppCompatActivity {
         readMessages(advisorId, studentId, message);
     }
 
+    /**
+     * send Message method
+     * @param sender : sender
+     * @param receiver : receiver
+     * @param message : message
+     */
     private void sendMessage(String sender, String receiver, String message) {
         reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -76,6 +89,12 @@ public class AdvisorChatActivity extends AppCompatActivity {
         reference.child("Chats").child("" + System.currentTimeMillis() / 1000).setValue(hashMap);
     }
 
+    /**
+     * read Message method
+     * @param sender : sender
+     * @param receiver : receiver
+     * @param message : message
+     */
     private void readMessages(String sender, String receiver, String message) {
         chatList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");

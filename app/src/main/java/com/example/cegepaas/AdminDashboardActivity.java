@@ -26,12 +26,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdminDashboard Activity Class
+ */
 public class AdminDashboardActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
     ListView lv;
-
+    ProgressDialog progressDialog;
+    private List<AdvisorsPojo> mAdvisors;
+    DatabaseReference dbAdvisors;
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +60,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
         getAdvisorsDetails();
     }
 
+    /**
+     * method override onBackPressed
+     */
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -60,6 +72,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -71,6 +88,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * navigation view method
+     */
     private void navigationView() {
         dl = (DrawerLayout) findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
@@ -111,10 +131,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
         });
     }
 
-    ProgressDialog progressDialog;
-    private List<AdvisorsPojo> mAdvisors;
-    DatabaseReference dbAdvisors;
 
+    /**
+     * get Advisor Details method
+     */
     private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
         progressDialog = new ProgressDialog(AdminDashboardActivity.this);

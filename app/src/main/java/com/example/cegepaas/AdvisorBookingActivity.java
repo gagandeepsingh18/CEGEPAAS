@@ -48,6 +48,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * AdvisorBooking Activity Class
+ */
 public class AdvisorBookingActivity extends AppCompatActivity {
     List<BookingTimesPojo> ab = new ArrayList<>();
     Button btn_select_date, btn_submit, btn_select_time;
@@ -58,14 +61,15 @@ public class AdvisorBookingActivity extends AppCompatActivity {
     String time_slots = "";
     ProgressDialog progressDialog;
     private List<AdvisorAvailableDates> mAvailableDates;
-    int mYear, mMonth, mDay;
-    String DAY, MONTH, YEAR;
     Calendar calendar;
     List<Calendar> dates = new ArrayList<>();
     private List<AvailableTimings> mAvailableTimings;
     ProgressDialog loadingBar;
 
-
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +114,9 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Show calender Custom
+     */
     private void showCustomDialog() {
         Calendar now = Calendar.getInstance();
         dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
@@ -127,6 +134,9 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         dpd.show(getSupportFragmentManager(), "ddd");
     }
 
+    /**
+     * get Advisor availability for selected date
+     */
     private void getAvaialbilities() {
         mAvailableDates = new ArrayList<>();
         progressDialog = new ProgressDialog(AdvisorBookingActivity.this);
@@ -161,6 +171,10 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Get advisor availability Dates which are available to be enabled
+     * @param a : date as string
+     */
     private void getEnbDates(String a) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date date1 = null, today = null;
@@ -177,12 +191,20 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Load calander
+     * @param date : date
+     * @return : date
+     */
     private Calendar dateToCalendar(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }
 
+    /**
+     * create time slots method
+     */
     private void createTimeSlot() {
         ab.clear();
         if (time_slots.length() > 3) {
@@ -196,6 +218,9 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * get available dates method
+     */
     private void getAvailableTimes() {
         mAvailableTimings = new ArrayList<>();
         progressDialog = new ProgressDialog(AdvisorBookingActivity.this);
@@ -261,6 +286,9 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * advisor booking method
+     */
     private void advisorBooking() {
         if (btn_select_date.getText().toString().length() < 3) {
             Toast.makeText(getApplicationContext(), "Please Select Date.", Toast.LENGTH_SHORT).show();
@@ -329,6 +357,11 @@ public class AdvisorBookingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -341,6 +374,12 @@ public class AdvisorBookingActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * submit data for notification
+     * @param uname : uname
+     * @param title : title
+     * @param msg : message
+     */
     public void submitdata(String uname,String title,String msg) {
         EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
         Call<FCMPojo> call = apiService.send_advisor_notification(uname,"advisor",title,msg);
@@ -353,6 +392,5 @@ public class AdvisorBookingActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

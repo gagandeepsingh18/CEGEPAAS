@@ -21,9 +21,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * StudentMeetingsActivity is used to show the meeting.
+ */
 public class StudentMeetingsActivity extends AppCompatActivity {
     ListView lv;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +86,11 @@ public class StudentMeetingsActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

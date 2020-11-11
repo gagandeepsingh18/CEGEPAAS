@@ -22,13 +22,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+/**
+ * StudentProfileActivity is used to show the current user details.
+ */
 public class StudentProfileActivity extends AppCompatActivity {
     ImageView profile;
     TextView name, email, id;
     Button edit_profile, edit_password;
     String studentid;
     private String parentDbName = "Student_Details";
+
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,10 @@ public class StudentProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to get the student details.
+     * @param studentid current user Id.
+     */
     private void getStudentDetails(final String studentid) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -89,6 +100,11 @@ public class StudentProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

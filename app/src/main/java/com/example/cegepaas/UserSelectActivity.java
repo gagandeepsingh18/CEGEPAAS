@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * UserSelectActivity is used to navigate the users to the respective module.
+ */
 public class UserSelectActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_student, tv_advisor, tv_admin;
     Intent intent;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +32,10 @@ public class UserSelectActivity extends AppCompatActivity implements View.OnClic
         tv_admin.setOnClickListener(this);
     }
 
+    /**
+     * Onclick listener.
+     * @param v view object.
+     */
     @Override
     public void onClick(View v) {
 

@@ -23,12 +23,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * StudentNotificationsActivity is used to get the notifications.
+ */
 public class StudentNotificationsActivity extends AppCompatActivity {
     ListView lv;
     List<NotificationPojo> notificationPojos;
     SharedPreferences sharedPreferences;
     String session,date;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +87,11 @@ public class StudentNotificationsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

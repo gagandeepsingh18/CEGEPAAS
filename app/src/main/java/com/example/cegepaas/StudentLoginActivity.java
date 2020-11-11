@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * StudentLoginActivity is used to verify and login the user with his/her registered details.
+ */
 public class StudentLoginActivity extends AppCompatActivity {
 
     Button btn_login;
@@ -33,8 +36,11 @@ public class StudentLoginActivity extends AppCompatActivity {
     private final String parentDbName = "Student_Details";
     int numberOfAttempts =0;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
@@ -68,6 +74,9 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is used to login the user while checking the input fields were empty or not.
+     */
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
@@ -89,6 +98,11 @@ public class StudentLoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method verifies the user detail.
+     * @param username User Id.
+     * @param password User Password.
+     */
     private void AllowAccessToAccount(final String username, final String password) {
 
         final DatabaseReference RootRef;
@@ -131,6 +145,11 @@ public class StudentLoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

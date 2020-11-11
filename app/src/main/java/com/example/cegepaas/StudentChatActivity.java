@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * StudentChatActivity is used to show the Student Chat details.
+ */
 public class StudentChatActivity extends AppCompatActivity {
     String advisorId, message, studentId;
     ImageButton sendMessage;
@@ -35,6 +38,10 @@ public class StudentChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference reference;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,12 @@ public class StudentChatActivity extends AppCompatActivity {
         readMessages(studentId, advisorId, message);
     }
 
+    /**
+     * This method is used to send the message.
+     * @param sender sender id.
+     * @param receiver receiver id.
+     * @param message text message.
+     */
     private void sendMessage(String sender, String receiver, String message) {
         reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -76,6 +89,12 @@ public class StudentChatActivity extends AppCompatActivity {
         reference.child("Chats").child("" + System.currentTimeMillis() / 1000).setValue(hashMap);
     }
 
+    /**
+     * This method is used to read the message.
+     * @param sender sender id.
+     * @param receiver receiver id.
+     * @param message text message.
+     */
     private void readMessages(String sender, String receiver, String message) {
         chatList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");

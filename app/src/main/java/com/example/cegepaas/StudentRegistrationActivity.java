@@ -203,7 +203,7 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                             });
 
                 } else {
-                    Toast.makeText(StudentRegistrationActivity.this, "This " + username + " already exists.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentRegistrationActivity.this, "This username" + username + " already exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(StudentRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
 

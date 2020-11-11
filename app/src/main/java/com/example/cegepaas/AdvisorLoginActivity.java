@@ -125,13 +125,13 @@ public class AdvisorLoginActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 loadingBar.dismiss();
-                                Toast.makeText(AdvisorLoginActivity.this, "Your account is not actived,please contact admin...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AdvisorLoginActivity.this, "Your account is not activated, please contact admin...", Toast.LENGTH_SHORT).show();
                             }
                         }
                      else {
                          numberOfAttempts++;
                          loadingBar.dismiss();
-                         Toast.makeText(AdvisorLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" left", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(AdvisorLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" attempts left", Toast.LENGTH_SHORT).show();
                     }}
 
                 } else {

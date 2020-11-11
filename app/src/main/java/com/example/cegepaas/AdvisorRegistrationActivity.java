@@ -231,7 +231,7 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
                             });
 
                 } else {
-                    Toast.makeText(AdvisorRegistrationActivity.this, "This " + username + " already exists.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdvisorRegistrationActivity.this, "This username" + username + " already exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(AdvisorRegistrationActivity.this, "Please try again using another Email.", Toast.LENGTH_SHORT).show();
 

@@ -128,7 +128,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                         } else {
                             numberOfAttempts++;
                             loadingBar.dismiss();
-                            Toast.makeText(StudentLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentLoginActivity.this, "Password is incorrect, you have "+(4-numberOfAttempts)+" attempts left", Toast.LENGTH_SHORT).show();
                     }}
 
                 } else {

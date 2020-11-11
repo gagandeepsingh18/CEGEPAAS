@@ -31,6 +31,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * StudentRegistrationActivity is used to allow the new users to get registered.
+ */
 public class StudentRegistrationActivity extends AppCompatActivity {
     Button btn_register;
     EditText et_name, et_uname, et_eMail, et_pwd;
@@ -40,6 +43,10 @@ public class StudentRegistrationActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String imageUrl;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +72,9 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         getSIDs();
     }
 
+    /**
+     * Gets the existing user Id's from database.
+     */
     private void getSIDs() {
         mStudentIds = new ArrayList<>();
 
@@ -97,6 +107,9 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This method is used to create the account.
+     */
     private void CreateAccount() {
 
         String name = et_name.getText().toString();
@@ -129,6 +142,10 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks the user Id with existing user Id's
+     * @return true if it matches.
+     */
     private boolean checkSID() {
         boolean fg = true;
         for (int i = 0; i < mStudentIds.size(); i++) {
@@ -142,6 +159,14 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         return fg;
     }
 
+    /**
+     * This method is used to validate the registering user whether the user is new user or already
+     * existing one.
+     * @param name user name.
+     * @param eMail user email.
+     * @param username user Id.
+     * @param password user password.
+     */
     private void ValidatepEmail(final String name, final String eMail, final String username, final String password) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -192,6 +217,11 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -204,6 +234,12 @@ public class StudentRegistrationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is used to get the notifications to the student.
+     * @param uname current user Id.
+     * @param title title of the notification.
+     * @param msg message.
+     */
     public void submitdata(String uname,String title,String msg) {
         EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
         Call<FCMPojo> call = apiService.send_advisor_notification(uname,"student",title,msg);

@@ -25,6 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+/**
+ * StudentEditPassword is used to edit the student login password.
+ */
 public class StudentEditPassword extends AppCompatActivity {
     EditText password1, password2;
     TextView student_name, current_pass;
@@ -33,6 +36,10 @@ public class StudentEditPassword extends AppCompatActivity {
     String studentId;
     private String parentDbName = "Student_Details";
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,11 @@ public class StudentEditPassword extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is used get the updated password and updates in the database.
+     * @param studentId current user Id.
+     * @param pass1 updated password.
+     */
     private void updatePassword(String studentId, String pass1) {
         dbStudent = FirebaseDatabase.getInstance().getReference();
         dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -104,6 +116,10 @@ public class StudentEditPassword extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to get the current users password from the database.
+     * @param studentId current user Id.
+     */
     private void getCurrentPassword(String studentId) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -129,6 +145,12 @@ public class StudentEditPassword extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

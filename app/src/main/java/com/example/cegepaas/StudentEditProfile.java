@@ -45,6 +45,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * StudentEditProfile is used to edit the student profile details.
+ */
 public class StudentEditProfile extends AppCompatActivity {
     EditText up_studentEmail, up_studentName;
     ImageView up_studentImage;
@@ -56,6 +59,10 @@ public class StudentEditProfile extends AppCompatActivity {
     Uri imageUri;
     private String parentDbName = "Student_Details";
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +109,10 @@ public class StudentEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to get the student details.
+     * @param studentId current student Id.
+     */
     private void getStudentDetails(String studentId) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -123,6 +134,10 @@ public class StudentEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to get the updated user details and updates into the database.
+     * @param studentId current user Id.
+     */
     private void updateStudentDetails(String studentId) {
         dbStudent.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -141,6 +156,9 @@ public class StudentEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to upload the profile picture.
+     */
     private void uploadProfilePicture() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -148,6 +166,12 @@ public class StudentEditProfile extends AppCompatActivity {
         startActivityForResult(intent,1);
     }
 
+    /**
+     * This method is invoked automatically when second activity returns result.
+     * @param requestCode request int code
+     * @param resultCode result iny code
+     * @param data gets the data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,6 +182,9 @@ public class StudentEditProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Puts the picture into the fireStore.
+     */
     private void uploadPicture() {
         final String randomKey = UUID.randomUUID().toString();
         final StorageReference reference = storageReference.child("Student/"+randomKey);
@@ -190,6 +217,11 @@ public class StudentEditProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

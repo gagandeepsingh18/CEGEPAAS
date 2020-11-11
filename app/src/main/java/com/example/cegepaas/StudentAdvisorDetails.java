@@ -20,12 +20,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * StudentAdvisorDetails is used to show the Student Advisor Details.
+ */
 public class StudentAdvisorDetails extends AppCompatActivity {
     ImageView image;
     TextView name, email, phoneNumber, campus, department, workingDays, description;
     Button scheduleMeeting, chat;
     String advisorId, advisorName;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +77,10 @@ public class StudentAdvisorDetails extends AppCompatActivity {
         });
     }
 
+    /**
+     * used to get the advisor details from the database.
+     * @param advisorId advisor Id.
+     */
     private void getAdvisorDetails(final String advisorId) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -116,6 +127,12 @@ public class StudentAdvisorDetails extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

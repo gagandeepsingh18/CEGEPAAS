@@ -42,6 +42,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * StudentHomeScreenActivity is used to get the data on the student home screen.
+ */
 public class StudentHomeScreenActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView nv;
@@ -50,6 +53,10 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     ListView lv;
     EditText et_search;
 
+    /**
+     * onCreate method is the main method that will trigger when the activity starts.
+     * @param savedInstanceState Bundle object.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +104,10 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         getAdvisorsDetails();
     }
 
+    /**
+     * This methos is used to filter the advisors list.
+     * @param text get the typed list.
+     */
     private void filter(String text) {
         mAdvisorsTemp.clear();
         //Toast.makeText(getApplicationContext(),text+" "+mAdvisors.size(),Toast.LENGTH_SHORT).show();
@@ -121,6 +132,9 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     DatabaseReference dbAdvisors;
     StudentHomeAdapter sha;
 
+    /**
+     * This method is used to get the advisor details from the database.
+     */
     private void getAdvisorsDetails() {
         mAdvisors = new ArrayList<>();
         mAdvisorsTemp = new ArrayList<>();
@@ -158,6 +172,9 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
     };
 
 
+    /**
+     * This method is used for the navigation drawer.
+     */
     private void navigationView() {
         dl = (DrawerLayout) findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
@@ -206,6 +223,9 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to get back by onBackPressed.
+     */
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -215,6 +235,11 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * used to have the back button in that particular activity
+     * @param item selected menu item.
+     * @return returns to the home page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -225,6 +250,10 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * This method is used to get the registration token.
+     */
     private void registrationToken(){
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -238,6 +267,11 @@ public class StudentHomeScreenActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * This method is used to submit data on the token reference.
+     * @param token string value.
+     */
     public  void submitdata(String token) {
         SharedPreferences sp=getSharedPreferences("AA",0);
         EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);

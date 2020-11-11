@@ -21,9 +21,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdvisorMeetings Activity Class
+ */
 public class AdvisorMeetingsActivity extends AppCompatActivity {
     ListView lv;
+    ProgressDialog progressDialog;
+    private List<AdvisorBookingPojo> mAdvisorBooking;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +44,9 @@ public class AdvisorMeetingsActivity extends AppCompatActivity {
         getMeetings();
     }
 
-    ProgressDialog progressDialog;
-    private List<AdvisorBookingPojo> mAdvisorBooking;
-
+    /**
+     * get meeting method
+      */
     private void getMeetings() {
         mAdvisorBooking = new ArrayList<>();
         progressDialog = new ProgressDialog(AdvisorMeetingsActivity.this);
@@ -85,6 +94,11 @@ public class AdvisorMeetingsActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

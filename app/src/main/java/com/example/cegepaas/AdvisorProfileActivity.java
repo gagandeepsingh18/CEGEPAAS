@@ -22,12 +22,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * AdvisorProfile Activity Class
+ */
 public class AdvisorProfileActivity extends AppCompatActivity {
     ImageView img_profile;
     TextView txt_name,txt_email,txt_advisorid,txt_phoneNumber,txt_department,txt_workingDays,txt_campus,txt_description;
     Button update_profile, change_password;
     String advisorid;
     private String parentDbName = "Advisor_Details";
+
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +78,10 @@ public class AdvisorProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * get advisor details
+     * @param auname : advisor id
+     */
     private void getAdvisorDetails(final String auname) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -118,7 +130,11 @@ public class AdvisorProfileActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

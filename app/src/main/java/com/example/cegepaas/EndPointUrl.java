@@ -10,6 +10,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+/**
+ * Interface for webcall
+ */
 public interface EndPointUrl {
 
     @GET("cegepaas/aa_fcm_register.php")

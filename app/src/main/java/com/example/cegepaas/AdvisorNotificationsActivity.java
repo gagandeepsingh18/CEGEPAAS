@@ -28,7 +28,11 @@ public class AdvisorNotificationsActivity extends AppCompatActivity {
     List<NotificationPojo> notificationPojos;
     SharedPreferences sharedPreferences;
     String session,date;
-
+    ProgressDialog progressDialog;
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,10 @@ public class AdvisorNotificationsActivity extends AppCompatActivity {
         notificationPojos= new ArrayList<>();
         serverData();
     }
-    ProgressDialog progressDialog;
+
+    /**
+     * notification server data
+     */
     public void serverData(){
         progressDialog = new ProgressDialog(AdvisorNotificationsActivity.this);
         progressDialog.setMessage("Loading....");
@@ -76,6 +83,11 @@ public class AdvisorNotificationsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -39,14 +39,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * AdvisorHome Activity Class
+ */
 public class AdvisorHomeActivity extends AppCompatActivity {
     ListView list_view;
-    List<AdvisorBookingPojo> a1;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private DrawerLayout dl;
     FloatingActionButton advisorNotification;
-
+    ProgressDialog progressDialog;
+    private List<AdvisorBookingPojo> mAdvisors;
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +76,9 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * override method onRestart
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -76,10 +86,10 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         startActivity(getIntent());
     }
 
-    ProgressDialog progressDialog;
-    private List<AdvisorBookingPojo> mAdvisors;
-    DatabaseReference dbArtists;
 
+    /**
+     * get Meetings Method
+     */
     private void getMeetings() {
         mAdvisors = new ArrayList<>();
         progressDialog = new ProgressDialog(AdvisorHomeActivity.this);
@@ -117,6 +127,9 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * navigation View Method
+     */
     private void navigationView() {
         dl = (DrawerLayout) findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
@@ -165,6 +178,9 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * On back pressed method override
+     */
     @Override
     public void onBackPressed() {
         if (dl.isDrawerOpen(GravityCompat.START)) {
@@ -174,6 +190,11 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -185,6 +206,9 @@ public class AdvisorHomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * registration token
+     */
     private void registrationToken(){
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -198,6 +222,11 @@ public class AdvisorHomeActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * submit data method
+     * @param token : registration token
+     */
     public  void submitdata(String token) {
         SharedPreferences sp=getSharedPreferences("AA",0);
         EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);

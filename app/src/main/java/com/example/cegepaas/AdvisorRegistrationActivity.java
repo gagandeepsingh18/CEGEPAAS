@@ -33,6 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * AdvisorRegistration Activity Class
+ */
 public class AdvisorRegistrationActivity extends AppCompatActivity {
     Button btn_register;
     EditText et_name, et_uname, et_Email, et_pwd;
@@ -45,6 +48,10 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
     private List<String> campusList,departmentList;
     String name, email, password, username, campus, department;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,9 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         getAIDs();
     }
 
+    /**
+     * load departments
+     */
     private void loadDepartment() {
         departmentList = new ArrayList<>();
         DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Department");
@@ -104,6 +114,9 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * load campuses
+     */
     private void loadCampuses() {
         campusList = new ArrayList<>();
         DatabaseReference campusRef = FirebaseDatabase.getInstance().getReference("Campus");
@@ -131,12 +144,15 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
+    /**
+     * create account
+     */
     private void CreateAccount() {
 
         name = et_name.getText().toString();
@@ -167,6 +183,9 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * validate data before creating account
+     */
     private void ValidateDetails() {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -229,7 +248,10 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * cross reference ID's before creating Account
+     * @return true or false
+     */
     private boolean checkAID() {
         boolean fg = true;
         for (int i = 0; i < mAdvisorIds.size(); i++) {
@@ -243,6 +265,9 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         return fg;
     }
 
+    /**
+     * get Advisor Id's for reference
+     */
     private void getAIDs() {
         mAdvisorIds = new ArrayList<>();
         progressDialog = new ProgressDialog(AdvisorRegistrationActivity.this);
@@ -273,6 +298,11 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -284,6 +314,12 @@ public class AdvisorRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * submit data to submitData
+     * @param uname : userName
+     * @param title : title
+     * @param msg : message
+     */
     public void submitdata(String uname,String title,String msg) {
         EndPointUrl apiService = RetrofitInstance.getRetrofitInstance().create(EndPointUrl.class);
         Call<FCMPojo> call = apiService.send_advisor_notification(uname,"advisor",title,msg);

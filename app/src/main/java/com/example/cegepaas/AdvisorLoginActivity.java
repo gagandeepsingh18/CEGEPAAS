@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * AdvisorLogin Activity Class
+ */
 public class AdvisorLoginActivity extends AppCompatActivity {
     Button btn_login;
     EditText et_uname, et_pwd;
@@ -31,6 +34,10 @@ public class AdvisorLoginActivity extends AppCompatActivity {
     private final String parentDbName = "Advisor_Details";
     int numberOfAttempts =0;
 
+    /**
+     * onCreate functionality
+     * @param savedInstanceState : Bundle type
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,9 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Advisor Login method
+     */
     private void LoginUser() {
         String username = et_uname.getText().toString();
         String password = et_pwd.getText().toString();
@@ -84,6 +94,11 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allow access on login
+     * @param username : userName
+     * @param password : password
+     */
     private void AllowAccessToAccount(final String username, final String password) {
 
         final DatabaseReference RootRef;
@@ -133,6 +148,11 @@ public class AdvisorLoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * functionality invoked on back button press
+     * @param item : menu element
+     * @return : true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
